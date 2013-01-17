@@ -13,5 +13,25 @@
 
     <!-- Add new DAOs here -->
 
+    <!--ProjectManager-START-->
+    <bean id="projectManager" class="nl.bhit.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="nl.bhit.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="nl.bhit.model.Project"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--ProjectManager-END-->
+
+    <!--CompanyManager-START-->
+    <bean id="companyManager" class="nl.bhit.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="nl.bhit.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="nl.bhit.model.Company"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--CompanyManager-END-->
+
     <!-- Add new Managers here -->
 </beans>
