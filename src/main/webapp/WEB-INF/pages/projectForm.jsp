@@ -18,6 +18,8 @@
 <div class="span7">
     <s:form id="projectForm" action="saveProject" method="post" validate="true" cssClass="well form-horizontal">
             <s:hidden key="project.id"/>
+        <!-- todo: change this to read the identifier field from the other pojo -->
+        <s:select name="project.company.id" list="companyList" listKey="id" listValue="id"></s:select>
         <s:textfield key="project.name" required="true" maxlength="255" />
 
         <div id="actions" class="form-actions">

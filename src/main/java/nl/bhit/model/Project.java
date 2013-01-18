@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(
-		name = "Project")
+		name = "PROJECT")
 public class Project {
 	private Long id;
 	private String name;

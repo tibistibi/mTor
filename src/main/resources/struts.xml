@@ -112,23 +112,7 @@
             <result name="success">/</result>
         </action>
 
-        <!--ProjectAction-START-->
-        <action name="projects" class="nl.bhit.webapp.action.ProjectAction" method="list">
-            <result>/WEB-INF/pages/projectList.jsp</result>
-        </action>
-
-        <action name="editProject" class="nl.bhit.webapp.action.ProjectAction" method="edit">
-            <result>/WEB-INF/pages/projectForm.jsp</result>
-            <result name="error">/WEB-INF/pages/projectList.jsp</result>
-        </action>
-
-        <action name="saveProject" class="nl.bhit.webapp.action.ProjectAction" method="save">
-            <result name="input">/WEB-INF/pages/projectForm.jsp</result>
-            <result name="cancel" type="redirectAction">projects</result>
-            <result name="delete" type="redirectAction">projects</result>
-            <result name="success" type="redirectAction">projects</result>
-        </action>
-        <!--ProjectAction-END-->
+        
 
         <!--CompanyAction-START-->
         <action name="companies" class="nl.bhit.webapp.action.CompanyAction" method="list">
@@ -147,6 +131,24 @@
             <result name="success" type="redirectAction">companies</result>
         </action>
         <!--CompanyAction-END-->
+
+        <!--ProjectAction-START-->
+        <action name="projects" class="nl.bhit.webapp.action.ProjectAction" method="list">
+            <result>/WEB-INF/pages/projectList.jsp</result>
+        </action>
+
+        <action name="editProject" class="nl.bhit.webapp.action.ProjectAction" method="edit">
+            <result>/WEB-INF/pages/projectForm.jsp</result>
+            <result name="error">/WEB-INF/pages/projectList.jsp</result>
+        </action>
+
+        <action name="saveProject" class="nl.bhit.webapp.action.ProjectAction" method="save">
+            <result name="input">/WEB-INF/pages/projectForm.jsp</result>
+            <result name="cancel" type="redirectAction">projects</result>
+            <result name="delete" type="redirectAction">projects</result>
+            <result name="success" type="redirectAction">projects</result>
+        </action>
+        <!--ProjectAction-END-->
 
         <!-- Add additional actions here -->
     </package>

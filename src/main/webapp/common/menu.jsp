@@ -12,12 +12,13 @@
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="AdminMenu"/>
     <menu:displayMenu name="Logout"/>
-    <!--Project-START-->
-    <menu:displayMenu name="ProjectMenu"/>
-    <!--Project-END-->
+    
     <!--Company-START-->
     <menu:displayMenu name="CompanyMenu"/>
     <!--Company-END-->
+    <!--Project-START-->
+    <menu:displayMenu name="ProjectMenu"/>
+    <!--Project-END-->
 </ul>
 </div>
 </menu:useMenuDisplayer>

@@ -13,13 +13,15 @@
             <Item name="FileUpload" title="menu.selectFile" page="/uploadFile"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
-        <!--Project-START-->
-        <Menu name="ProjectMenu" title="projectList.title" page="/projects"/>
-        <!--Project-END-->
+        
         <!--Company-START-->
         <Menu name="CompanyMenu" title="companyList.title" page="/companies"/>
         <!--Company-END-->
+        <!--Project-START-->
+        <Menu name="ProjectMenu" title="projectList.title" page="/projects"/>
+        <!--Project-END-->
     </Menus>
+
 
 
 </MenuConfig>
