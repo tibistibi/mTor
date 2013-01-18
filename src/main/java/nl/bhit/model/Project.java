@@ -5,11 +5,12 @@ import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,8 @@ public class Project {
 	private Long id;
 	private String name;
 	private Set<String> messages;
-	
+	private Company company;
+
 	public Project(){
 		this.messages = new TreeSet<String>();
 	}
@@ -29,6 +31,15 @@ public class Project {
 		this.messages = new TreeSet<String>();
 	}
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "COMPANY_FK")
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 	
 	@Id
 	@GeneratedValue(
@@ -48,7 +59,7 @@ public class Project {
 	@Column(
 			name = "NAME",
 			unique = true,
-			nullable = false)
+			nullable = false)	
 	public String getName() {
 		return name;
 	}

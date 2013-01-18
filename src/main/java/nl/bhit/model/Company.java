@@ -3,11 +3,15 @@ package nl.bhit.model;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -54,10 +58,20 @@ public class Company {
 		this.name = name;
 	}
 	
+	@OneToMany(fetch = FetchType.EAGER,
+			   cascade = CascadeType.ALL)
+	public Set<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(Set<Project> projects) {
+		this.projects = projects;
+	}
+	
 	public void addProject(Project project){
 		projects.add(project);
 	}
-	
+
 	public void removeProject(Project project){
 		projects.remove(project);
 	}
