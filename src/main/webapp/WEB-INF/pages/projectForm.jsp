@@ -18,7 +18,15 @@
 <div class="span7">
     <s:form id="projectForm" action="saveProject" method="post" validate="true" cssClass="well form-horizontal">
             <s:hidden key="project.id"/>
+        <!-- todo: change this to read the identifier field from the other pojo -->
+        <s:select key="project.company" name="project.company.id" list="companyList" listKey="id" listValue="id"></s:select>
         <s:textfield key="project.name" required="true" maxlength="255" />
+        <label for="projectUsers" class="control-label">Assign to user:</label>
+        <select id="projectUsers" name="projectUsers" multiple="true" style="margin-left:20px;">
+            <c:forEach items="${userList}" var="user">
+            <option value="${user.getId()}">${user.getFullName()}</option>
+            </c:forEach>
+        </select>
 
         <div id="actions" class="form-actions">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">

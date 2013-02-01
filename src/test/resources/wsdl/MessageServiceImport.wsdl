@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://service.bhit.nl/" name="MessageManager" targetNamespace="http://service.bhit.nl/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.bhit.nl/" elementFormDefault="unqualified" targetNamespace="http://service.bhit.nl/" version="1.0">
+<xs:element name="saveSoapMessage" type="tns:saveSoapMessage"/>
+<xs:element name="saveSoapMessageResponse" type="tns:saveSoapMessageResponse"/>
+<xs:complexType name="saveSoapMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:soapMessage"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="soapMessage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="content" type="xs:string"/>
+      <xs:element minOccurs="0" name="projectId" type="xs:long"/>
+      <xs:element minOccurs="0" name="status" type="tns:status"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="saveSoapMessageResponse">
+    <xs:sequence/>
+  </xs:complexType>
+<xs:simpleType name="status">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="WARN"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="saveSoapMessageResponse">
+    <wsdl:part element="ns1:saveSoapMessageResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveSoapMessage">
+    <wsdl:part element="ns1:saveSoapMessage" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MessageManager">
+    <wsdl:operation name="saveSoapMessage">
+      <wsdl:input message="ns1:saveSoapMessage" name="saveSoapMessage">
+    </wsdl:input>
+      <wsdl:output message="ns1:saveSoapMessageResponse" name="saveSoapMessageResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

@@ -34,8 +34,7 @@
         <s:if test="user.version == null">
             <input type="hidden" name="encryptPass" value="true"/>
         </s:if>
-
-        <s:textfield key="user.username" required="true"/>
+        <s:textfield key="user.username"  required="true"/>
 
         <c:if test="${cookieLogin != 'true'}">
             <s:password key="user.password" showPassword="true" required="true"
@@ -48,10 +47,17 @@
         <s:textfield key="user.passwordHint" required="true"/>
         <s:textfield key="user.firstName" required="true"/>
         <s:textfield key="user.lastName" required="true"/>
-        <s:textfield key="user.email" required="true"/>
-        <s:textfield key="user.phoneNumber"/>
-        <s:textfield key="user.website" required="true"/>
-
+        <s:hidden key="user.email" />
+        <s:hidden key="user.phoneNumber"/>
+        <s:hidden key="user.website"/>
+		
+		<label for="projects" class="control-label">Assign projects:</label>
+        <select id="projects" name="projects" multiple="true" style="margin-left:20px;">
+            <c:forEach items="${projectList}" var="project">
+            <option value="${project.id}"}>${project.name}</option>
+            </c:forEach>
+        </select>
+		
         <fieldset>
             <legend class="accordion-heading">
                 <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>

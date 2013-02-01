@@ -41,9 +41,9 @@
             </div>
         </div>
     </div>
-
-    <div class="container-fluid">
-        <%@ include file="/common/messages.jsp" %>
+	
+    <div class="container-fluid">    
+		<%@ include file="/common/messages.jsp" %>
         <div class="row-fluid">
             <decorator:body/>
 
@@ -64,7 +64,7 @@
             </c:if>
         </span>
         <span class="right">
-            &copy; <fmt:message key="copyright.year"/> <a href="<fmt:message key="company.url"/>"><fmt:message key="company.name"/></a>
+            &copy; 2013 <a href="<fmt:message key="company.url"/>">Bhit</a>
         </span>
     </div>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>

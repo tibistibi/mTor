@@ -6,7 +6,7 @@
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                value="%p [%t] %c{1}.%M(%L) | %m%n"/>
+                value="[mTor] %d %p [%t] %c{1}.%M(%L) | %m%n"/>
         </layout>
     </appender>
     
@@ -62,7 +62,7 @@
     </logger>
    
     <logger name="nl.bhit">
-        <level value="DEBUG"/>
+        <level value="TRACE"/>
     </logger>
 
     <logger name="nl.bhit.tool">

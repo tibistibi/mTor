@@ -4,10 +4,14 @@ import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.ServletActionContext;
 import nl.bhit.Constants;
 import nl.bhit.dao.SearchException;
+import nl.bhit.model.Project;
 import nl.bhit.model.Role;
 import nl.bhit.model.User;
+import nl.bhit.service.GenericManager;
 import nl.bhit.service.UserExistsException;
 import nl.bhit.webapp.util.RequestUtil;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
@@ -21,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -28,11 +34,17 @@ import java.util.List;
  */
 public class UserAction extends BaseAction implements Preparable {
     private static final long serialVersionUID = 6776558938712115191L;
+    private GenericManager<Project, Long> projectManager;
     private List<User> users;
     private User user;
     private String id;
     private String query;
+    private List projects;
 
+    @Autowired
+    public void setProjectManager(GenericManager<Project, Long> projectManager) {
+        this.projectManager = projectManager;
+    }
     /**
      * Grab the entity from the database before populating with request parameters
      */
@@ -42,6 +54,7 @@ public class UserAction extends BaseAction implements Preparable {
             user = userManager.getUser(getRequest().getParameter("user.id"));
         }
     }
+
 
     /**
      * Holder for users to display on list screen
@@ -109,6 +122,13 @@ public class UserAction extends BaseAction implements Preparable {
         } else {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));
+        }
+        
+        String[] userProjects = getRequest().getParameterValues("projects");
+
+        for (int i = 0; userProjects != null && i < userProjects.length; i++) {
+            Long projectName = Long.parseLong(userProjects[i]);
+            user.addProject(projectManager.get(projectName));  
         }
 
         if (user.getUsername() != null) {
@@ -180,6 +200,14 @@ public class UserAction extends BaseAction implements Preparable {
                 }
             }
         }
+        
+        String[] userProjects = getRequest().getParameterValues("projects");
+
+        for (int i = 0; userProjects != null && i < userProjects.length; i++) {
+            Long projectName = Long.parseLong(userProjects[i]);
+            user.addProject(projectManager.get(projectName));  
+        }
+   
 
         try {
             userManager.saveUser(user);
@@ -239,11 +267,18 @@ public class UserAction extends BaseAction implements Preparable {
     public String list() {
         try {
             users = userManager.search(query);
+            Collection usersNew = new LinkedHashSet(users);
+            users = new ArrayList(usersNew);
         } catch (SearchException se) {
             addActionError(se.getMessage());
             users = userManager.getUsers();
         }
         return SUCCESS;
+    }
+    
+   public List getProjectList(){
+		projects = projectManager.getAllDistinct();
+		return projects;
     }
 
 }

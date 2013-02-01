@@ -266,3 +266,15 @@ span.pagelinks {
         margin-top: 0;
     }
 }
+
+#projectList .green{
+	background:#9CC39D !important;
+}
+
+#projectList  .yellow{
+	background:#D4CDA9 !important;
+}
+
+#projectList  .red{
+	background:#B73A33 !important;
+}

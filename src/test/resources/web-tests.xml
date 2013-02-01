@@ -13,7 +13,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload,CompanyTests,ProjectTests"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload,MessageTests,MessageTests,ProjectTests,MessageTests,ProjectTests,CompanyTests,ProjectTests"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -247,101 +247,7 @@
             </steps>
         </webtest>
     </target>
-    <!--Project-START-->
-    <!-- runs project-related tests -->
-    <target name="ProjectTests" depends="SearchProjects,EditProject,SaveProject,AddProject,DeleteProject"
-            description="Call and executes all project test cases (targets)">
-        <echo>Successfully ran all Project UI tests!</echo>
-    </target>
-
-    <!-- Verify the projects list screen displays without errors -->
-    <target name="SearchProjects" description="Tests search for and displaying all projects">
-        <webtest name="searchProjects">
-            &config;
-            <steps>
-                &login;
-                <invoke description="click View Project link" url="/projects"/>
-                <verifytitle description="we should see the projectList title"
-                             text=".*${projectList.title}.*" regex="true"/>
-                <setinputfield description="set search term" name="q" value="*"/>
-                <clickbutton label="${button.search}" description="Click Search"/>
-                <verifytitle description="we should see the projectList title"
-                             text=".*${projectList.title}.*" regex="true"/>
-            </steps>
-        </webtest>
-    </target>
-
-    <!-- Verify the edit project screen displays without errors -->
-    <target name="EditProject" description="Tests editing an existing Project's information">
-        <webtest name="editProject">
-            &config;
-            <steps>
-                &login;
-                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
-                <verifytitle description="we should see the projectDetail title"
-                             text=".*${projectDetail.title}.*" regex="true"/>
-            </steps>
-        </webtest>
-    </target>
-
-    <!-- Edit a project and then save -->
-    <target name="SaveProject" description="Tests editing and saving a project">
-        <webtest name="saveProject">
-            &config;
-            <steps>
-                &login;
-                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
-                <verifytitle description="we should see the projectDetail title"
-                             text=".*${projectDetail.title}.*" regex="true"/>
-
-                <!-- update some of the required fields -->
-                <setInputField description="set name" name="project.name" value="XlKaKuKnGjVwZaDaKpMrVwGfKrSyHpBmQwDfJiQbCwNlEjEuNaUqYcMkUcJyCyXlFxKaEuVxQlHjJaRgDkMiDoIuCqRvUnYgOsYhPnTbMeStKxNtXgExXzIpAhIrYhJdFmBqQxNgYuFgKdBkNjLoSmQkMtVgJhQlNeGaNhLdAoYmJuSkYrYfGnXiWfDtZhLjHhBnEsJpGiHzDvOeHkZmTvRlFmUxXiGdSeHqVjWmMvPlQoGhWgZzBbUqTlCfRvN"/>
-
-                <clickbutton label="${button.save}" description="Click Save"/>
-                <verifytitle description="Page re-appears if save successful"
-                             text=".*${projectDetail.title}.*" regex="true"/>
-                <verifytext description="verify success message" text="${project.updated}"/>
-            </steps>
-        </webtest>
-    </target>
-
-    <!-- Add a new Project -->
-    <target name="AddProject" description="Adds a new Project">
-        <webtest name="addProject">
-            &config;
-            <steps>
-                &login;
-                <invoke description="click Add Button" url="/editProject"/>
-                <verifytitle description="we should see the projectDetail title"
-                             text=".*${projectDetail.title}.*" regex="true"/>
-
-                <!-- enter required fields -->
-                <setInputField description="set name" name="project.name" value="DlOdJtVaFgXbAgAiHfYzOjBeQqOzKyLzQwCzZrBeGxSwAoXqYrHfIpZzBcXgHeVfKqHiUuChEpGrTdLzOcAhHuGtDoGiUtYmCuXpFtOcKtBgVaWdVvDfXaWvHjIuEiKxApEwDgXvEsJjHwWaOwOcEgGkFlRrOgDpJxRcNjHgKsDcOtIfZkZsQsUfAgJqUpHlIxEkEuMoJyVaCeMnGoUpFeEbXiDlIbLtUvUuZmCyAzXdSdBcYgNdMbPfSoYyQiA"/>
-
-                <clickbutton label="${button.save}" description="Click button 'Save'"/>
-                <verifytitle description="Project List appears if save successful"
-                             text=".*${projectList.title}.*" regex="true"/>
-                <verifytext description="verify success message" text="${project.added}"/>
-            </steps>
-        </webtest>
-    </target>
-
-    <!-- Delete existing project -->
-    <target name="DeleteProject" description="Deletes existing Project">
-        <webtest name="deleteProject">
-            &config;
-            <steps>
-                &login;
-                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
-                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
-                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
-                <verifyNoDialogResponses/>
-                <verifytitle description="display Project List" text=".*${projectList.title}.*" regex="true"/>
-                <verifytext description="verify success message" text="${project.deleted}"/>
-            </steps>
-        </webtest>
-    </target>
-    <!--Project-END-->
+    
     <!--Company-START-->
     <!-- runs company-related tests -->
     <target name="CompanyTests" depends="SearchCompanies,EditCompany,SaveCompany,AddCompany,DeleteCompany"
@@ -437,6 +343,207 @@
         </webtest>
     </target>
     <!--Company-END-->
+    
+    
+    <!--Project-START-->
+    <!-- runs project-related tests -->
+    <target name="ProjectTests" depends="SearchProjects,EditProject,SaveProject,AddProject,DeleteProject"
+            description="Call and executes all project test cases (targets)">
+        <echo>Successfully ran all Project UI tests!</echo>
+    </target>
+
+    <!-- Verify the projects list screen displays without errors -->
+    <target name="SearchProjects" description="Tests search for and displaying all projects">
+        <webtest name="searchProjects">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View Project link" url="/projects"/>
+                <verifytitle description="we should see the projectList title"
+                             text=".*${projectList.title}.*" regex="true"/>
+                <setinputfield description="set search term" name="q" value="*"/>
+                <clickbutton label="${button.search}" description="Click Search"/>
+                <verifytitle description="we should see the projectList title"
+                             text=".*${projectList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the edit project screen displays without errors -->
+    <target name="EditProject" description="Tests editing an existing Project's information">
+        <webtest name="editProject">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
+                <verifytitle description="we should see the projectDetail title"
+                             text=".*${projectDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a project and then save -->
+    <target name="SaveProject" description="Tests editing and saving a project">
+        <webtest name="saveProject">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
+                <verifytitle description="we should see the projectDetail title"
+                             text=".*${projectDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+                <setInputField description="set name" name="project.name" value="GuKdXyPwLlSmCvPhUkCrDkWfYgHpBkNiSrBdTlAaXcCnVjGsDyCpJxQzNmCmJyWgKuCpSgXnNyQqNeFhYyZaEaCvMeOnMxXfJrBhWnUuAwEzNtCqKfFnQgWwSrKxLpThMsJmSlJvZhOlMsFuTyIjZyBpUhFqGiUqOxJkEtRxEcUvZgHmBgLlQnIzNcHnJoNnXyCtXzGxYkUwLoFbQnWpWeMoIcVoSrImWfUsUlQoFzWpZtEaApXdDrXdNtKhCbV"/>
+
+                <clickbutton label="${button.save}" description="Click Save"/>
+                <verifytitle description="Page re-appears if save successful"
+                             text=".*${projectDetail.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${project.updated}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new Project -->
+    <target name="AddProject" description="Adds a new Project">
+        <webtest name="addProject">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Add Button" url="/editProject"/>
+                <verifytitle description="we should see the projectDetail title"
+                             text=".*${projectDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+                <setInputField description="set name" name="project.name" value="EhJcRsYiDjVhEyWcUvJaJeNpNgMqXhZgZaAeGnHrJqUzQlFaOpSfTbKgIyRbZcIgFfUgCjQcLqTsGbVdMuLqCqRuMbRmWbCvHiIlLeGuQdVjReKuGhUnZdGwQyMgJuKoNrZoRmNlQdUlXaHxPuVfNcUwXcZaHkPaQgKoDiEgScCaYkSmKyLqIlZcWkHrRcTpDnLaGqWcPrQpDoMmWiKwTyIcXbNoZjKjMyNtYrUjDhFqMdUxVrPzIvUiPhKvRyG"/>
+
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+                <verifytitle description="Project List appears if save successful"
+                             text=".*${projectList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${project.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing project -->
+    <target name="DeleteProject" description="Deletes existing Project">
+        <webtest name="deleteProject">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Project link" url="/editProject?id=-1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display Project List" text=".*${projectList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${project.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+    <!--Project-END-->
+    
+    <!--Message-START-->
+    <!-- runs message-related tests -->
+    <target name="MessageTests" depends="SearchMessages,EditMessage,SaveMessage,AddMessage,DeleteMessage"
+            description="Call and executes all message test cases (targets)">
+        <echo>Successfully ran all Message UI tests!</echo>
+    </target>
+
+    <!-- Verify the messages list screen displays without errors -->
+    <target name="SearchMessages" description="Tests search for and displaying all messages">
+        <webtest name="searchMessages">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View Message link" url="/messages"/>
+                <verifytitle description="we should see the messageList title"
+                             text=".*${messageList.title}.*" regex="true"/>
+                <setinputfield description="set search term" name="q" value="*"/>
+                <clickbutton label="${button.search}" description="Click Search"/>
+                <verifytitle description="we should see the messageList title"
+                             text=".*${messageList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the edit message screen displays without errors -->
+    <target name="EditMessage" description="Tests editing an existing Message's information">
+        <webtest name="editMessage">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Message link" url="/editMessage?id=-1"/>
+                <verifytitle description="we should see the messageDetail title"
+                             text=".*${messageDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a message and then save -->
+    <target name="SaveMessage" description="Tests editing and saving a message">
+        <webtest name="saveMessage">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Message link" url="/editMessage?id=-1"/>
+                <verifytitle description="we should see the messageDetail title"
+                             text=".*${messageDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+                <setInputField description="set content" name="message.content" value="CoIgGtPqWgQfJbVtWlFxYvLwGaMzAvAmPjEaOsDlUhOeSpFqKiYmYtArMcOmYlGrJoNrGhQlXyOhQoHiGdAoBiMqBhGuXyKlRfMyGaXnTfJqPfNoPnUxWpTqOfFuOfRsAiDyGvToGpFwMnKsHiVsSnVdBoXpUtQyNlOgNdTsJcYrVuQpKrAtRmPoDwFyEaOiOaZdUrFrPjDxJgVfXfTuTbAmEfFlPpFkRrDgOlJcGbTfWfZcTmQfZfLlEkLpDbO"/>
+                <setInputField description="set timestamp" name="message.timestamp" value="01/25/2013"/>
+
+                <clickbutton label="${button.save}" description="Click Save"/>
+                <verifytitle description="Page re-appears if save successful"
+                             text=".*${messageDetail.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${message.updated}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new Message -->
+    <target name="AddMessage" description="Adds a new Message">
+        <webtest name="addMessage">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Add Button" url="/editMessage"/>
+                <verifytitle description="we should see the messageDetail title"
+                             text=".*${messageDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+                <setInputField description="set content" name="message.content" value="UyZfGkWuSjVqZaFyIgYgYfKeZlGfLfMdCaGkXtDfCpZyKvMgSpVeTtHiRuHdBbAiHfQmLyAmGlWwTbVbAoLiKqMaRvGeXdTcFeUzYgVrXuJqCzKoUsUnNtPmKoRsPiXuFcExIjHrPpKvBnGiZnDiNrQxMkVwUwZjHfFxFhLyOwEsZjLjKcGbQeIdXcOcPsTwHjIcHbWgEzEhHmDtWuQeKpGvMfUhXkSwMaKvXaYeMbQzZbJnYmXtIbQtQrDoCsN"/>
+                <setInputField description="set timestamp" name="message.timestamp" value="01/25/2013"/>
+
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+                <verifytitle description="Message List appears if save successful"
+                             text=".*${messageList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${message.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing message -->
+    <target name="DeleteMessage" description="Deletes existing Message">
+        <webtest name="deleteMessage">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit Message link" url="/editMessage?id=-1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display Message List" text=".*${messageList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${message.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+    <!--Message-END-->
 </project>
+
+
+
+
+
+
 
 

@@ -10,5 +10,6 @@
         <mapping class="nl.bhit.model.Role"/>
         <mapping class="nl.bhit.model.Project"/>
         <mapping class="nl.bhit.model.Company"/>
+        <mapping class="nl.bhit.model.MTorMessage"/>
     </session-factory>
 </hibernate-configuration>

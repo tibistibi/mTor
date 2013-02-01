@@ -1,5 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
-
+  
 <head>
     <title><fmt:message key="projectList.title"/></title>
     <meta name="menu" content="ProjectMenu"/>
@@ -34,6 +34,7 @@
             paramId="id" paramProperty="id" titleKey="project.id"/>
         <display:column property="id" media="csv excel xml pdf" titleKey="project.id"/>
         <display:column property="name" sortable="true" titleKey="project.name"/>
+        
 
         <display:setProperty name="paging.banner.item_name"><fmt:message key="projectList.project"/></display:setProperty>
         <display:setProperty name="paging.banner.items_name"><fmt:message key="projectList.projects"/></display:setProperty>

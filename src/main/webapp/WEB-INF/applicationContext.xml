@@ -3,25 +3,17 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
-       default-lazy-init="true">
-
+       default-lazy-init="true" default-autowire="byName">
+		
     <!-- Activates scanning of @Autowired -->
-    <context:annotation-config/>
+    <context:annotation-config/> 
 
     <!-- Activates scanning of @Repository and @Service -->
     <context:component-scan base-package="nl.bhit"/>
 
     <!-- Add new DAOs here -->
 
-    <!--ProjectManager-START-->
-    <bean id="projectManager" class="nl.bhit.service.impl.GenericManagerImpl">
-        <constructor-arg>
-            <bean class="nl.bhit.dao.hibernate.GenericDaoHibernate">
-                <constructor-arg value="nl.bhit.model.Project"/>
-            </bean>
-        </constructor-arg>
-    </bean>
-    <!--ProjectManager-END-->
+    
 
     <!--CompanyManager-START-->
     <bean id="companyManager" class="nl.bhit.service.impl.GenericManagerImpl">
@@ -32,6 +24,18 @@
         </constructor-arg>
     </bean>
     <!--CompanyManager-END-->
+
+    
+
+    <!--ProjectManager-START-->
+    <bean id="projectManager" class="nl.bhit.service.impl.GenericManagerImpl">
+        <constructor-arg>
+            <bean class="nl.bhit.dao.hibernate.GenericDaoHibernate">
+                <constructor-arg value="nl.bhit.model.Project"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+    <!--ProjectManager-END-->
 
     <!-- Add new Managers here -->
 </beans>

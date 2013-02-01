@@ -27,7 +27,7 @@
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>
 
-    <!-- Activates scanning of @Service -->
+    <!-- Activates scanning of @Service-->
     <context:component-scan base-package="nl.bhit.service"/>
 
     <tx:advice id="txAdvice">

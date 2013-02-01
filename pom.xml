@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>nl.bhit</groupId>
+    <groupId>nl.bhit.mtor</groupId>
     <artifactId>mTor</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>AppFuse Struts 2 Application</name>
-    <url>http://www.mycompany.com</url>
+    <name>mTor</name>
+    <url>https://github.com/tibistibi/mTor</url>
 
     <prerequisites>
         <maven>2.2.1</maven>
@@ -43,6 +43,28 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
+
+        <!-- START generating WSDL code  
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>1.6.2</version>
+                <configuration>
+                    <packageName>nl.bhit.mTor.client.wsdl</packageName>
+                    <wsdlFile>src/test/resources/wsdl/MessageService.wsdl</wsdlFile>
+                    <databindingName>adb</databindingName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                           <goal>wsdl2code</goal> 
+                        </goals>
+
+                    </execution>
+                </executions>
+            </plugin>
+         END generating WSDL code -->
+        
             <plugin>
                 <groupId>org.appfuse.plugins</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
@@ -214,6 +236,20 @@
                     </execution>
                 </executions>
             </plugin>
+
+<!-- Tomcat plugin to install -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <configuration>
+                    <url>${tomcat.deploy.url}</url>
+                    <path>/mTor</path>
+                    <username>root</username>
+                    <password>${tomcat.deploy.password}</password>
+                </configuration>
+            </plugin>
+<!-- Tomcat plugin to install -->
+            
         </plugins>
         <resources>
             <resource>
@@ -692,6 +728,70 @@
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
         </dependency>
+        <!-- WSDL to java -->
+    	<dependency>
+          <groupId>org.apache.axis2</groupId>
+          <artifactId>axis2</artifactId>
+          <version>1.6.2</version>
+    	</dependency>
+
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-http</artifactId>
+            <version>1.6.2</version>
+            <exclusions>
+		    	<exclusion>
+			       	<groupId>org.apache.ws.commons.schema</groupId>
+			       	<artifactId>XmlSchema</artifactId>
+			    </exclusion>
+		   </exclusions>
+        </dependency>   
+ 	
+       <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+            <version>1.6.2</version>
+            <exclusions>
+		    	<exclusion>
+			       	<groupId>org.apache.ws.commons.schema</groupId>
+			       	<artifactId>XmlSchema</artifactId>
+			    </exclusion>
+		   </exclusions>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom
+            </groupId>
+            <artifactId>axiom-api</artifactId>
+            <version>1.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom
+            </groupId>
+            <artifactId>axiom-impl</artifactId>
+            <version>1.2.14</version>
+        </dependency>            	
+        <!-- WSDL to java -->
+        <!-- exmaple
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-xmlbeans</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom
+            </groupId>
+            <artifactId>axiom</artifactId>
+            <version>1.2.13</version>
+            <type>pom</type>
+        </dependency>
+        -->
+        
     </dependencies>
 
     <reporting>
@@ -966,6 +1066,14 @@
 		        <jdbc.password></jdbc.password>
             </properties>
         </profile>
+        <profile>
+            <id>bhit</id>
+            <properties>
+		        <tomcat.deploy.url>http://tomcat.bhit.nl:7070/manager/text</tomcat.deploy.url>
+		        <jdbc.username>mTor</jdbc.username>
+		        <jdbc.password>SECRET</jdbc.password>
+            </properties>
+        </profile>
     </profiles>
 
     <properties>
@@ -974,7 +1082,7 @@
         <copyright.year>2012</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
-        <amp.genericCore>true</amp.genericCore>
+        <amp.genericCore>false</amp.genericCore>
         <amp.fullSource>true</amp.fullSource>
         <db.name>mTor</db.name>
 
@@ -1043,6 +1151,7 @@
         <struts.menu.version>2.4.3</struts.menu.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
+        <tomcat.deploy.url>http://tomcat.bhit.nl:7070/manager/text</tomcat.deploy.url>
 
     </properties>
 </project>

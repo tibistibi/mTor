@@ -22,6 +22,14 @@ public interface GenericManager<T, PK extends Serializable> {
      * @return List of populated objects
      */
     List<T> getAll();
+    
+    /**
+     * Gets all records without duplicates.
+     * <p>Note that if you use this method, it is imperative that your model
+     * classes correctly implement the hashcode/equals methods</p>
+     * @return List of populated objects
+     */
+    List<T> getAllDistinct();
 
     /**
      * Generic method to get an object based on class and identifier. An

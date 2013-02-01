@@ -25,6 +25,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:/applicationContext-resources.xml
+            classpath:/applicationContext-timer.xml
             classpath:/applicationContext-dao.xml
             classpath:/applicationContext-service.xml
             classpath*:/applicationContext.xml
