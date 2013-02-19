@@ -49,7 +49,7 @@ public class MailTimer {
 					long timestamp = message.getTimestamp().getTime();
 					long currentTime = new Date().getTime();
 					long difference = currentTime - timestamp;
-					if (difference <= project.interval && message.getContent().contains("alive")){
+					if (difference <= project.INTERVAL && message.getContent().contains("alive")){
 						isAlive = true;
 					}
 				}

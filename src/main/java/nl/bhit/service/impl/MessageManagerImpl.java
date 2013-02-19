@@ -63,7 +63,8 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 		this.projectManager = projectManager;
 	}
 	
-    public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message) {
+    @Override
+	public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message) {
     	return messageDao.getMessagesWithTimestamp(message);
     }
 }

@@ -1,6 +1,8 @@
 package nl.bhit.mtor.client;
 
-import junit.framework.TestCase;
+import junit.framework.TestCase; 
+
+import nl.bhit.mtor.client.MessageServiceSender;
 
 import nl.bhit.mtor.client.MessageServiceSender;
 

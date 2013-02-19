@@ -6,24 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Resource;
-import javax.persistence.Table;
-
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.orm.hibernate3.SessionFactoryUtils;
-
-import nl.bhit.service.GenericManager;
-import nl.bhit.service.MessageManager;
 import nl.bhit.dao.SearchException;
 import nl.bhit.model.MTorMessage;
 import nl.bhit.model.Project;
@@ -44,7 +26,6 @@ public class MessageAction extends BaseAction implements Preparable {
 	private MTorMessage message;
 	private Long id;
 	private String query;
-	private static SessionFactory factory;
 
 	public void setMessageManager(MessageManager messageManager) {
 		this.messageManager = messageManager;
@@ -61,6 +42,7 @@ public class MessageAction extends BaseAction implements Preparable {
 	/**
 	 * Grab the entity from the database before populating with request parameters
 	 */
+	@Override
 	public void prepare() {
 		if (getRequest().getMethod().equalsIgnoreCase("post")) {
 			// prevent failures on new
@@ -164,9 +146,8 @@ public class MessageAction extends BaseAction implements Preparable {
 
 		if (!isNew) {
 			return INPUT;
-		} else {
-			return SUCCESS;
 		}
+		return SUCCESS;
 	}
 
 	public String resolve() {

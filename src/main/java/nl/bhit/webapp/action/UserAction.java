@@ -225,7 +225,8 @@ public class UserAction extends BaseAction implements Preparable {
             // add success messages
             saveMessage(getText("user.saved"));
             return "mainMenu";
-        } else {
+        }
+        
             // add success messages
             List<Object> args = new ArrayList<Object>();
             args.add(user.getFullName());
@@ -239,12 +240,10 @@ public class UserAction extends BaseAction implements Preparable {
                     addActionError(me.getCause().getLocalizedMessage());
                 }
                 return SUCCESS;
-            } else {
+            }
                 user.setConfirmPassword(user.getPassword());
                 saveMessage(getText("user.updated.byAdmin", args));
                 return INPUT;
-            }
-        }
     }
 
     private String showUserExistsException(Integer originalVersion) {

@@ -26,10 +26,10 @@ public class FreeMemoryMTorMessageProvider {
 		SoapMessage message = new SoapMessage();
 		final long free = Runtime.getRuntime().freeMemory();
 		if (free < ERROR_LIMIT) {
-			return createMessage(message, "The virtual memory is almost full!", Status.ERROR);
+			return createMessage(message, "The free memory is les then "+ERROR_LIMIT+"!", Status.ERROR);
 		}
 		if (free < WARN_LIMIT) {
-			return createMessage(message, "The virtual memory is getting full!", Status.WARN);
+			return createMessage(message, "The free memory is les then "+WARN_LIMIT+"! It is running low.", Status.WARN);
 		}
 		return null;
 	}

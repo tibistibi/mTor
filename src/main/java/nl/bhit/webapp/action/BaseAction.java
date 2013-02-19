@@ -9,8 +9,6 @@ import nl.bhit.model.User;
 import nl.bhit.service.MailEngine;
 import nl.bhit.service.RoleManager;
 import nl.bhit.service.UserManager;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +74,6 @@ public class BaseAction extends ActionSupport {
     /**
      * MailEngine for sending e-mail
      */
-    @Autowired
     protected MailEngine mailEngine;
 
     /**
@@ -186,7 +183,6 @@ public class BaseAction extends ActionSupport {
         this.roleManager = roleManager;
     }
 
-    @Autowired
     public void setMailEngine(MailEngine mailEngine) {
         this.mailEngine = mailEngine;
     }
