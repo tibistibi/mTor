@@ -29,7 +29,10 @@
 
     <!-- Activates scanning of @Service-->
     <context:component-scan base-package="nl.bhit.mtor.service"/>
-
+    <!-- Activates scanning of @Components-->
+    <context:component-scan base-package="nl.bhit.mtor.server.timer"/>
+    <context:component-scan base-package="nl.bhit.mtor.client"/>
+    
     <tx:advice id="txAdvice">
         <tx:attributes>
             <!-- Read-only commented out to make things easier for end-users -->
