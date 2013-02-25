@@ -27,6 +27,7 @@
             <option value="${user.getId()}">${user.getFullName()}</option>
             </c:forEach>
         </select>
+        <s:checkbox property="project.monitoring" key="project.monitoring"/>
 
         <div id="actions" class="form-actions">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">

@@ -30,6 +30,7 @@ public class Project extends BaseObject implements Serializable {
 	private Set<MTorMessage> messages;
 	private Company company;
 	private Set<User> users;
+	private boolean monitoring;
 	public static final long INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 	public Project() {
@@ -205,5 +206,16 @@ public class Project extends BaseObject implements Serializable {
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", company=" + company + ", users=" + users + "]";
+	}
+
+	@Column(
+			name = "MONITORING",
+			nullable = false)
+	public boolean isMonitoring() {
+		return monitoring;
+	}
+
+	public void setMonitoring(boolean monitoring) {
+		this.monitoring = monitoring;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
@@ -65,20 +66,24 @@ public class MessageAction extends BaseAction implements Preparable {
 
 	public String list() {
 		try {
-			// messages = messageManager.search(query, Message.class);
-			mTorMessages = new ArrayList();
-			List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
-			List<Project> tempProjects = getProjectCompanyList();
-			for (MTorMessage tempMessage : tempMessages) {
-				String messageProjectName = tempMessage.getProject().getName();
-				for (Project tempProject : tempProjects) {
-					if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
-						mTorMessages.add(tempMessage);
+			if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+				// messages = messageManager.search(query, Message.class);
+				mTorMessages = new ArrayList();
+				List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
+				List<Project> tempProjects = getProjectCompanyList();
+				for (MTorMessage tempMessage : tempMessages) {
+					String messageProjectName = tempMessage.getProject().getName();
+					for (Project tempProject : tempProjects) {
+						if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
+							mTorMessages.add(tempMessage);
+						}
 					}
 				}
+				Collection messagesNew = new LinkedHashSet(mTorMessages);
+				mTorMessages = new ArrayList(messagesNew);
+			} else {
+				mTorMessages = messageManager.getAllDistinct();
 			}
-			Collection messagesNew = new LinkedHashSet(mTorMessages);
-			mTorMessages = new ArrayList(messagesNew);
 		} catch (SearchException se) {
 			addActionError(se.getMessage());
 			mTorMessages = messageManager.getAllDistinct();
@@ -87,16 +92,20 @@ public class MessageAction extends BaseAction implements Preparable {
 	}
 
 	public List getProjectCompanyList() {
-		List<Project> tempProjects = projectManager.getAllDistinct();
-		String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-		projects = new ArrayList();
-		for (Project tempProject : tempProjects) {
-			Set<User> projectUsers = tempProject.getUsers();
-			for (User projectUser : projectUsers) {
-				if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
-					projects.add(tempProject);
+		if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+			List<Project> tempProjects = projectManager.getAllDistinct();
+			String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
+			projects = new ArrayList();
+			for (Project tempProject : tempProjects) {
+				Set<User> projectUsers = tempProject.getUsers();
+				for (User projectUser : projectUsers) {
+					if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
+						projects.add(tempProject);
+					}
 				}
 			}
+		} else {
+			projects = projectManager.getAllDistinct();
 		}
 		return projects;
 	}

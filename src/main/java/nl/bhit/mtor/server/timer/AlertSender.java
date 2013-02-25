@@ -38,47 +38,52 @@ private ProjectManager projectManager;
 		List<Project> projects = projectManager.getAllDistinct();
 
 		for (Project project : projects) {
-			if (!project.hasHeartBeat()) {
-				sendMailToUsers(project);
-			}
-			//TODO (tibi) rewrite code to make it more readable
-			/*if (!project.hasStatus(Status.ERROR)) {
-				sendMailToUsers(project);
-			}*/
-			Set<MTorMessage> currentMessages= project.getMessages();
-			if(!currentMessages.isEmpty()){
-				for (MTorMessage message : currentMessages) {
-					if(!message.isAlertSent()){
-						Status status = message.getStatus();
-						if(status.equals(Status.ERROR) && !message.isResolved()){
-							sendMessageAlert(project, 
-									"An error message has arrived",
-									message.getContent());
-							message.setAlertSent(true);
-							messageManager.save(message);
-						} else if(status.equals(Status.WARN) && !message.isResolved()){
-							sendMessageAlert(project, 
-									"A warning message has arrived",
-									message.getContent());
-							message.setAlertSent(true);
-							messageManager.save(message);
-						} else {
-							sendMessageAlert(project, 
-									"Info",
-									message.getContent());
-							message.setAlertSent(true);
-							messageManager.save(message);
-						}
+			if(project.isMonitoring()){
+				for (User user : project.getUsers()) {
+					if (!project.hasHeartBeat() && user.getStatus()!=Status.NONE) {
+						sendMailToUser(project, user);
 					}
-				}						
+					//TODO (tibi) rewrite code to make it more readable
+					/*if (!project.hasStatus(Status.ERROR)) {
+						sendMailToUsers(project);
+					}*/
+					Set<MTorMessage> currentMessages= project.getMessages();
+					if(!currentMessages.isEmpty()){
+						for (MTorMessage message : currentMessages) {
+							if(!message.isAlertSent()){
+								Status status = message.getStatus();
+								if(status.equals(Status.ERROR) && !message.isResolved() &&
+										user.getStatus()!=Status.NONE){
+									sendMessageAlert(project, 
+											"An error message has arrived",
+											message.getContent(), user);
+									message.setAlertSent(true);
+									messageManager.save(message);
+								} else if(status.equals(Status.WARN) && !message.isResolved() &&
+										(user.getStatus()==Status.INFO || 
+										 user.getStatus()==Status.WARN)){
+									sendMessageAlert(project, 
+											"A warning message has arrived",
+											message.getContent(), user);
+									message.setAlertSent(true);
+									messageManager.save(message);
+								} else if (user.getStatus()==Status.INFO){
+									sendMessageAlert(project, 
+											"Info",
+											message.getContent(), user);
+									message.setAlertSent(true);
+									messageManager.save(message);
+								}
+							}
+						}						
+					}
+				}
 			}
 		}
 	}
 
-	protected void sendMailToUsers(Project project) {
-		for (User user : project.getUsers()) {
-			sendHeartBeatAlert(user.getEmail());
-		}
+	protected void sendMailToUser(Project project, User user) {
+		sendHeartBeatAlert(user.getEmail());		
 	}
 
 	private void sendHeartBeatAlert(String to) {
@@ -93,18 +98,16 @@ private ProjectManager projectManager;
 		mailEngine.send(mailMessage);
 	}
 	
-	private void sendMessageAlert(Project project, String subject, String content){
-		for (User user : project.getUsers()) {
-			String to = user.getEmail();
-			if (log.isDebugEnabled()) {
-				log.debug("sending e-mail to user [" + to + "]...");
-			}
-
-			mailMessage.setTo(to + "<" + to + ">");
-
-			mailMessage.setSubject(subject);
-			mailMessage.setText(content);
-			mailEngine.send(mailMessage);
+	private void sendMessageAlert(Project project, String subject, String content, User user){
+		String to = user.getEmail();
+		if (log.isDebugEnabled()) {
+			log.debug("sending e-mail to user [" + to + "]...");
 		}
+
+		mailMessage.setTo(to + "<" + to + ">");
+
+		mailMessage.setSubject(subject);
+		mailMessage.setText(content);
+		mailEngine.send(mailMessage);
 	}
 }

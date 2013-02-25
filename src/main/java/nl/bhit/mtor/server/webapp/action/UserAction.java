@@ -7,6 +7,7 @@ import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Role;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 import nl.bhit.mtor.service.GenericManager;
@@ -125,6 +126,7 @@ public class UserAction extends BaseAction implements Preparable {
             user.addRole(new Role(Constants.USER_ROLE));
         }
         
+
         String[] userProjects = getRequest().getParameterValues("projects");
 
         for (int i = 0; userProjects != null && i < userProjects.length; i++) {
@@ -284,5 +286,9 @@ public class UserAction extends BaseAction implements Preparable {
 		projects = projectManager.getAllDistinct();
 		return projects;
     }
+   
+	public List getStatusList() {
+		return Status.getAsList();
+	}
 
 }

@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -67,7 +69,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean accountLocked;
     private boolean credentialsExpired;
     private Set<Project> projects;
-
+    private Status status;
 
 
 	/**
@@ -417,5 +419,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
 			 }
 		 } 
 		 return projectNames;
+	}
+	
+	@Column(
+			name = "STATUS",
+			length = 5)
+	@Enumerated(EnumType.STRING)
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 }

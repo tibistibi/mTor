@@ -47,6 +47,7 @@
         <s:textfield key="user.passwordHint" required="true"/>
         <s:textfield key="user.firstName" required="true"/>
         <s:textfield key="user.lastName" required="true"/>
+        <s:select list="statusList" key="user.status"></s:select>
         <s:hidden key="user.email" />
         <s:hidden key="user.phoneNumber"/>
         <s:hidden key="user.website"/>

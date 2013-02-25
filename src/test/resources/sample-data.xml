@@ -19,7 +19,8 @@
         <column>account_enabled</column>
         <column>account_expired</column>
         <column>account_locked</column>
-        <column>credentials_expired</column>        
+        <column>credentials_expired</column>     
+        <column>status</column>      
         <row>
             <value description="id">-1</value>
             <value description="username">user</value>
@@ -40,6 +41,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
+            <value description="status">NONE</value>
         </row>
         <row>
             <value description="id">-2</value>
@@ -61,6 +63,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
+            <value description="status">NONE</value>
         </row>
     </table>
     <table name="role">
@@ -115,20 +118,24 @@
         <column>ID</column>
         <column>COMPANY_FK</column>
         <column>NAME</column>
+        <column>MONITORING</column>
     <row>
         <value description="ID">-1</value>
         <value description="COMPANY_FK">-1</value>
         <value description="NAME">testProject1</value>
+        <value description="MONITORING">false</value>
     </row>
     <row>
         <value description="ID">-2</value>
         <value description="COMPANY_FK">-2</value>
         <value description="NAME">testProject2</value>
+        <value description="MONITORING">false</value>
     </row>
     <row>
         <value description="ID">-3</value>
         <value description="COMPANY_FK">-3</value>
         <value description="NAME">testProject3</value>
+        <value description="MONITORING">false</value>
     </row>
     </table>
     <!--Project-END-->

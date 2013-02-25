@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Status {
-
+	NONE,
 	/**
 	 * normal info message
 	 */

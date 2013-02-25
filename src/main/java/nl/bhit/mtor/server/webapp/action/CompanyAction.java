@@ -1,6 +1,8 @@
 package nl.bhit.mtor.server.webapp.action;
 
 import com.opensymphony.xwork2.Preparable;
+
+import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.Company;
 import nl.bhit.mtor.model.Project;
@@ -53,24 +55,28 @@ public class CompanyAction extends BaseAction implements Preparable {
     }
 
     public String list() {
-        try {            
-            List<Project> tempProjects = projectManager.getAllDistinct();
-            String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-            List<Project> projects = new ArrayList();
-            for(Project tempProject : tempProjects){
-            	Set<User> projectUsers = tempProject.getUsers();
-            	for (User projectUser : projectUsers){
-            		if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
-            			projects.add(tempProject);
-            		}
-            	}
-            }
-            List<Company> tempCompanies = new ArrayList();
-            for (Project project : projects){
-            	tempCompanies.add(project.getCompany());
-            }
-            Collection companiesNew = new LinkedHashSet(tempCompanies);
-            companies = new ArrayList(companiesNew);
+        try {
+        	if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+	            List<Project> tempProjects = projectManager.getAllDistinct();
+	            String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
+	            List<Project> projects = new ArrayList();
+	            for(Project tempProject : tempProjects){
+	            	Set<User> projectUsers = tempProject.getUsers();
+	            	for (User projectUser : projectUsers){
+	            		if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
+	            			projects.add(tempProject);
+	            		}
+	            	}
+	            }
+	            List<Company> tempCompanies = new ArrayList();
+	            for (Project project : projects){
+	            	tempCompanies.add(project.getCompany());
+	            }
+	            Collection companiesNew = new LinkedHashSet(tempCompanies);
+	            companies = new ArrayList(companiesNew);
+        	} else {
+        		companies = companyManager.getAllDistinct();
+        	}
         } catch (SearchException se) {
             addActionError(se.getMessage());
             companies = companyManager.getAllDistinct();

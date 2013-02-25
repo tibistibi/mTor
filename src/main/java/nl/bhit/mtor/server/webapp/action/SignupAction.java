@@ -5,6 +5,7 @@ import org.apache.struts2.ServletActionContext;
 
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.model.Role;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 import nl.bhit.mtor.service.UserExistsException;
@@ -122,4 +123,8 @@ public class SignupAction extends BaseAction {
 
         return SUCCESS;
     }
+    
+    public List getStatusList() {
+		return Status.getAsList();
+	}
 }
