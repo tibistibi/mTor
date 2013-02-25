@@ -57,32 +57,40 @@ public class CompanyAction extends BaseAction implements Preparable {
     public String list() {
         try {
         	if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-	            List<Project> tempProjects = projectManager.getAllDistinct();
-	            String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-	            List<Project> projects = new ArrayList();
-	            for(Project tempProject : tempProjects){
-	            	Set<User> projectUsers = tempProject.getUsers();
-	            	for (User projectUser : projectUsers){
-	            		if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
-	            			projects.add(tempProject);
-	            		}
-	            	}
-	            }
-	            List<Company> tempCompanies = new ArrayList();
-	            for (Project project : projects){
-	            	tempCompanies.add(project.getCompany());
-	            }
-	            Collection companiesNew = new LinkedHashSet(tempCompanies);
-	            companies = new ArrayList(companiesNew);
+	            getCompaniesForUser();
         	} else {
-        		companies = companyManager.getAllDistinct();
+        		getCompaniesForAdmin();
         	}
         } catch (SearchException se) {
             addActionError(se.getMessage());
-            companies = companyManager.getAllDistinct();
+            getCompaniesForAdmin();
         }
         return SUCCESS;
     }
+
+	protected void getCompaniesForAdmin() {
+		companies = companyManager.getAllDistinct();
+	}
+
+	protected void getCompaniesForUser() {
+		List<Project> tempProjects = projectManager.getAllDistinct();
+		String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
+		List<Project> projects = new ArrayList();
+		for(Project tempProject : tempProjects){
+			Set<User> projectUsers = tempProject.getUsers();
+			for (User projectUser : projectUsers){
+				if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
+					projects.add(tempProject);
+				}
+			}
+		}
+		List<Company> tempCompanies = new ArrayList();
+		for (Project project : projects){
+			tempCompanies.add(project.getCompany());
+		}
+		Collection companiesNew = new LinkedHashSet(tempCompanies);
+		companies = new ArrayList(companiesNew);
+	}
 
     public void setId(Long id) {
         this.id = id;
