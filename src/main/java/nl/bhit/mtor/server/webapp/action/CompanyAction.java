@@ -1,146 +1,149 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import com.opensymphony.xwork2.Preparable;
-
-import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.dao.SearchException;
-import nl.bhit.mtor.model.Company;
-import nl.bhit.mtor.model.Project;
-import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.server.webapp.action.BaseAction;
-import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
-import nl.bhit.mtor.service.GenericManager;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import nl.bhit.mtor.Constants;
+import nl.bhit.mtor.dao.SearchException;
+import nl.bhit.mtor.model.Company;
+import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.User;
+import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
+import nl.bhit.mtor.service.CompanyManager;
+import nl.bhit.mtor.service.ProjectManager;
+
+import com.opensymphony.xwork2.Preparable;
+
 public class CompanyAction extends BaseAction implements Preparable {
-    private GenericManager<Company, Long> companyManager;
-    private GenericManager<Project, Long> projectManager;
-    private List companies;
-    private Company company;
-    private Long id;
-    private String query;
+	private CompanyManager companyManager;
+	private ProjectManager projectManager;
+	private List companies;
+	private Company company;
+	private Long id;
+	private String query;
 
-    public void setCompanyManager(GenericManager<Company, Long> companyManager) {
-        this.companyManager = companyManager;
-    }
+	public void setCompanyManager(CompanyManager companyManager) {
+		this.companyManager = companyManager;
+	}
 
-    public void setProjectManager(GenericManager<Project, Long> projectManager) {
-        this.projectManager = projectManager;
-    }
-    
-    public List getCompanies() {
-        return companies;
-    }
+	public void setProjectManager(ProjectManager projectManager) {
+		this.projectManager = projectManager;
+	}
 
-    /**
-     * Grab the entity from the database before populating with request parameters
-     */
-    public void prepare() {
-        if (getRequest().getMethod().equalsIgnoreCase("post")) {
-            // prevent failures on new
-            String companyId = getRequest().getParameter("company.id");
-            if (companyId != null && !companyId.equals("")) {
-                company = companyManager.get(new Long(companyId));
-            }
-        }
-    }
+	public List getCompanies() {
+		return companies;
+	}
 
-    public void setQ(String q) {
-        this.query = q;
-    }
+	/**
+	 * Grab the entity from the database before populating with request parameters
+	 */
+	@Override
+	public void prepare() {
+		if (getRequest().getMethod().equalsIgnoreCase("post")) {
+			// prevent failures on new
+			String companyId = getRequest().getParameter("company.id");
+			if (companyId != null && !companyId.equals("")) {
+				company = companyManager.get(new Long(companyId));
+			}
+		}
+	}
 
-    public String list() {
-        try {
-        	if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-	            getCompaniesForUser();
-        	} else {
-        		getCompaniesForAdmin();
-        	}
-        } catch (SearchException se) {
-            addActionError(se.getMessage());
-            getCompaniesForAdmin();
-        }
-        return SUCCESS;
-    }
+	public void setQ(String q) {
+		this.query = q;
+	}
+
+	public String list() {
+		try {
+			if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+				getCompaniesForUser();
+			} else {
+				getCompaniesForAdmin();
+			}
+		} catch (SearchException se) {
+			addActionError(se.getMessage());
+			getCompaniesForAdmin();
+		}
+		return SUCCESS;
+	}
 
 	protected void getCompaniesForAdmin() {
 		companies = companyManager.getAllDistinct();
 	}
 
 	protected void getCompaniesForUser() {
+		companies = companyManager.getAllByUSer(UserManagementUtils.getAuthenticatedUser());
+
 		List<Project> tempProjects = projectManager.getAllDistinct();
 		String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
 		List<Project> projects = new ArrayList();
-		for(Project tempProject : tempProjects){
+		for (Project tempProject : tempProjects) {
 			Set<User> projectUsers = tempProject.getUsers();
-			for (User projectUser : projectUsers){
-				if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
+			for (User projectUser : projectUsers) {
+				if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
 					projects.add(tempProject);
 				}
 			}
 		}
 		List<Company> tempCompanies = new ArrayList();
-		for (Project project : projects){
+		for (Project project : projects) {
 			tempCompanies.add(project.getCompany());
 		}
 		Collection companiesNew = new LinkedHashSet(tempCompanies);
 		companies = new ArrayList(companiesNew);
 	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Company getCompany() {
-        return company;
-    }
+	public Company getCompany() {
+		return company;
+	}
 
-    public void setCompany(Company company) {
-        this.company = company;
-    }
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
-    public String delete() {
-        companyManager.remove(company.getId());
-        saveMessage(getText("company.deleted"));
+	public String delete() {
+		companyManager.remove(company.getId());
+		saveMessage(getText("company.deleted"));
 
-        return SUCCESS;
-    }
+		return SUCCESS;
+	}
 
-    public String edit() {
-        if (id != null) {
-            company = companyManager.get(id);
-        } else {
-            company = new Company();
-        }
+	public String edit() {
+		if (id != null) {
+			company = companyManager.get(id);
+		} else {
+			company = new Company();
+		}
 
-        return SUCCESS;
-    }
+		return SUCCESS;
+	}
 
-    public String save() throws Exception {
-        if (cancel != null) {
-            return "cancel";
-        }
+	public String save() throws Exception {
+		if (cancel != null) {
+			return "cancel";
+		}
 
-        if (delete != null) {
-            return delete();
-        }
+		if (delete != null) {
+			return delete();
+		}
 
-        boolean isNew = (company.getId() == null);
+		boolean isNew = (company.getId() == null);
 
-        companyManager.save(company);
+		companyManager.save(company);
 
-        String key = (isNew) ? "company.added" : "company.updated";
-        saveMessage(getText(key));
+		String key = (isNew) ? "company.added" : "company.updated";
+		saveMessage(getText(key));
 
-        if (!isNew) {
-            return INPUT;
-        } else {
-            return SUCCESS;
-        }
-    }
+		if (!isNew) {
+			return INPUT;
+		} else {
+			return SUCCESS;
+		}
+	}
 }
