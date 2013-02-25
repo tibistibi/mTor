@@ -21,6 +21,9 @@ public class CompanyDaoTest extends BaseDaoTestCase {
 		user.setId(-1L);
 		List<Company> companies = companyDao.getAllByUser(user);
 		assertEquals(1, companies.size());
+		user.setId(-2L);
+		companies = companyDao.getAllByUser(user);
+		assertEquals(2, companies.size());
 	}
 
 }
