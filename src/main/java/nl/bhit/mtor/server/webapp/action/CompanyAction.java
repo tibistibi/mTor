@@ -1,16 +1,10 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.Company;
-import nl.bhit.mtor.model.Project;
-import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
 import nl.bhit.mtor.service.CompanyManager;
 import nl.bhit.mtor.service.ProjectManager;
@@ -75,24 +69,6 @@ public class CompanyAction extends BaseAction implements Preparable {
 
 	protected void getCompaniesForUser() {
 		companies = companyManager.getAllByUSer(UserManagementUtils.getAuthenticatedUser());
-
-		List<Project> tempProjects = projectManager.getAllDistinct();
-		String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-		List<Project> projects = new ArrayList();
-		for (Project tempProject : tempProjects) {
-			Set<User> projectUsers = tempProject.getUsers();
-			for (User projectUser : projectUsers) {
-				if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
-					projects.add(tempProject);
-				}
-			}
-		}
-		List<Company> tempCompanies = new ArrayList();
-		for (Project project : projects) {
-			tempCompanies.add(project.getCompany());
-		}
-		Collection companiesNew = new LinkedHashSet(tempCompanies);
-		companies = new ArrayList(companiesNew);
 	}
 
 	public void setId(Long id) {
