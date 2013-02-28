@@ -69,7 +69,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean accountLocked;
     private boolean credentialsExpired;
     private Set<Project> projects;
-    private Status status;
+    private Status statusThreshold;
 
 
 	/**
@@ -422,14 +422,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
 	}
 	
 	@Column(
-			name = "STATUS",
+			name = "STATUS_THRESHOLD",
 			length = 5)
 	@Enumerated(EnumType.STRING)
-	public Status getStatus() {
-		return status;
+	public Status getStatusThreshold() {
+		return statusThreshold;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setStatusThreshold(Status statusThreshold) {
+		this.statusThreshold = statusThreshold;
 	}
 }

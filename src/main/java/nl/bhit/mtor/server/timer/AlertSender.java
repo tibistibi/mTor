@@ -40,7 +40,7 @@ private ProjectManager projectManager;
 		for (Project project : projects) {
 			if(project.isMonitoring()){
 				for (User user : project.getUsers()) {
-					if (!project.hasHeartBeat() && user.getStatus()!=Status.NONE) {
+					if (!project.hasHeartBeat() && user.getStatusThreshold()!=Status.NONE) {
 						sendMailToUser(project, user);
 					}
 					//TODO (tibi) rewrite code to make it more readable
@@ -53,21 +53,21 @@ private ProjectManager projectManager;
 							if(!message.isAlertSent()){
 								Status status = message.getStatus();
 								if(status.equals(Status.ERROR) && !message.isResolved() &&
-										user.getStatus()!=Status.NONE){
+										user.getStatusThreshold()!=Status.NONE){
 									sendMessageAlert(project, 
 											"An error message has arrived",
 											message.getContent(), user);
 									message.setAlertSent(true);
 									messageManager.save(message);
 								} else if(status.equals(Status.WARN) && !message.isResolved() &&
-										(user.getStatus()==Status.INFO || 
-										 user.getStatus()==Status.WARN)){
+										(user.getStatusThreshold()==Status.INFO || 
+										 user.getStatusThreshold()==Status.WARN)){
 									sendMessageAlert(project, 
 											"A warning message has arrived",
 											message.getContent(), user);
 									message.setAlertSent(true);
 									messageManager.save(message);
-								} else if (user.getStatus()==Status.INFO){
+								} else if (user.getStatusThreshold()==Status.INFO){
 									sendMessageAlert(project, 
 											"Info",
 											message.getContent(), user);

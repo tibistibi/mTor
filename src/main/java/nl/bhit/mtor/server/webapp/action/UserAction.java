@@ -287,8 +287,5 @@ public class UserAction extends BaseAction implements Preparable {
 		return projects;
     }
    
-	public List getStatusList() {
-		return Status.getAsList();
-	}
 
 }

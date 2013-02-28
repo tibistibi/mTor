@@ -17,7 +17,7 @@ public class FreeMemoryMTorMessageProvider {
 	public static long ERROR_LIMIT = 52428800L; //50 MB in bytes
 
 	/**
-	 * this method will return a warning message when the WARN_LIMMI is reached and an error message when the ERROR_LIMIT is reached. Null when all is fine.
+	 * this method will return a warning message when the WARN_LIMIT is reached and an error message when the ERROR_LIMIT is reached. Null when all is fine.
 	 * 
 	 * @return
 	 */
@@ -25,11 +25,14 @@ public class FreeMemoryMTorMessageProvider {
 	public static SoapMessage getVirtualMemoryMessage() {
 		SoapMessage message = new SoapMessage();
 		final long free = Runtime.getRuntime().freeMemory();
+		log.trace("free memory is: " + free);
 		if (free < ERROR_LIMIT) {
-			return createMessage(message, "The free memory is les then "+ERROR_LIMIT+"!", Status.ERROR);
+			log.trace("The free memory is less then "+ERROR_LIMIT+"!");
+			return createMessage(message, "The free memory is less then "+ERROR_LIMIT+"!", Status.ERROR);
 		}
 		if (free < WARN_LIMIT) {
-			return createMessage(message, "The free memory is les then "+WARN_LIMIT+"! It is running low.", Status.WARN);
+			log.trace("The free memory is less then "+WARN_LIMIT+"! It is running low.");
+			return createMessage(message, "The free memory is less then "+WARN_LIMIT+"! It is running low.", Status.WARN);
 		}
 		return null;
 	}

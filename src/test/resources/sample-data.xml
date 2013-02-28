@@ -20,7 +20,7 @@
         <column>account_expired</column>
         <column>account_locked</column>
         <column>credentials_expired</column>     
-        <column>status</column>      
+        <column>status_threshold</column>      
         <row>
             <value description="id">-1</value>
             <value description="username">user</value>
@@ -41,7 +41,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
-            <value description="status">NONE</value>
+            <value description="status_threshold">NONE</value>
         </row>
         <row>
             <value description="id">-2</value>
@@ -63,7 +63,7 @@
             <value description="account_expired">0</value>
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
-            <value description="status">NONE</value>
+            <value description="status_threshold">NONE</value>
         </row>
     </table>
     <table name="role">

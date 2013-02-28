@@ -6,6 +6,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import nl.bhit.mtor.Constants;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.RoleManager;
@@ -213,4 +214,8 @@ public class BaseAction extends ActionSupport {
     public void setSave(String save) {
         this.save = save;
     }
+    
+	public List getStatusList() {
+		return Status.getAsList();
+	}
 }

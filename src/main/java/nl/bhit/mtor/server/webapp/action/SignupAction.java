@@ -124,7 +124,4 @@ public class SignupAction extends BaseAction {
         return SUCCESS;
     }
     
-    public List getStatusList() {
-		return Status.getAsList();
-	}
 }

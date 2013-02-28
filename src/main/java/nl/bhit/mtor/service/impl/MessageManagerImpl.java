@@ -9,6 +9,7 @@ import javax.jws.WebService;
 import nl.bhit.mtor.dao.MessageDao;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.model.soap.SoapMessage;
 import nl.bhit.mtor.service.GenericManager;
 import nl.bhit.mtor.service.MessageManager;
@@ -85,5 +86,10 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 	@Override
 	public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message) {
 		return messageDao.getMessagesWithTimestamp(message);
+	}
+
+	@Override
+	public List<MTorMessage> getAllByUser(User user) {
+		return messageDao.getAllByUser(user);
 	}
 }

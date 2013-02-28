@@ -67,28 +67,37 @@ public class MessageAction extends BaseAction implements Preparable {
 	public String list() {
 		try {
 			if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-				// messages = messageManager.search(query, Message.class);
-				mTorMessages = new ArrayList();
-				List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
-				List<Project> tempProjects = getProjectCompanyList();
-				for (MTorMessage tempMessage : tempMessages) {
-					String messageProjectName = tempMessage.getProject().getName();
-					for (Project tempProject : tempProjects) {
-						if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
-							mTorMessages.add(tempMessage);
-						}
-					}
-				}
-				Collection messagesNew = new LinkedHashSet(mTorMessages);
-				mTorMessages = new ArrayList(messagesNew);
+				getMessagesForUser();
 			} else {
-				mTorMessages = messageManager.getAllDistinct();
+				getMessagesForAdmin();
 			}
 		} catch (SearchException se) {
 			addActionError(se.getMessage());
-			mTorMessages = messageManager.getAllDistinct();
+			getMessagesForAdmin();
 		}
 		return SUCCESS;
+	}
+
+	private void getMessagesForUser() {
+		mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser());
+/*		// messages = messageManager.search(query, Message.class);
+		mTorMessages = new ArrayList();
+		List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
+		List<Project> tempProjects = getProjectCompanyList();
+		for (MTorMessage tempMessage : tempMessages) {
+			String messageProjectName = tempMessage.getProject().getName();
+			for (Project tempProject : tempProjects) {
+				if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
+					mTorMessages.add(tempMessage);
+				}
+			}
+		}
+		Collection messagesNew = new LinkedHashSet(mTorMessages);
+		mTorMessages = new ArrayList(messagesNew);*/
+	}
+
+	private void getMessagesForAdmin() {
+		mTorMessages = messageManager.getAllDistinct();
 	}
 
 	public List getProjectCompanyList() {
@@ -108,10 +117,6 @@ public class MessageAction extends BaseAction implements Preparable {
 			projects = projectManager.getAllDistinct();
 		}
 		return projects;
-	}
-
-	public List getStatusList() {
-		return Status.getAsList();
 	}
 
 	public void setId(Long id) {
