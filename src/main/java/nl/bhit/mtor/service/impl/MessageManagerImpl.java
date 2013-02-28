@@ -49,10 +49,12 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 	// @RolesAllowed("basicUser")
 	public void saveSoapMessage(@WebParam(
 			name = "soapMessage") SoapMessage soapMessage) {
+		log.trace("saveSoapMessage..." + soapMessage);
 		saveMessage(soapMessage);
 	}
 
 	protected MTorMessage soapMessageToMessage(SoapMessage soapMessage) {
+		log.trace("soapMessageToMessage...");
 		Project project = projectManager.get(soapMessage.getProjectId());
 		MTorMessage message = getMTorMessage(soapMessage);
 		BeanUtils.copyProperties(soapMessage, message);
@@ -60,15 +62,16 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 		message.setResolved(false);
 		return message;
 	}
-	
-	private MTorMessage getMTorMessage(SoapMessage soapMessage){
+
+	private MTorMessage getMTorMessage(SoapMessage soapMessage) {
 		MTorMessage message = null;
 		boolean exists = false;
 		List<MTorMessage> listOfMessages = dao.getAllDistinct();
-		for(MTorMessage tempMessage : listOfMessages){
-			if(tempMessage.getProject().getId() == soapMessage.getProjectId() &&
-					tempMessage.getContent().contains("alive")) {
+		for (MTorMessage tempMessage : listOfMessages) {
+			if (tempMessage.getProject().getId() == soapMessage.getProjectId() && tempMessage.getContent().contains("alive")) {
+				log.trace("message found in db use this one to update");
 				message = tempMessage;
+				message.init();
 				exists = true;
 				break;
 			}
@@ -84,11 +87,15 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 	}
 
 	@Override
+	@WebMethod(
+			exclude = true)
 	public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message) {
 		return messageDao.getMessagesWithTimestamp(message);
 	}
 
 	@Override
+	@WebMethod(
+			exclude = true)
 	public List<MTorMessage> getAllByUser(User user) {
 		return messageDao.getAllByUser(user);
 	}
