@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="tomcat.bhit" soapui-version="4.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="MessageServiceSoapBinding" type="wsdl" bindingName="{http://impl.service.mtor.bhit.nl/}MessageServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://tomcat.bhit.nl:7070/mTor/services/MessageService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://tomcat.bhit.nl:7070/mTor/services/MessageService?wsdl"><con:part><con:url>http://tomcat.bhit.nl:7070/mTor/services/MessageService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MessageService" targetNamespace="http://impl.service.mtor.bhit.nl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://impl.service.mtor.bhit.nl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://service.mtor.bhit.nl/">
+  <wsdl:import location="http://tomcat.bhit.nl:7070/mTor/services/MessageService?wsdl=MessageManager.wsdl" namespace="http://service.mtor.bhit.nl/"></wsdl:import>
+  <wsdl:binding name="MessageServiceSoapBinding" type="ns1:MessageManager">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAllByUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllByUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllByUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMessagesWithTimestamp">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getMessagesWithTimestamp">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getMessagesWithTimestampResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveSoapMessage">
+      <soap:operation soapAction="saveSoapMessage" style="document"/>
+      <wsdl:input name="saveSoapMessage">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveSoapMessageResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MessageService">
+    <wsdl:port binding="tns:MessageServiceSoapBinding" name="MessageManagerImplPort">
+      <soap:address location="http://tomcat.bhit.nl:7070/mTor/services/MessageService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://tomcat.bhit.nl:7070/mTor/services/MessageService?wsdl=MessageManager.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MessageManager" targetNamespace="http://service.mtor.bhit.nl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://service.mtor.bhit.nl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://service.mtor.bhit.nl/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.mtor.bhit.nl/">
+      <xs:element name="getAllByUser" type="tns:getAllByUser"/>
+      <xs:element name="getAllByUserResponse" type="tns:getAllByUserResponse"/>
+      <xs:element name="getMessagesWithTimestamp" type="tns:getMessagesWithTimestamp"/>
+      <xs:element name="getMessagesWithTimestampResponse" type="tns:getMessagesWithTimestampResponse"/>
+      <xs:element name="saveSoapMessage" type="tns:saveSoapMessage"/>
+      <xs:element name="saveSoapMessageResponse" type="tns:saveSoapMessageResponse"/>
+      <xs:element name="user" type="tns:user"/>
+      <xs:complexType name="getMessagesWithTimestamp">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:mTorMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="mTorMessage">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element name="alertSent" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="content" type="xs:string"/>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element minOccurs="0" name="project" type="tns:project"/>
+              <xs:element name="resolved" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="status" type="tns:status"/>
+              <xs:element minOccurs="0" name="timestamp" type="xs:dateTime"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="baseObject">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="project">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="company" type="tns:company"/>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="messages" nillable="true" type="tns:mTorMessage"/>
+              <xs:element name="monitoring" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="users" nillable="true" type="tns:user"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="company">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="projects" nillable="true" type="tns:project"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="user">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element name="accountExpired" type="xs:boolean"/>
+              <xs:element name="accountLocked" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="address" type="tns:address"/>
+              <xs:element name="credentialsExpired" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="email" type="xs:string"/>
+              <xs:element name="enabled" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+              <xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="projects" nillable="true" type="tns:project"/>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="roles" nillable="true" type="tns:role"/>
+              <xs:element minOccurs="0" name="statusThreshold" type="tns:status"/>
+              <xs:element minOccurs="0" name="username" type="xs:string"/>
+              <xs:element minOccurs="0" name="version" type="xs:int"/>
+              <xs:element minOccurs="0" name="website" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="address" type="xs:string"/>
+              <xs:element minOccurs="0" name="city" type="xs:string"/>
+              <xs:element minOccurs="0" name="country" type="xs:string"/>
+              <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+              <xs:element minOccurs="0" name="province" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="role">
+        <xs:complexContent>
+          <xs:extension base="tns:baseObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="description" type="xs:string"/>
+              <xs:element minOccurs="0" name="id" type="xs:long"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="getMessagesWithTimestampResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:mTorMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getAllByUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:user"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getAllByUserResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:mTorMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="saveSoapMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="tns:soapMessage"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="soapMessage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="content" type="xs:string"/>
+          <xs:element minOccurs="0" name="projectId" type="xs:long"/>
+          <xs:element minOccurs="0" name="status" type="tns:status"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="saveSoapMessageResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NONE"/>
+          <xs:enumeration value="INFO"/>
+          <xs:enumeration value="WARN"/>
+          <xs:enumeration value="ERROR"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAllByUserResponse">
+    <wsdl:part element="ns1:getAllByUserResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveSoapMessageResponse">
+    <wsdl:part element="ns1:saveSoapMessageResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessagesWithTimestampResponse">
+    <wsdl:part element="ns1:getMessagesWithTimestampResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveSoapMessage">
+    <wsdl:part element="ns1:saveSoapMessage" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getMessagesWithTimestamp">
+    <wsdl:part element="ns1:getMessagesWithTimestamp" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllByUser">
+    <wsdl:part element="ns1:getAllByUser" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="MessageManager">
+    <wsdl:operation name="getMessagesWithTimestamp">
+      <wsdl:input message="ns1:getMessagesWithTimestamp" name="getMessagesWithTimestamp"></wsdl:input>
+      <wsdl:output message="ns1:getMessagesWithTimestampResponse" name="getMessagesWithTimestampResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllByUser">
+      <wsdl:input message="ns1:getAllByUser" name="getAllByUser"></wsdl:input>
+      <wsdl:output message="ns1:getAllByUserResponse" name="getAllByUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveSoapMessage">
+      <wsdl:input message="ns1:saveSoapMessage" name="saveSoapMessage"></wsdl:input>
+      <wsdl:output message="ns1:saveSoapMessageResponse" name="saveSoapMessageResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://tomcat.bhit.nl:7070/mTor/services/MessageService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="getAllByUser" bindingOperationName="getAllByUser" type="Request-Response" outputName="getAllByUserResponse" inputName="getAllByUser" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://tomcat.bhit.nl:7070/mTor/services/MessageService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.mtor.bhit.nl/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:getAllByUser>
+         <!--Optional:-->
+         <arg0>
+            <accountExpired>?</accountExpired>
+            <accountLocked>?</accountLocked>
+            <!--Optional:-->
+            <address>
+               <!--Optional:-->
+               <address>?</address>
+               <!--Optional:-->
+               <city>?</city>
+               <!--Optional:-->
+               <country>?</country>
+               <!--Optional:-->
+               <postalCode>?</postalCode>
+               <!--Optional:-->
+               <province>?</province>
+            </address>
+            <credentialsExpired>?</credentialsExpired>
+            <!--Optional:-->
+            <email>?</email>
+            <enabled>?</enabled>
+            <!--Optional:-->
+            <firstName>?</firstName>
+            <!--Optional:-->
+            <id>?</id>
+            <!--Optional:-->
+            <lastName>?</lastName>
+            <!--Optional:-->
+            <phoneNumber>?</phoneNumber>
+            <!--Zero or more repetitions:-->
+            <projects>
+               <!--Optional:-->
+               <company>
+                  <!--Optional:-->
+                  <id>?</id>
+                  <!--Optional:-->
+                  <name>?</name>
+                  <!--Zero or more repetitions:-->
+                  <projects/>
+               </company>
+               <!--Optional:-->
+               <id>?</id>
+               <!--Zero or more repetitions:-->
+               <messages>
+                  <alertSent>?</alertSent>
+                  <!--Optional:-->
+                  <content>?</content>
+                  <!--Optional:-->
+                  <id>?</id>
+                  <!--Optional:-->
+                  <project/>
+                  <resolved>?</resolved>
+                  <!--Optional:-->
+                  <status>?</status>
+                  <!--Optional:-->
+                  <timestamp>?</timestamp>
+               </messages>
+               <monitoring>?</monitoring>
+               <!--Optional:-->
+               <name>?</name>
+               <!--Zero or more repetitions:-->
+               <users/>
+            </projects>
+            <!--Zero or more repetitions:-->
+            <roles>
+               <!--Optional:-->
+               <description>?</description>
+               <!--Optional:-->
+               <id>?</id>
+               <!--Optional:-->
+               <name>?</name>
+            </roles>
+            <!--Optional:-->
+            <statusThreshold>?</statusThreshold>
+            <!--Optional:-->
+            <username>?</username>
+            <!--Optional:-->
+            <version>?</version>
+            <!--Optional:-->
+            <website>?</website>
+         </arg0>
+      </ser:getAllByUser>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mtor.bhit.nl/MessageManager/getAllByUser"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getMessagesWithTimestamp" bindingOperationName="getMessagesWithTimestamp" type="Request-Response" outputName="getMessagesWithTimestampResponse" inputName="getMessagesWithTimestamp" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://tomcat.bhit.nl:7070/mTor/services/MessageService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.mtor.bhit.nl/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:getMessagesWithTimestamp>
+         <!--Optional:-->
+         <arg0>
+            <alertSent>?</alertSent>
+            <!--Optional:-->
+            <content>?</content>
+            <!--Optional:-->
+            <id>?</id>
+            <!--Optional:-->
+            <project>
+               <!--Optional:-->
+               <company>
+                  <!--Optional:-->
+                  <id>?</id>
+                  <!--Optional:-->
+                  <name>?</name>
+                  <!--Zero or more repetitions:-->
+                  <projects/>
+               </company>
+               <!--Optional:-->
+               <id>?</id>
+               <!--Zero or more repetitions:-->
+               <messages/>
+               <monitoring>?</monitoring>
+               <!--Optional:-->
+               <name>?</name>
+               <!--Zero or more repetitions:-->
+               <users>
+                  <accountExpired>?</accountExpired>
+                  <accountLocked>?</accountLocked>
+                  <!--Optional:-->
+                  <address>
+                     <!--Optional:-->
+                     <address>?</address>
+                     <!--Optional:-->
+                     <city>?</city>
+                     <!--Optional:-->
+                     <country>?</country>
+                     <!--Optional:-->
+                     <postalCode>?</postalCode>
+                     <!--Optional:-->
+                     <province>?</province>
+                  </address>
+                  <credentialsExpired>?</credentialsExpired>
+                  <!--Optional:-->
+                  <email>?</email>
+                  <enabled>?</enabled>
+                  <!--Optional:-->
+                  <firstName>?</firstName>
+                  <!--Optional:-->
+                  <id>?</id>
+                  <!--Optional:-->
+                  <lastName>?</lastName>
+                  <!--Optional:-->
+                  <phoneNumber>?</phoneNumber>
+                  <!--Zero or more repetitions:-->
+                  <projects/>
+                  <!--Zero or more repetitions:-->
+                  <roles>
+                     <!--Optional:-->
+                     <description>?</description>
+                     <!--Optional:-->
+                     <id>?</id>
+                     <!--Optional:-->
+                     <name>?</name>
+                  </roles>
+                  <!--Optional:-->
+                  <statusThreshold>?</statusThreshold>
+                  <!--Optional:-->
+                  <username>?</username>
+                  <!--Optional:-->
+                  <version>?</version>
+                  <!--Optional:-->
+                  <website>?</website>
+               </users>
+            </project>
+            <resolved>?</resolved>
+            <!--Optional:-->
+            <status>?</status>
+            <!--Optional:-->
+            <timestamp>?</timestamp>
+         </arg0>
+      </ser:getMessagesWithTimestamp>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://impl.service.mtor.bhit.nl/MessageManager/getMessagesWithTimestamp"/></con:call></con:operation><con:operation isOneWay="false" action="saveSoapMessage" name="saveSoapMessage" bindingOperationName="saveSoapMessage" type="Request-Response" outputName="saveSoapMessageResponse" inputName="saveSoapMessage" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://tomcat.bhit.nl:7070/mTor/services/MessageService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.mtor.bhit.nl/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:saveSoapMessage>
+         <!--Optional:-->
+         <arg0>
+            <!--Optional:-->
+            <content>I am alive!</content>
+            <!--Optional:-->
+            <projectId>1</projectId>
+            <!--Optional:-->
+            <status>INFO</status>
+         </arg0>
+      </ser:saveSoapMessage>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="saveSoapMessage"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>
