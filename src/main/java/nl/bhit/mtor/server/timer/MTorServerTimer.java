@@ -24,5 +24,7 @@ public class MTorServerTimer {
 		final BeanFactory factory = new ClassPathXmlApplicationContext(getConfigLocations());
 		AlertSender alertSender = (AlertSender) factory.getBean("alertSender");
 		alertSender.process();
+		alertSender = null;
+		System.gc();
 	}
 }
