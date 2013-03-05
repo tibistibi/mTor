@@ -54,7 +54,7 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 	}
 
 	protected MTorMessage soapMessageToMessage(SoapMessage soapMessage) {
-		log.trace("soapMessageToMessage...");
+		log.trace("soapMessageToMessage...retrieving the project: " + soapMessage.getProjectId());
 		Project project = projectManager.get(soapMessage.getProjectId());
 		MTorMessage message = getMTorMessage(soapMessage);
 		BeanUtils.copyProperties(soapMessage, message);
@@ -64,20 +64,12 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 	}
 
 	private MTorMessage getMTorMessage(SoapMessage soapMessage) {
-		MTorMessage message = null;
-		boolean exists = false;
-		List<MTorMessage> listOfMessages = dao.getAllDistinct();
-		for (MTorMessage tempMessage : listOfMessages) {
-			if (tempMessage.getProject().getId() == soapMessage.getProjectId() && tempMessage.getContent().contains("alive")) {
-				log.trace("message found in db use this one to update");
-				message = tempMessage;
-				message.init();
-				exists = true;
-				break;
-			}
-		}
-		if (!exists) {
+		log.trace("getMTorMessage...");
+		MTorMessage message = messageDao.getAliveByProject(soapMessage.getProjectId());
+		if (message == null) {
 			message = new MTorMessage();
+		} else {
+			message.init();
 		}
 		return message;
 	}

@@ -2,12 +2,14 @@ package nl.bhit.mtor.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Date;
 import java.util.List;
 
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.Status;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
@@ -59,6 +61,22 @@ public class MessageDaoTest extends BaseDaoTestCase {
 		messageDao.save(createMessage(DateUtils.addDays(new Date(), 1), projectDao.get(-1L)));
 		List<MTorMessage> messages = messageDao.getMessagesWithTimestamp(message);
 		assertEquals("message added which is newer, should have no effect", 1, messages.size());
+	}
+
+	@Test
+	public void testGetAliveByProject() {
+		log.trace("starting testGetAliveByProject");
+		long projectId = -1L;
+		messageDao.save(createMessage(DateUtils.addDays(new Date(), 1), projectDao.get(projectId)));
+		MTorMessage message = messageDao.getAliveByProject(projectId);
+		assertNull(message);
+		message = createMessage(new Date(), projectDao.get(projectId));
+		message.setContent("I am alive!");
+		message.setStatus(Status.INFO);
+		messageDao.save(message);
+		message = messageDao.getAliveByProject(projectId);
+		assertNotNull(message);
+
 	}
 
 	@Test

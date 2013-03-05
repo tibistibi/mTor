@@ -32,4 +32,18 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
 		query.setLong("user", user.getId());
 		return query.list();
 	}
+
+	@Override
+	public MTorMessage getAliveByProject(Long projectId) {
+		String hql = "select m as message from MTorMessage as m left join m.project as p where p = :project and m.content like '%alive%'";
+		log.trace("running hql:" + hql);
+		Query query = getSession().createQuery(hql);
+		query.setLong("project", projectId);
+		List<MTorMessage> results = query.list();
+		if (results != null && results.size() != 0) {
+			log.trace("found message" + results.get(0));
+			return results.get(0);
+		}
+		return null;
+	}
 }
