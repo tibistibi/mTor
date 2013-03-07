@@ -14,10 +14,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-
 /**
  * Utility class to convert one object to another.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public final class ConvertUtil {
@@ -31,8 +30,9 @@ public final class ConvertUtil {
 
     /**
      * Method to convert a ResourceBundle to a Map object.
-     *
-     * @param rb a given resource bundle
+     * 
+     * @param rb
+     *            a given resource bundle
      * @return Map a populated map
      */
     public static Map<String, String> convertBundleToMap(ResourceBundle rb) {
@@ -49,8 +49,9 @@ public final class ConvertUtil {
 
     /**
      * Convert a java.util.List of LabelValue objects to a LinkedHashMap.
-     *
-     * @param list the list to convert
+     * 
+     * @param list
+     *            the list to convert
      * @return the populated map with the label as the key
      */
     public static Map<String, String> convertListToMap(List<LabelValue> list) {
@@ -65,8 +66,9 @@ public final class ConvertUtil {
 
     /**
      * Method to convert a ResourceBundle to a Properties object.
-     *
-     * @param rb a given resource bundle
+     * 
+     * @param rb
+     *            a given resource bundle
      * @return Properties a populated properties object
      */
     public static Properties convertBundleToProperties(ResourceBundle rb) {
@@ -83,9 +85,11 @@ public final class ConvertUtil {
     /**
      * Convenience method used by tests to populate an object from a
      * ResourceBundle
-     *
-     * @param obj an initialized object
-     * @param rb a resource bundle
+     * 
+     * @param obj
+     *            an initialized object
+     * @param rb
+     *            a resource bundle
      * @return a populated object
      */
     public static Object populateObject(Object obj, ResourceBundle rb) {

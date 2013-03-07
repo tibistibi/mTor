@@ -10,17 +10,17 @@ import nl.bhit.mtor.model.User;
  */
 public interface MessageDao extends GenericDao<MTorMessage, Long> {
 
-	public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
+    public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
 
-	public List<MTorMessage> getAllByUser(User user);
+    public List<MTorMessage> getAllByUser(User user);
 
-	/**
-	 * will search for the 'alive' message of the project
-	 * 
-	 * @param projectId
-	 *            the id of the project
-	 * @return the found message
-	 */
-	public MTorMessage getAliveByProject(Long projectId);
+    /**
+     * will search for the 'alive' message of the project
+     * 
+     * @param projectId
+     *            the id of the project
+     * @return the found message
+     */
+    public MTorMessage getAliveByProject(Long projectId);
 
 }

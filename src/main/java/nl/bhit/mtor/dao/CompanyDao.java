@@ -10,13 +10,13 @@ import nl.bhit.mtor.model.User;
  */
 public interface CompanyDao extends GenericDao<Company, Long> {
 
-	/**
-	 * will return all companies belonging to this user.
-	 * 
-	 * @param user
-	 *            the user to filter on
-	 * @return the found companies
-	 */
-	List<Company> getAllByUser(User user);
+    /**
+     * will return all companies belonging to this user.
+     * 
+     * @param user
+     *            the user to filter on
+     * @return the found companies
+     */
+    List<Company> getAllByUser(User user);
 
 }

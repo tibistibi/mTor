@@ -13,11 +13,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.Map;
 
-
 /**
  * This class tests the StartupListener class to verify that variables are
  * placed into the servlet context.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListenerTest extends TestCase {
@@ -30,10 +29,8 @@ public class StartupListenerTest extends TestCase {
         sc = new MockServletContext("");
 
         // initialize Spring
-        sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                "classpath:/applicationContext-dao.xml, " +
-                "classpath:/applicationContext-service.xml, " +
-                "classpath:/applicationContext-resources.xml");
+        sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM, "classpath:/applicationContext-dao.xml, "
+                + "classpath:/applicationContext-service.xml, " + "classpath:/applicationContext-resources.xml");
 
         springListener = new ContextLoaderListener();
         springListener.contextInitialized(new ServletContextEvent(sc));
@@ -52,8 +49,7 @@ public class StartupListenerTest extends TestCase {
     public void testContextInitialized() {
         listener.contextInitialized(new ServletContextEvent(sc));
 
-        assertTrue(sc.getAttribute(WebApplicationContext
-                .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
+        assertTrue(sc.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
         assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);
     }
 }

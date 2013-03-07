@@ -12,14 +12,16 @@ import org.springframework.stereotype.Repository;
 @Repository("companyDao")
 public class CompanyDaoHibernate extends GenericDaoHibernate<Company, Long> implements CompanyDao {
 
-	public CompanyDaoHibernate() {
-		super(Company.class);
-	}
+    public CompanyDaoHibernate() {
+        super(Company.class);
+    }
 
-	@Override
-	public List<Company> getAllByUser(User user) {
-		Query query = getSession().createQuery("select c as company from Company as c left join c.projects as p left join p.users as u where u = :user");
-		query.setLong("user", user.getId());
-		return query.list();
-	}
+    @Override
+    public List<Company> getAllByUser(User user) {
+        Query query = getSession()
+                .createQuery(
+                        "select c as company from Company as c left join c.projects as p left join p.users as u where u = :user");
+        query.setLong("user", user.getId());
+        return query.list();
+    }
 }

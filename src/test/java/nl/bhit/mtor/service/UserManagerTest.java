@@ -25,7 +25,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     public void testGetUser() throws Exception {
         user = mgr.getUserByUsername("user");
         assertNotNull(user);
-        
+
         log.debug(user);
         assertEquals(1, user.getRoles().size());
     }

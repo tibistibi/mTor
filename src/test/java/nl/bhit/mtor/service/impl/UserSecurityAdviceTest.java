@@ -45,8 +45,8 @@ public class UserSecurityAdviceTest {
         user.setPassword("password");
         user.addRole(new Role(Constants.USER_ROLE));
 
-        UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),
+                user.getPassword(), user.getAuthorities());
         token.setDetails(user);
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
@@ -81,8 +81,8 @@ public class UserSecurityAdviceTest {
         user.setId(2L);
         user.setPassword("password");
         user.addRole(new Role(Constants.ADMIN_ROLE));
-        UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),
+                user.getPassword(), user.getAuthorities());
         token.setDetails(user);
         securityContext.setAuthentication(token);
         SecurityContextHolder.setContext(securityContext);
@@ -91,9 +91,11 @@ public class UserSecurityAdviceTest {
         final User adminUser = new User("admin");
         adminUser.setId(2L);
 
-        context.checking(new Expectations() {{
-            one(userDao).saveUser(with(same(adminUser)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(userDao).saveUser(with(same(adminUser)));
+            }
+        });
 
         userManager.saveUser(adminUser);
     }
@@ -105,9 +107,11 @@ public class UserSecurityAdviceTest {
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        context.checking(new Expectations() {{
-            one(userDao).saveUser(with(same(user)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(userDao).saveUser(with(same(user)));
+            }
+        });
 
         userManager.saveUser(user);
     }
@@ -155,8 +159,8 @@ public class UserSecurityAdviceTest {
         user1.setId(1L);
         user1.setPassword("password");
         user1.addRole(new Role(Constants.ADMIN_ROLE));
-        UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword(), user1.getAuthorities());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user1.getUsername(),
+                user1.getPassword(), user1.getAuthorities());
         token.setDetails(user1);
         securityContext.setAuthentication(token);
         SecurityContextHolder.setContext(securityContext);
@@ -167,9 +171,11 @@ public class UserSecurityAdviceTest {
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        context.checking(new Expectations() {{
-            one(userDao).saveUser(with(same(user)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(userDao).saveUser(with(same(user)));
+            }
+        });
 
         userManager.saveUser(user);
     }
@@ -182,9 +188,11 @@ public class UserSecurityAdviceTest {
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        context.checking(new Expectations() {{
-            one(userDao).saveUser(with(same(user)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(userDao).saveUser(with(same(user)));
+            }
+        });
 
         userManager.saveUser(user);
     }

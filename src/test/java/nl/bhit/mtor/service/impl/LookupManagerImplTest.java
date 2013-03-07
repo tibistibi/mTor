@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-
 public class LookupManagerImplTest extends BaseManagerMockTestCase {
     private LookupManagerImpl mgr = new LookupManagerImpl();
     private LookupDao lookupDao;
@@ -34,10 +33,12 @@ public class LookupManagerImplTest extends BaseManagerMockTestCase {
         Role role = new Role(Constants.ADMIN_ROLE);
         final List<Role> testData = new ArrayList<Role>();
         testData.add(role);
-        context.checking(new Expectations() {{
-            one(lookupDao).getRoles();
-            will(returnValue(testData));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(lookupDao).getRoles();
+                will(returnValue(testData));
+            }
+        });
 
         List<LabelValue> roles = mgr.getAllRoles();
         assertTrue(roles.size() > 0);

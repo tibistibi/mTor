@@ -37,28 +37,29 @@ import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
- * and user management.  It implements Acegi Security's UserDetails interface.
- *
+ * and user management. It implements Acegi Security's UserDetails interface.
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
  *         Extended to implement Acegi UserDetails interface
  *         by David Carter david@carter.net
  */
 @Entity
-@Table(name = "app_user")
+@Table(
+        name = "app_user")
 @Indexed
 @XmlRootElement
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
     private Long id;
-    private String username;                    // required
-    private String password;                    // required
+    private String username; // required
+    private String password; // required
     private String confirmPassword;
     private String passwordHint;
-    private String firstName;                   // required
-    private String lastName;                    // required
-    private String email;                       // required; unique
+    private String firstName; // required
+    private String lastName; // required
+    private String email; // required; unique
     private String phoneNumber;
     private String website;
     private Address address = new Address();
@@ -71,8 +72,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private Set<Project> projects;
     private Status statusThreshold;
 
-
-	/**
+    /**
      * Default constructor - creates a new instance with no values set.
      */
     public User() {
@@ -80,63 +80,81 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Create a new instance and set the username.
-     *
-     * @param username login name for user.
+     * 
+     * @param username
+     *            login name for user.
      */
     public User(final String username) {
         this.username = username;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.AUTO)
     @DocumentId
     public Long getId() {
         return id;
     }
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(
+            nullable = false,
+            length = 50,
+            unique = true)
     @Field
     public String getUsername() {
         return username;
     }
 
-    @Column(nullable = false)
+    @Column(
+            nullable = false)
     @XmlTransient
     public String getPassword() {
         return password;
     }
 
-    @Transient @XmlTransient
+    @Transient
+    @XmlTransient
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    @Column(name = "password_hint")
+    @Column(
+            name = "password_hint")
     @XmlTransient
     public String getPasswordHint() {
         return passwordHint;
     }
 
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(
+            name = "first_name",
+            nullable = false,
+            length = 50)
     @Field
     public String getFirstName() {
         return firstName;
     }
 
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(
+            name = "last_name",
+            nullable = false,
+            length = 50)
     @Field
     public String getLastName() {
         return lastName;
     }
 
-    @Column(nullable = false, unique = true)
+    @Column(
+            nullable = false,
+            unique = true)
     @Field
     public String getEmail() {
         return email;
     }
 
-    @Column(name = "phone_number")
-    @Field(analyze= Analyze.NO)
+    @Column(
+            name = "phone_number")
+    @Field(
+            analyze = Analyze.NO)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -148,7 +166,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Returns the full name.
-     *
+     * 
      * @return firstName + ' ' + lastName
      */
     @Transient
@@ -162,19 +180,21 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return address;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(
+            fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+            joinColumns = { @JoinColumn(
+                    name = "user_id") },
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Convert user roles to LabelValue objects for convenience.
-     *
+     * 
      * @return a list of LabelValue objects with role information
      */
     @Transient
@@ -193,21 +213,22 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Adds a role for the user
-     *
-     * @param role the fully instantiated role
+     * 
+     * @param role
+     *            the fully instantiated role
      */
     public void addRole(Role role) {
         getRoles().add(role);
     }
-    
+
     public void addProject(Project project) {
-    	if (getProjects()!=null) {
+        if (getProjects() != null) {
             getProjects().add(project);
-        	} else {
-        		Set<Project> setOfProjects = new HashSet<Project>();
-        		setOfProjects.add(project);
-        		setProjects(setOfProjects);
-        	}
+        } else {
+            Set<Project> setOfProjects = new HashSet<Project>();
+            setOfProjects.add(project);
+            setProjects(setOfProjects);
+        }
     }
 
     /**
@@ -226,12 +247,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return version;
     }
 
-    @Column(name = "account_enabled")
+    @Column(
+            name = "account_enabled")
     public boolean isEnabled() {
         return enabled;
     }
 
-    @Column(name = "account_expired", nullable = false)
+    @Column(
+            name = "account_expired",
+            nullable = false)
     public boolean isAccountExpired() {
         return accountExpired;
     }
@@ -245,7 +269,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountExpired();
     }
 
-    @Column(name = "account_locked", nullable = false)
+    @Column(
+            name = "account_locked",
+            nullable = false)
     public boolean isAccountLocked() {
         return accountLocked;
     }
@@ -259,7 +285,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return !isAccountLocked();
     }
 
-    @Column(name = "credentials_expired", nullable = false)
+    @Column(
+            name = "credentials_expired",
+            nullable = false)
     public boolean isCredentialsExpired() {
         return credentialsExpired;
     }
@@ -369,12 +397,9 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * {@inheritDoc}
      */
     public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
-                .append("username", this.username)
-                .append("enabled", this.enabled)
-                .append("accountExpired", this.accountExpired)
-                .append("credentialsExpired", this.credentialsExpired)
-                .append("accountLocked", this.accountLocked);
+        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE).append("username", this.username)
+                .append("enabled", this.enabled).append("accountExpired", this.accountExpired)
+                .append("credentialsExpired", this.credentialsExpired).append("accountLocked", this.accountLocked);
 
         if (roles != null) {
             sb.append("Granted Authorities: ");
@@ -392,44 +417,44 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
         return sb.toString();
     }
-    
-	@ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	 @JoinTable(name = "project_app_user",
-	 joinColumns = {
-	 @JoinColumn(name="users_id") 
-	 },
-	 inverseJoinColumns = {
-	 @JoinColumn(name="PROJECT_ID")
-	 }
-	 )
+
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "project_app_user",
+            joinColumns = { @JoinColumn(
+                    name = "users_id") },
+            inverseJoinColumns = { @JoinColumn(
+                    name = "PROJECT_ID") })
     public Set<Project> getProjects() {
-		return projects;
-	}
+        return projects;
+    }
 
-	public void setProjects(Set<Project> projects) {
-		this.projects = projects;
-	}
-	
-	public Set<String> projectNames() {
-		Set<String> projectNames = new HashSet<String>();
-		if (getProjects()!=null) {
-			Set<Project> projectList = getProjects();
-			 for (Project project : projectList) {
-				 projectNames.add(project.getName());
-			 }
-		 } 
-		 return projectNames;
-	}
-	
-	@Column(
-			name = "STATUS_THRESHOLD",
-			length = 5)
-	@Enumerated(EnumType.STRING)
-	public Status getStatusThreshold() {
-		return statusThreshold;
-	}
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
 
-	public void setStatusThreshold(Status statusThreshold) {
-		this.statusThreshold = statusThreshold;
-	}
+    public Set<String> projectNames() {
+        Set<String> projectNames = new HashSet<String>();
+        if (getProjects() != null) {
+            Set<Project> projectList = getProjects();
+            for (Project project : projectList) {
+                projectNames.add(project.getName());
+            }
+        }
+        return projectNames;
+    }
+
+    @Column(
+            name = "STATUS_THRESHOLD",
+            length = 5)
+    @Enumerated(EnumType.STRING)
+    public Status getStatusThreshold() {
+        return statusThreshold;
+    }
+
+    public void setStatusThreshold(Status statusThreshold) {
+        this.statusThreshold = statusThreshold;
+    }
 }

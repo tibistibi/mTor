@@ -37,10 +37,12 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
         final MTorMessage message = new MTorMessage();
 
         // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).get(with(equal(id)));
-            will(returnValue(message));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(dao).get(with(equal(id)));
+                will(returnValue(message));
+            }
+        });
 
         MTorMessage result = manager.get(id);
         assertSame(message, result);
@@ -53,10 +55,12 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
         final List messages = new ArrayList();
 
         // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).getAll();
-            will(returnValue(messages));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(dao).getAll();
+                will(returnValue(messages));
+            }
+        });
 
         List result = manager.getAll();
         assertSame(messages, result);
@@ -70,11 +74,13 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
         // enter all required fields
         message.setContent("IzCrGzWyVeZfKcOqPpEhIySiNdPxCzCfAqBgZlNiEsGsVgHlBaGdZqGdUxXtUoHjGdBhRxGnXsGzQmTpBzIrDaCrRmRgLaNnXpKeMqGoDjNnYmGkHaDvMuQaEiQkZeEgCyEzCmXsIxPzBmPxUnBlQjFcFsAwNdVpRvUeQsCaHuLoVuKxHtLbIcZbShKfVfGeBlRuAoGcSjDmVlAfMaRwVoKjDmLtTtYqCwBkOjTbNoBtCkJiUrZgSdWwFqEgYiP");
         message.setTimestamp(new java.util.Date());
-        
+
         // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).save(with(same(message)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(dao).save(with(same(message)));
+            }
+        });
 
         manager.save(message);
     }
@@ -86,9 +92,11 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
         final Long id = -11L;
 
         // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).remove(with(equal(id)));
-        }});
+        context.checking(new Expectations() {
+            {
+                one(dao).remove(with(equal(id)));
+            }
+        });
 
         manager.remove(id);
     }

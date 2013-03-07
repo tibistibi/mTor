@@ -44,7 +44,8 @@ public class ProjectActionTest extends BaseActionTestCase {
     @Test
     public void testSearch() throws Exception {
         // regenerate indexes
-        GenericManager<Project, Long> projectManager = (GenericManager<Project, Long>) applicationContext.getBean("projectManager");
+        GenericManager<Project, Long> projectManager = (GenericManager<Project, Long>) applicationContext
+                .getBean("projectManager");
         projectManager.reindex();
 
         action.setQ("*");

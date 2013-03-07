@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * This class tests the current LookupDao implementation class
+ * 
  * @author mraible
  */
 public class LookupDaoTest extends BaseDaoTestCase {

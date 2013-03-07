@@ -13,10 +13,9 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-@ContextConfiguration(locations = {
-        "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
-        "classpath:/applicationContext-service.xml", "classpath*:/**/applicationContext.xml"
-})
+@ContextConfiguration(
+        locations = { "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml", "classpath*:/**/applicationContext.xml" })
 /**
  * Test classes can extend this manager based on a spring context.
  * This test class can be moved to the test tree.
@@ -51,10 +50,12 @@ public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4Spr
 
     /**
      * Utility method to populate an object with values from a properties file
-     *
-     * @param obj the model object to populate
+     * 
+     * @param obj
+     *            the model object to populate
      * @return Object populated object
-     * @throws Exception if BeanUtils fails to copy properly
+     * @throws Exception
+     *             if BeanUtils fails to copy properly
      */
     protected Object populate(Object obj) throws Exception {
         // loop through all the beans methods and set its properties from

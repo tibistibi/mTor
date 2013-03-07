@@ -20,15 +20,13 @@ import org.hibernate.search.Search;
 
 /**
  * Base class for running DAO tests.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @author jgarcia (updated: migrate to hibernate 4; moved from compass-search to hibernate-search
  */
 @ContextConfiguration(
-        locations = {"classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath*:/applicationContext.xml",
-                "classpath:**/applicationContext*.xml"})
+        locations = { "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
+                "classpath*:/applicationContext.xml", "classpath:**/applicationContext*.xml" })
 public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     private SessionFactory sessionFactory;
@@ -61,10 +59,12 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
     /**
      * Utility method to populate a javabean-style object with values
      * from a Properties file
-     *
-     * @param obj the model object to populate
+     * 
+     * @param obj
+     *            the model object to populate
      * @return Object populated object
-     * @throws Exception if BeanUtils fails to copy properly
+     * @throws Exception
+     *             if BeanUtils fails to copy properly
      */
     protected Object populate(final Object obj) throws Exception {
         // loop through all the beans methods and set its properties from its .properties file
@@ -83,9 +83,9 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
     /**
      * Create a HibernateTemplate from the SessionFactory and call flush() and clear() on it.
      * Designed to be used after "save" methods in tests: http://issues.appfuse.org/browse/APF-178.
-     *
+     * 
      * @throws org.springframework.beans.BeansException
-     *          when can't find 'sessionFactory' bean
+     *             when can't find 'sessionFactory' bean
      */
     protected void flush() throws BeansException {
         Session currentSession = sessionFactory.getCurrentSession();

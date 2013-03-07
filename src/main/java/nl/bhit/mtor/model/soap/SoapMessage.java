@@ -10,33 +10,33 @@ import nl.bhit.mtor.model.Status;
  * @author tibi
  */
 public class SoapMessage implements Serializable {
-	private static final long serialVersionUID = -29873897872583055L;
-	private String content;
-	private Status status;
-	private Long projectId;
+    private static final long serialVersionUID = -29873897872583055L;
+    private String content;
+    private Status status;
+    private Long projectId;
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public Long getProjectId() {
-		return projectId;
-	}
+    public Long getProjectId() {
+        return projectId;
+    }
 
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
-	}
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public Status getStatus() {
+        return status;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
 }

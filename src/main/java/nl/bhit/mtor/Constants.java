@@ -1,9 +1,8 @@
 package nl.bhit.mtor;
 
-
 /**
  * Constant values used throughout the application.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public final class Constants {
@@ -11,7 +10,8 @@ public final class Constants {
     private Constants() {
         // hide me
     }
-    //~ Static fields/initializers =============================================
+
+    // ~ Static fields/initializers =============================================
 
     /**
      * The name of the ResourceBundle used in this application
@@ -64,7 +64,7 @@ public final class Constants {
      * The name of the User role, as specified in web.xml
      */
     public static final String USER_ROLE = "ROLE_USER";
-    
+
     public static final String ANONYMOUS_ROLE = "ROLE_ANONYMOUS";
 
     /**
@@ -81,6 +81,7 @@ public final class Constants {
 
     /**
      * The name of the CSS Theme setting.
+     * 
      * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";

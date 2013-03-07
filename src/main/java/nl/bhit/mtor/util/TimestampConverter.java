@@ -22,8 +22,11 @@ public class TimestampConverter extends DateConverter {
 
     /**
      * Convert a String to a date
-     * @param type java.util.Date
-     * @param value the String value
+     * 
+     * @param type
+     *            java.util.Date
+     * @param value
+     *            the String value
      * @return a converted date
      */
     protected Object convertToDate(Class type, Object value) {
@@ -40,14 +43,16 @@ public class TimestampConverter extends DateConverter {
             }
         }
 
-        throw new ConversionException("Could not convert "
-                + value.getClass().getName() + " to " + type.getName());
+        throw new ConversionException("Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
     /**
      * Convert from a java.util.Date to a String
-     * @param type java.lang.String
-     * @param value the date instance
+     * 
+     * @param type
+     *            java.lang.String
+     * @param value
+     *            the date instance
      * @return string version of date using default date pattern
      */
     protected Object convertToString(Class type, Object value) {

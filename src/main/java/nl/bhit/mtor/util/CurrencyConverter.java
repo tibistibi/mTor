@@ -12,7 +12,7 @@ import java.text.ParseException;
 /**
  * This class is converts a Double to a double-digit String
  * (and vise-versa) by BeanUtils when copying properties.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class CurrencyConverter implements Converter {
@@ -25,9 +25,11 @@ public class CurrencyConverter implements Converter {
 
     /**
      * Convert a String to a Double and a Double to a String
-     *
-     * @param type the class type to output
-     * @param value the object to convert
+     * 
+     * @param type
+     *            the class type to output
+     * @param value
+     *            the object to convert
      * @return object the converted object (Double or String)
      */
     public final Object convert(final Class type, final Object value) {
@@ -49,7 +51,7 @@ public class CurrencyConverter implements Converter {
                         log.debug("converting '" + value + "' to a decimal");
                     }
 
-                    //formatter.setDecimalSeparatorAlwaysShown(true);
+                    // formatter.setDecimalSeparatorAlwaysShown(true);
                     Number num = formatter.parse(String.valueOf(value));
 
                     return num.doubleValue();

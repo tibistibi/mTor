@@ -38,7 +38,7 @@ public class MailEngineTest extends BaseManagerTestCase {
 
     @After
     public void tearDown() {
-       mailEngine.setMailSender(null);
+        mailEngine.setMailSender(null);
     }
 
     @Test
@@ -46,11 +46,11 @@ public class MailEngineTest extends BaseManagerTestCase {
         // mock smtp server
         Wiser wiser = new Wiser();
         // set the port to a random value so there's no conflicts between tests
-        int port = 2525 + (int)(Math.random() * 100);
+        int port = 2525 + (int) (Math.random() * 100);
         mailSender.setPort(port);
         wiser.setPort(port);
         wiser.start();
-        
+
         Date dte = new Date();
         this.mailMessage.setTo("foo@bar.com");
         String emailSubject = "grepster testSend: " + dte;
@@ -58,7 +58,7 @@ public class MailEngineTest extends BaseManagerTestCase {
         this.mailMessage.setSubject(emailSubject);
         this.mailMessage.setText(emailBody);
         this.mailEngine.send(this.mailMessage);
-        
+
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
         WiserMessage wm = wiser.getMessages().get(0);
@@ -69,49 +69,47 @@ public class MailEngineTest extends BaseManagerTestCase {
     @Test
     public void testSendMessageWithAttachment() throws Exception {
         final String ATTACHMENT_NAME = "boring-attachment.txt";
-        
-        //mock smtp server
+
+        // mock smtp server
         Wiser wiser = new Wiser();
-        int port = 2525 + (int)(Math.random() * 100);
+        int port = 2525 + (int) (Math.random() * 100);
         mailSender.setPort(port);
         wiser.setPort(port);
         wiser.start();
-        
+
         Date dte = new Date();
         String emailSubject = "grepster testSendMessageWithAttachment: " + dte;
         String emailBody = "Body of the grepster testSendMessageWithAttachment message sent at: " + dte;
-        
+
         ClassPathResource cpResource = new ClassPathResource("/test-attachment.txt");
         // a null from should work
-        mailEngine.sendMessage(new String[] {
-            "foo@bar.com"
-        }, null, cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
+        mailEngine.sendMessage(new String[] { "foo@bar.com" }, null, cpResource, emailBody, emailSubject,
+                ATTACHMENT_NAME);
 
-        mailEngine.sendMessage(new String[] {
-            "foo@bar.com"
-        }, mailMessage.getFrom(), cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
+        mailEngine.sendMessage(new String[] { "foo@bar.com" }, mailMessage.getFrom(), cpResource, emailBody,
+                emailSubject, ATTACHMENT_NAME);
 
         wiser.stop();
         // one without and one with from
         assertTrue(wiser.getMessages().size() == 2);
-        
+
         WiserMessage wm = wiser.getMessages().get(0);
         MimeMessage mm = wm.getMimeMessage();
 
         Object o = wm.getMimeMessage().getContent();
         assertTrue(o instanceof MimeMultipart);
-        MimeMultipart multi = (MimeMultipart)o;
+        MimeMultipart multi = (MimeMultipart) o;
         int numOfParts = multi.getCount();
-        
+
         boolean hasTheAttachment = false;
         for (int i = 0; i < numOfParts; i++) {
             BodyPart bp = multi.getBodyPart(i);
             String disp = bp.getDisposition();
-            if (disp == null) {                        //the body of the email
+            if (disp == null) { // the body of the email
                 Object innerContent = bp.getContent();
-                MimeMultipart innerMulti = (MimeMultipart)innerContent;
+                MimeMultipart innerMulti = (MimeMultipart) innerContent;
                 assertEquals(emailBody, innerMulti.getBodyPart(0).getContent());
-            } else if (disp.equals(Part.ATTACHMENT)) { //the attachment to the email
+            } else if (disp.equals(Part.ATTACHMENT)) { // the attachment to the email
                 hasTheAttachment = true;
                 assertEquals(ATTACHMENT_NAME, bp.getFileName());
             } else {

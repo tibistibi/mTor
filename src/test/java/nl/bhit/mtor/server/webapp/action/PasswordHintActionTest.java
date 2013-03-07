@@ -24,7 +24,7 @@ public class PasswordHintActionTest extends BaseActionTestCase {
         Wiser wiser = new Wiser();
         wiser.setPort(getSmtpPort());
         wiser.start();
-        
+
         action.setUsername("user");
         assertEquals("success", action.execute());
         assertFalse(action.hasActionErrors());

@@ -92,7 +92,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user = dao.get(-1L);
         assertEquals(2, user.getRoles().size());
 
-        //add the same role twice - should result in no additional role
+        // add the same role twice - should result in no additional role
         user.addRole(role);
         dao.saveUser(user);
         flush();

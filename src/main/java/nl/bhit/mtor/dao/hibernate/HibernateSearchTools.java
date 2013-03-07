@@ -1,6 +1,7 @@
 package nl.bhit.mtor.dao.hibernate;
 
 import java.util.Collection;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.lucene.analysis.Analyzer;
@@ -19,7 +20,7 @@ import org.hibernate.search.indexes.IndexReaderAccessor;
 
 /**
  * Utility class to generate lucene queries for hibernate search and perform full reindexing.
- *
+ * 
  * @author jgarcia
  */
 class HibernateSearchTools {
@@ -27,15 +28,20 @@ class HibernateSearchTools {
 
     /**
      * Generates a lucene query to search for a given term in all the indexed fields of a class
-     *
-     * @param searchTerm the term to search for
-     * @param searchedEntity the class searched
-     * @param sess the hibernate session
-     * @param defaultAnalyzer the default analyzer for parsing the search terms
+     * 
+     * @param searchTerm
+     *            the term to search for
+     * @param searchedEntity
+     *            the class searched
+     * @param sess
+     *            the hibernate session
+     * @param defaultAnalyzer
+     *            the default analyzer for parsing the search terms
      * @return
      * @throws ParseException
      */
-    public static Query generateQuery(String searchTerm, Class searchedEntity, Session sess, Analyzer defaultAnalyzer) throws ParseException {
+    public static Query generateQuery(String searchTerm, Class searchedEntity, Session sess, Analyzer defaultAnalyzer)
+            throws ParseException {
         Query qry = null;
 
         if (searchTerm.equals("*")) {
@@ -56,7 +62,8 @@ class HibernateSearchTools {
                     analyzer = txtSession.getSearchFactory().getAnalyzer(searchedEntity);
                 }
 
-                // search on all indexed fields: generate field list, removing internal hibernate search field name: _hibernate_class
+                // search on all indexed fields: generate field list, removing internal hibernate search field name:
+                // _hibernate_class
                 // TODO: possible improvement: cache the fields of each entity
                 SearchFactory searchFactory = txtSession.getSearchFactory();
                 readerAccessor = searchFactory.getIndexReaderAccessor();
@@ -84,9 +91,11 @@ class HibernateSearchTools {
 
     /**
      * Regenerates the index for a given class
-     *
-     * @param clazz the class
-     * @param sess the hibernate session
+     * 
+     * @param clazz
+     *            the class
+     * @param sess
+     *            the hibernate session
      */
     public static void reindex(Class clazz, Session sess) {
         FullTextSession txtSession = Search.getFullTextSession(sess);
@@ -102,9 +111,11 @@ class HibernateSearchTools {
 
     /**
      * Regenerates all the indexed class indexes
-     *
-     * @param async true if the reindexing will be done as a background thread
-     * @param sess the hibernate session
+     * 
+     * @param async
+     *            true if the reindexing will be done as a background thread
+     * @param sess
+     *            the hibernate session
      */
     public static void reindexAll(boolean async, Session sess) {
         FullTextSession txtSession = Search.getFullTextSession(sess);
