@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 		value = "mTorServerTimer")
 public class MTorServerTimer {
 	protected final Log log = LogFactory.getLog(MTorServerTimer.class);
+	private static AlertSender alertSender;
 
 	protected static String[] getConfigLocations() {
 		return new String[] { "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
@@ -21,10 +22,11 @@ public class MTorServerTimer {
 	 */
 	public void process() {
 		log.debug("starting up the MTorServerTimer processor.");
-		final BeanFactory factory = new ClassPathXmlApplicationContext(getConfigLocations());
-		AlertSender alertSender = (AlertSender) factory.getBean("alertSender");
+		if (alertSender == null) {
+			log.trace("create a new alertSender");
+			final BeanFactory factory = new ClassPathXmlApplicationContext(getConfigLocations());
+			alertSender = (AlertSender) factory.getBean("alertSender");
+		}
 		alertSender.process();
-		alertSender = null;
-		System.gc();
 	}
 }
