@@ -262,7 +262,23 @@
 			    <version>3.2</version>
 			</plugin>
 <!-- For Maven reports -->
+<!--qalab -->
+  <plugin>
+    <groupId>net.objectlab</groupId>
+    <artifactId>mvn-qalab-plugin</artifactId>
+    <version>2.2</version>
+    <executions>
+      <execution>
+        <id>merge-all</id>
+        <phase>site</phase>
+        <goals>
+          <goal>merge-all</goal>
+       </goals>
+     </execution>
+   </executions>
+ </plugin>
 
+<!--qalab -->
             
         </plugins>
         <resources>
@@ -845,9 +861,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
+	                <formats>
+	                    <format>html</format>
+	                    <format>xml</format>
+	                </formats>
                     <instrumentation>
                         <excludes>
-                            <exclude>**/model/*.class</exclude>
+                            <exclude>**/wsdl/*.class</exclude>
                         </excludes>
                     </instrumentation>
                 </configuration>
@@ -878,6 +898,31 @@
                 <artifactId>webtest-maven-plugin</artifactId>
                 <version>1.0.0</version>
             </plugin>
+            <plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+        		<artifactId>findbugs-maven-plugin</artifactId>
+        		<version>2.5.3-SNAPSHOT</version>
+      		</plugin>
+
+<!-- qalab -->
+	  <plugin>
+	    <groupId>net.objectlab</groupId>
+	    <artifactId>mvn-qalab-plugin</artifactId>
+	    <version>2.2</version>
+	    <reportSets>
+	      <reportSet>
+	        <reports>
+	          <report>report-merge-chart</report>
+	          <report>report-movers-all</report>
+	       </reports>
+	     </reportSet>
+	   </reportSets>
+	 </plugin>
+
+<!-- qalab -->
+
+
+
         </plugins>
     </reporting>
 
