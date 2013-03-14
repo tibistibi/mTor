@@ -1,19 +1,20 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.ServletActionContext;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import nl.bhit.mtor.model.Project;
-import nl.bhit.mtor.server.webapp.action.BaseActionTestCase;
-import nl.bhit.mtor.server.webapp.action.ProjectAction;
 import nl.bhit.mtor.service.GenericManager;
+import nl.bhit.mtor.service.ProjectManager;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mock.web.MockHttpServletRequest;
-
-import org.junit.After;
+import org.apache.struts2.ServletActionContext;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.springframework.mock.web.MockHttpServletRequest;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 public class ProjectActionTest extends BaseActionTestCase {
     private ProjectAction action;
@@ -23,7 +24,7 @@ public class ProjectActionTest extends BaseActionTestCase {
         super.onSetUp();
 
         action = new ProjectAction();
-        GenericManager projectManager = (GenericManager) applicationContext.getBean("projectManager");
+        ProjectManager projectManager = (ProjectManager)applicationContext.getBean("projectManager");
         action.setProjectManager(projectManager);
 
         // add a test project to the database

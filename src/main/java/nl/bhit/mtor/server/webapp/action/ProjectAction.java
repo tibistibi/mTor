@@ -1,28 +1,26 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import com.opensymphony.xwork2.Preparable;
-
-import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.dao.SearchException;
-import nl.bhit.mtor.model.Company;
-import nl.bhit.mtor.model.Project;
-import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.server.webapp.action.BaseAction;
-import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
-import nl.bhit.mtor.service.GenericManager;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.dao.DataIntegrityViolationException;
+import nl.bhit.mtor.Constants;
+import nl.bhit.mtor.dao.SearchException;
+import nl.bhit.mtor.model.Company;
+import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.User;
+import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
+import nl.bhit.mtor.service.CompanyManager;
+import nl.bhit.mtor.service.ProjectManager;
+
+import com.opensymphony.xwork2.Preparable;
 
 
 public class ProjectAction extends BaseAction implements Preparable {
-    private GenericManager<Project, Long> projectManager;
-    private GenericManager<Company, Long> companyManager;
+	private CompanyManager companyManager;
+	private ProjectManager projectManager;
     private List projects;
     private List companies;
     private List users;
@@ -30,11 +28,11 @@ public class ProjectAction extends BaseAction implements Preparable {
     private Long id;
     private String query;
 
-    public void setProjectManager(GenericManager<Project, Long> projectManager) {
+    public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
     }
 
-    public void setCompanyManager(GenericManager<Company, Long> companyManager) {
+    public void setCompanyManager(CompanyManager companyManager) {
         this.companyManager = companyManager;
     }
     

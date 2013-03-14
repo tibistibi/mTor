@@ -16,7 +16,7 @@
     
 
     <!--CompanyManager-START-->
-    <bean id="companyManager" class="nl.bhit.mtor.service.impl.GenericManagerImpl">
+    <bean id="companyManager" class="nl.bhit.mtor.service.impl.CompanyManagerImpl">
         <constructor-arg>
             <bean class="nl.bhit.mtor.dao.hibernate.GenericDaoHibernate">
                 <constructor-arg value="nl.bhit.mtor.model.Company"/>
@@ -28,7 +28,7 @@
     
 
     <!--ProjectManager-START-->
-    <bean id="projectManager" class="nl.bhit.mtor.service.impl.GenericManagerImpl">
+    <bean id="projectManager" class="nl.bhit.mtor.service.impl.ProjectManagerImpl">
         <constructor-arg>
             <bean class="nl.bhit.mtor.dao.hibernate.GenericDaoHibernate">
                 <constructor-arg value="nl.bhit.mtor.model.Project"/>
