@@ -37,7 +37,7 @@
         <summaryresult date="2013-03-14" filecount="49" statvalue="71" type="findbugs"/>
         <summaryresult date="2013-03-14" filecount="89" statvalue="23" type="cobertura-line"/>
         <summaryresult date="2013-03-14" filecount="89" statvalue="10" type="cobertura-branch"/>
-        <summaryresult date="2013-03-15" filecount="137" statvalue="379" type="checkstyle"/>
+        <summaryresult date="2013-03-15" filecount="137" statvalue="182" type="checkstyle"/>
         <summaryresult date="2013-03-15" filecount="22" statvalue="4864" type="pmd"/>
         <summaryresult date="2013-03-15" filecount="116"
             statvalue="4530" type="pmd-cpd"/>
@@ -599,7 +599,7 @@
         <result date="2013-03-12" statvalue="16" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="66" type="checkstyle"/>
         <result date="2013-03-14" statvalue="16" type="cobertura-line"/>
-        <result date="2013-03-15" statvalue="66" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="4" type="checkstyle"/>
         <result date="2013-03-15" statvalue="16" type="cobertura-line"/>
     </file>
     <file id="nl_bhit_mtor_service_impl_ProjectManagerImpl.java" path="nl/bhit/mtor/service/impl/ProjectManagerImpl.java">
@@ -611,7 +611,7 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="9" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="3" type="checkstyle"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-branch"/>
@@ -624,7 +624,7 @@
         <result date="2013-03-14" statvalue="16" type="checkstyle"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="16" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="3" type="checkstyle"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-branch"/>
     </file>
@@ -664,7 +664,7 @@
         <result date="2013-03-14" statvalue="116" type="checkstyle"/>
         <result date="2013-03-14" statvalue="86" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="85" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="116" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
         <result date="2013-03-15" statvalue="86" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="85" type="cobertura-branch"/>
     </file>
@@ -990,6 +990,68 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="30" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="23" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="3" type="findbugs"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
@@ -1444,7 +1506,6 @@
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_FileUploadAction.java" path="nl/bhit/mtor/server/webapp/action/FileUploadAction.java">
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_ReloadAction.java" path="nl/bhit/mtor/server/webapp/action/ReloadAction.java">
