@@ -18,7 +18,9 @@ import java.util.List;
  * common CRUD methods that they might all use. You should only need to extend
  * this class when your require custom CRUD logic.
  * <p/>
- * <p>To register this class in your Spring context file, use the following XML.
+ * <p>
+ * To register this class in your Spring context file, use the following XML.
+ * 
  * <pre>
  *     &lt;bean id="userManager" class="nl.bhit.service.impl.GenericManagerImpl"&gt;
  *         &lt;constructor-arg&gt;
@@ -30,7 +32,9 @@ import java.util.List;
  *     &lt;/bean&gt;
  * </pre>
  * <p/>
- * <p>If you're using iBATIS instead of Hibernate, use:
+ * <p>
+ * If you're using iBATIS instead of Hibernate, use:
+ * 
  * <pre>
  *     &lt;bean id="userManager" class="nl.bhit.service.impl.GenericManagerImpl"&gt;
  *         &lt;constructor-arg&gt;
@@ -42,11 +46,13 @@ import java.util.List;
  *         &lt;/constructor-arg&gt;
  *     &lt;/bean&gt;
  * </pre>
- *
- * @param <T>  a type variable
- * @param <PK> the primary key for that type
+ * 
+ * @param <T>
+ *            a type variable
+ * @param <PK>
+ *            the primary key for that type
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Updated by jgarcia: added full text search + reindexing
+ *         Updated by jgarcia: added full text search + reindexing
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
     /**
@@ -58,7 +64,6 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
      * GenericDao instance, set by constructor of child classes
      */
     protected GenericDao<T, PK> dao;
-
 
     public GenericManagerImpl() {
     }
@@ -73,7 +78,7 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
     public List<T> getAll() {
         return dao.getAll();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -143,6 +148,5 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
     public void reindexAll(boolean async) {
         dao.reindexAll(async);
     }
-    
 
 }

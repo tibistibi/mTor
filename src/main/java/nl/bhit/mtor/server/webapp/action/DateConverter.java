@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * This class implements a Struts Type Converter and can be used by struts to convert Date's to Strings
- *
+ * 
  * @author mraible
  */
 public class DateConverter extends StrutsTypeConverter {
@@ -41,4 +41,4 @@ public class DateConverter extends StrutsTypeConverter {
     public String convertToString(Map ctx, Object data) {
         return DateUtil.convertDateToString((Date) data);
     }
-} 
+}

@@ -11,10 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Implementation of LookupManager interface to talk to the persistence layer.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Service("lookupManager")

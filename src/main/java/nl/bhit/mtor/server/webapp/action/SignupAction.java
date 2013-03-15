@@ -1,6 +1,5 @@
 package nl.bhit.mtor.server.webapp.action;
 
-
 import org.apache.struts2.ServletActionContext;
 
 import nl.bhit.mtor.Constants;
@@ -37,6 +36,7 @@ public class SignupAction extends BaseAction {
 
     /**
      * Return an instance of the user - to display when validation errors occur
+     * 
      * @return a populated user
      */
     public User getUser() {
@@ -45,6 +45,7 @@ public class SignupAction extends BaseAction {
 
     /**
      * When method=GET, "input" is returned. Otherwise, "success" is returned.
+     * 
      * @return cancel, input or success
      */
     public String execute() {
@@ -59,6 +60,7 @@ public class SignupAction extends BaseAction {
 
     /**
      * Returns "input"
+     * 
      * @return "input" by default
      */
     public String doDefault() {
@@ -67,30 +69,31 @@ public class SignupAction extends BaseAction {
 
     /**
      * Save the user, encrypting their passwords if necessary
+     * 
      * @return success when good things happen
-     * @throws Exception when bad things happen
+     * @throws Exception
+     *             when bad things happen
      */
     public String save() throws Exception {
         user.setEnabled(true);
 
-        
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
-        //remove according new requirement for issue #30 signup role
-//        // Set the default anonymous role on this new user
-//        if (roleManager.getRole(Constants.ANONYMOUS_ROLE) == null) {
-//        	roleManager.saveRole(new Role(Constants.ANONYMOUS_ROLE));
-//        }        
-//        user.addRole(roleManager.getRole(Constants.ANONYMOUS_ROLE));
-        
+        // remove according new requirement for issue #30 signup role
+        // // Set the default anonymous role on this new user
+        // if (roleManager.getRole(Constants.ANONYMOUS_ROLE) == null) {
+        // roleManager.saveRole(new Role(Constants.ANONYMOUS_ROLE));
+        // }
+        // user.addRole(roleManager.getRole(Constants.ANONYMOUS_ROLE));
+
         user.setEmail(user.getUsername());
 
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
-            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             log.warn(ade.getMessage());
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            return null; 
+            return null;
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             List<Object> args = new ArrayList<Object>();
@@ -107,8 +110,8 @@ public class SignupAction extends BaseAction {
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user.getUsername(),
+                user.getConfirmPassword(), user.getAuthorities());
         auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
@@ -123,5 +126,5 @@ public class SignupAction extends BaseAction {
 
         return SUCCESS;
     }
-    
+
 }

@@ -47,6 +47,7 @@ public class UserAction extends BaseAction implements Preparable {
     public void setProjectManager(GenericManager<Project, Long> projectManager) {
         this.projectManager = projectManager;
     }
+
     /**
      * Grab the entity from the database before populating with request parameters
      */
@@ -57,10 +58,9 @@ public class UserAction extends BaseAction implements Preparable {
         }
     }
 
-
     /**
      * Holder for users to display on list screen
-     *
+     * 
      * @return list of users
      */
     public List<User> getUsers() {
@@ -85,7 +85,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Delete the user passed in.
-     *
+     * 
      * @return success
      */
     public String delete() {
@@ -99,9 +99,10 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Grab the user from the database based on the "id" passed in.
-     *
+     * 
      * @return success if user found
-     * @throws IOException can happen when sending a "forbidden" from response.sendError()
+     * @throws IOException
+     *             can happen when sending a "forbidden" from response.sendError()
      */
     public String edit() throws IOException {
         HttpServletRequest request = getRequest();
@@ -110,8 +111,8 @@ public class UserAction extends BaseAction implements Preparable {
         // if URL is "editProfile" - make sure it's the current user
         if (editProfile && ((request.getParameter("id") != null) || (request.getParameter("from") != null))) {
             ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
-                    request.getParameter("id") + "'");
+            log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" + request.getParameter("id")
+                    + "'");
             return null;
         }
 
@@ -125,13 +126,12 @@ public class UserAction extends BaseAction implements Preparable {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));
         }
-        
 
         String[] userProjects = getRequest().getParameterValues("projects");
 
         for (int i = 0; userProjects != null && i < userProjects.length; i++) {
             Long projectName = Long.parseLong(userProjects[i]);
-            user.addProject(projectManager.get(projectName));  
+            user.addProject(projectManager.get(projectName));
         }
 
         if (user.getUsername() != null) {
@@ -158,7 +158,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Default: just returns "success"
-     *
+     * 
      * @return "success"
      */
     public String execute() {
@@ -167,7 +167,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Sends users to "mainMenu" when !from.equals("list"). Sends everyone else to "cancel"
-     *
+     * 
      * @return "mainMenu" or "cancel"
      */
     public String cancel() {
@@ -179,9 +179,10 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Save user
-     *
+     * 
      * @return success if everything worked, otherwise input
-     * @throws Exception when setting "access denied" fails on response
+     * @throws Exception
+     *             when setting "access denied" fails on response
      */
     public String save() throws Exception {
 
@@ -203,17 +204,17 @@ public class UserAction extends BaseAction implements Preparable {
                 }
             }
         }
-        
+
         if (user.getProjects() != null) {
-        	user.getProjects().clear();
+            user.getProjects().clear();
         }
         String[] userProjects = getRequest().getParameterValues("projects");
 
         for (int i = 0; userProjects != null && i < userProjects.length; i++) {
             Long projectName = Long.parseLong(userProjects[i]);
-            user.addProject(projectManager.get(projectName));  
+            user.addProject(projectManager.get(projectName));
         }
-        
+
         user.setEmail(user.getUsername());
 
         try {
@@ -232,24 +233,24 @@ public class UserAction extends BaseAction implements Preparable {
             saveMessage(getText("user.saved"));
             return "mainMenu";
         }
-        
-            // add success messages
-            List<Object> args = new ArrayList<Object>();
-            args.add(user.getFullName());
-            if (isNew) {
-                saveMessage(getText("user.added", args));
-                // Send an account information e-mail
-                mailMessage.setSubject(getText("signup.email.subject"));
-                try {
-                    sendUserMessage(user, getText("newuser.email.message", args), RequestUtil.getAppURL(getRequest()));
-                } catch (MailException me) {
-                    addActionError(me.getCause().getLocalizedMessage());
-                }
-                return SUCCESS;
+
+        // add success messages
+        List<Object> args = new ArrayList<Object>();
+        args.add(user.getFullName());
+        if (isNew) {
+            saveMessage(getText("user.added", args));
+            // Send an account information e-mail
+            mailMessage.setSubject(getText("signup.email.subject"));
+            try {
+                sendUserMessage(user, getText("newuser.email.message", args), RequestUtil.getAppURL(getRequest()));
+            } catch (MailException me) {
+                addActionError(me.getCause().getLocalizedMessage());
             }
-                user.setConfirmPassword(user.getPassword());
-                saveMessage(getText("user.updated.byAdmin", args));
-                return INPUT;
+            return SUCCESS;
+        }
+        user.setConfirmPassword(user.getPassword());
+        saveMessage(getText("user.updated.byAdmin", args));
+        return INPUT;
     }
 
     private String showUserExistsException(Integer originalVersion) {
@@ -267,7 +268,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Fetch all users from database and put into local "users" variable for retrieval in the UI.
-     *
+     * 
      * @return "success" if no exceptions thrown
      */
     public String list() {
@@ -281,11 +282,10 @@ public class UserAction extends BaseAction implements Preparable {
         }
         return SUCCESS;
     }
-    
-   public List getProjectList(){
-		projects = projectManager.getAllDistinct();
-		return projects;
+
+    public List getProjectList() {
+        projects = projectManager.getAllDistinct();
+        return projects;
     }
-   
 
 }

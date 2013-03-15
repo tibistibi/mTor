@@ -17,10 +17,9 @@ import nl.bhit.mtor.service.ProjectManager;
 
 import com.opensymphony.xwork2.Preparable;
 
-
 public class ProjectAction extends BaseAction implements Preparable {
-	private CompanyManager companyManager;
-	private ProjectManager projectManager;
+    private CompanyManager companyManager;
+    private ProjectManager projectManager;
     private List projects;
     private List companies;
     private List users;
@@ -35,7 +34,7 @@ public class ProjectAction extends BaseAction implements Preparable {
     public void setCompanyManager(CompanyManager companyManager) {
         this.companyManager = companyManager;
     }
-    
+
     public List getProjects() {
         return projects;
     }
@@ -59,56 +58,56 @@ public class ProjectAction extends BaseAction implements Preparable {
 
     public String list() {
         try {
-        	if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-	            Collection projectsNew = new LinkedHashSet(projectManager.search(query, Project.class));
-	            List<Project> tempProjects = new ArrayList(projectsNew);
-	            String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-	            projects = new ArrayList();
-	            for(Project tempProject : tempProjects){
-	            	Set<User> projectUsers = tempProject.getUsers();
-	            	for (User projectUser : projectUsers){
-	            		if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
-	            			projects.add(tempProject);
-	            		}
-	            	}
-	            }
-        	} else {
-        		projects = projectManager.getAllDistinct();
-        	}
+            if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+                Collection projectsNew = new LinkedHashSet(projectManager.search(query, Project.class));
+                List<Project> tempProjects = new ArrayList(projectsNew);
+                String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
+                projects = new ArrayList();
+                for (Project tempProject : tempProjects) {
+                    Set<User> projectUsers = tempProject.getUsers();
+                    for (User projectUser : projectUsers) {
+                        if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
+                            projects.add(tempProject);
+                        }
+                    }
+                }
+            } else {
+                projects = projectManager.getAllDistinct();
+            }
         } catch (SearchException se) {
             addActionError(se.getMessage());
             projects = projectManager.getAllDistinct();
         }
         return SUCCESS;
     }
-    
-    public List getCompanyList(){
-    	if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-	        List<Project> tempProjects = projectManager.getAllDistinct();
-	        String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-	        List<Project> projects = new ArrayList();
-	        for(Project tempProject : tempProjects){
-	        	Set<User> projectUsers = tempProject.getUsers();
-	        	for (User projectUser : projectUsers){
-	        		if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)){
-	        			projects.add(tempProject);
-	        		}
-	        	}
-	        }
-	        List<Company> tempCompanies = new ArrayList();
-	        for (Project project : projects){
-	        	tempCompanies.add(project.getCompany());
-	        }
-	        Collection companiesNew = new LinkedHashSet(tempCompanies);
-	        companies = new ArrayList(companiesNew);
-    	} else {
-    		companies = companyManager.getAllDistinct();
-    	}
-    	return companies;
+
+    public List getCompanyList() {
+        if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+            List<Project> tempProjects = projectManager.getAllDistinct();
+            String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
+            List<Project> projects = new ArrayList();
+            for (Project tempProject : tempProjects) {
+                Set<User> projectUsers = tempProject.getUsers();
+                for (User projectUser : projectUsers) {
+                    if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
+                        projects.add(tempProject);
+                    }
+                }
+            }
+            List<Company> tempCompanies = new ArrayList();
+            for (Project project : projects) {
+                tempCompanies.add(project.getCompany());
+            }
+            Collection companiesNew = new LinkedHashSet(tempCompanies);
+            companies = new ArrayList(companiesNew);
+        } else {
+            companies = companyManager.getAllDistinct();
+        }
+        return companies;
     }
-    
+
     public List getUserList() {
-    	users = userManager.getAllDistinct();
+        users = userManager.getAllDistinct();
         return users;
     }
 
@@ -137,13 +136,12 @@ public class ProjectAction extends BaseAction implements Preparable {
         } else {
             project = new Project();
         }
-            String[] projectUsers = getRequest().getParameterValues("projectUsers");
+        String[] projectUsers = getRequest().getParameterValues("projectUsers");
 
-            for (int i = 0; projectUsers != null && i < projectUsers.length; i++) {
-                String userName = projectUsers[i];
-                project.addUser(userManager.getUser(userName));  
-            }
-       
+        for (int i = 0; projectUsers != null && i < projectUsers.length; i++) {
+            String userName = projectUsers[i];
+            project.addUser(userManager.getUser(userName));
+        }
 
         return SUCCESS;
     }
@@ -156,17 +154,17 @@ public class ProjectAction extends BaseAction implements Preparable {
         if (delete != null) {
             return delete();
         }
-        
-        if (project.getUsers() != null){
-        	project.getUsers().clear();
+
+        if (project.getUsers() != null) {
+            project.getUsers().clear();
         }
         String[] projectUsers = getRequest().getParameterValues("projectUsers");
 
         for (int i = 0; projectUsers != null && i < projectUsers.length; i++) {
             String userName = projectUsers[i];
-            project.addUser(userManager.getUser(userName));  
+            project.addUser(userManager.getUser(userName));
         }
-        
+
         boolean isNew = (project.getId() == null);
 
         projectManager.save(project);

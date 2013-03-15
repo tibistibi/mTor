@@ -37,14 +37,13 @@
         <summaryresult date="2013-03-14" filecount="49" statvalue="71" type="findbugs"/>
         <summaryresult date="2013-03-14" filecount="89" statvalue="23" type="cobertura-line"/>
         <summaryresult date="2013-03-14" filecount="89" statvalue="10" type="cobertura-branch"/>
-        <summaryresult date="2013-03-15" filecount="180"
-            statvalue="2242" type="checkstyle"/>
+        <summaryresult date="2013-03-15" filecount="137" statvalue="379" type="checkstyle"/>
         <summaryresult date="2013-03-15" filecount="22" statvalue="4864" type="pmd"/>
         <summaryresult date="2013-03-15" filecount="116"
             statvalue="4530" type="pmd-cpd"/>
         <summaryresult date="2013-03-15" filecount="49" statvalue="71" type="findbugs"/>
-        <summaryresult date="2013-03-15" filecount="89" statvalue="23" type="cobertura-line"/>
-        <summaryresult date="2013-03-15" filecount="89" statvalue="10" type="cobertura-branch"/>
+        <summaryresult date="2013-03-15" filecount="89" statvalue="24" type="cobertura-line"/>
+        <summaryresult date="2013-03-15" filecount="89" statvalue="11" type="cobertura-branch"/>
     </summary>
     <file id="nl_bhit_mtor_dao_MessageDao.java" path="nl/bhit/mtor/dao/MessageDao.java">
         <result date="2013-03-11" statvalue="5" type="checkstyle"/>
@@ -204,7 +203,7 @@
         <result date="2013-03-15" statvalue="13" type="checkstyle"/>
         <result date="2013-03-15" statvalue="6" type="pmd"/>
         <result date="2013-03-15" statvalue="91" type="cobertura-line"/>
-        <result date="2013-03-15" statvalue="87" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="91" type="cobertura-branch"/>
     </file>
     <file
         id="nl_bhit_mtor_client_provider_IAmAliveMTorMessageProvider.java" path="nl/bhit/mtor/client/provider/IAmAliveMTorMessageProvider.java">
@@ -357,7 +356,7 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="50" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="22" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="3" type="checkstyle"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="50" type="cobertura-branch"/>
@@ -373,9 +372,9 @@
         <result date="2013-03-14" statvalue="39" type="pmd"/>
         <result date="2013-03-14" statvalue="14" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="10" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="88" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="4" type="checkstyle"/>
         <result date="2013-03-15" statvalue="39" type="pmd"/>
-        <result date="2013-03-15" statvalue="14" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="18" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="10" type="cobertura-branch"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_taglib_OutTag.java" path="nl/bhit/mtor/server/webapp/taglib/OutTag.java">
@@ -414,9 +413,9 @@
         <result date="2013-03-14" statvalue="98" type="pmd"/>
         <result date="2013-03-14" statvalue="85" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="100" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="3" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="2" type="checkstyle"/>
         <result date="2013-03-15" statvalue="98" type="pmd"/>
-        <result date="2013-03-15" statvalue="85" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="89" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="100" type="cobertura-branch"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_CompanyAction.java" path="nl/bhit/mtor/server/webapp/action/CompanyAction.java">
@@ -429,7 +428,7 @@
         <result date="2013-03-14" statvalue="168" type="pmd"/>
         <result date="2013-03-14" statvalue="52" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="35" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="96" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="7" type="checkstyle"/>
         <result date="2013-03-15" statvalue="168" type="pmd"/>
         <result date="2013-03-15" statvalue="52" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="35" type="cobertura-branch"/>
@@ -445,9 +444,9 @@
         <result date="2013-03-14" statvalue="94" type="pmd"/>
         <result date="2013-03-14" statvalue="44" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="22" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="49" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="7" type="checkstyle"/>
         <result date="2013-03-15" statvalue="94" type="pmd"/>
-        <result date="2013-03-15" statvalue="44" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="47" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="22" type="cobertura-branch"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_BaseAction.java" path="nl/bhit/mtor/server/webapp/action/BaseAction.java">
@@ -459,10 +458,9 @@
         <result date="2013-03-14" statvalue="4" type="findbugs"/>
         <result date="2013-03-14" statvalue="78" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="33" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="3" type="checkstyle"/>
         <result date="2013-03-15" statvalue="4" type="findbugs"/>
-        <result date="2013-03-15" statvalue="78" type="cobertura-line"/>
-        <result date="2013-03-15" statvalue="33" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="82" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="37" type="cobertura-branch"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_UserAction.java" path="nl/bhit/mtor/server/webapp/action/UserAction.java">
         <result date="2013-03-11" statvalue="6" type="checkstyle"/>
@@ -476,11 +474,11 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="51" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="30" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="6" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="2" type="checkstyle"/>
         <result date="2013-03-15" statvalue="250" type="pmd"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
-        <result date="2013-03-15" statvalue="51" type="cobertura-line"/>
-        <result date="2013-03-15" statvalue="30" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="54" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="27" type="cobertura-branch"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_MessageAction.java" path="nl/bhit/mtor/server/webapp/action/MessageAction.java">
         <result date="2013-03-11" statvalue="143" type="checkstyle"/>
@@ -494,11 +492,11 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="49" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="23" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="143" type="checkstyle"/>
+        <result date="2013-03-15" statvalue="10" type="checkstyle"/>
         <result date="2013-03-15" statvalue="315" type="pmd"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
-        <result date="2013-03-15" statvalue="49" type="cobertura-line"/>
-        <result date="2013-03-15" statvalue="23" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="52" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="26" type="cobertura-branch"/>
     </file>
     <file
         id="nl_bhit_mtor_server_webapp_listener_UserCounterListener.java" path="nl/bhit/mtor/server/webapp/listener/UserCounterListener.java">
@@ -687,279 +685,239 @@
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_nl.properties" path="/home/tibi/git/mTor/src/main/resources/errors_nl.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file id="_home_tibi_git_mTor_src_main_resources_errors.properties" path="/home/tibi/git/mTor/src/main/resources/errors.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_ko.properties" path="/home/tibi/git/mTor/src/main/resources/errors_ko.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_pt.properties" path="/home/tibi/git/mTor/src/main/resources/errors_pt.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_pt_BR.properties" path="/home/tibi/git/mTor/src/main/resources/errors_pt_BR.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_de.properties" path="/home/tibi/git/mTor/src/main/resources/errors_de.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_es.properties" path="/home/tibi/git/mTor/src/main/resources/errors_es.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_fr.properties" path="/home/tibi/git/mTor/src/main/resources/errors_fr.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_it.properties" path="/home/tibi/git/mTor/src/main/resources/errors_it.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_pl.properties" path="/home/tibi/git/mTor/src/main/resources/errors_pl.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_ca.properties" path="/home/tibi/git/mTor/src/main/resources/errors_ca.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_errors_tr.properties" path="/home/tibi/git/mTor/src/main/resources/errors_tr.properties">
         <result date="2013-03-11" statvalue="1" type="checkstyle"/>
         <result date="2013-03-12" statvalue="1" type="checkstyle"/>
         <result date="2013-03-14" statvalue="1" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_nl.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_nl.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_no.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_no.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_pt.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_pt.properties">
         <result date="2013-03-11" statvalue="75" type="checkstyle"/>
         <result date="2013-03-12" statvalue="75" type="checkstyle"/>
         <result date="2013-03-14" statvalue="75" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="75" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_fr.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_fr.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_zh.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_zh.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_pl.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_pl.properties">
         <result date="2013-03-11" statvalue="71" type="checkstyle"/>
         <result date="2013-03-12" statvalue="71" type="checkstyle"/>
         <result date="2013-03-14" statvalue="71" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="71" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_zh_CN.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_zh_CN.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_ko.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_ko.properties">
         <result date="2013-03-11" statvalue="75" type="checkstyle"/>
         <result date="2013-03-12" statvalue="75" type="checkstyle"/>
         <result date="2013-03-14" statvalue="75" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="75" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_en.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_en.properties">
         <result date="2013-03-11" statvalue="209" type="checkstyle"/>
         <result date="2013-03-12" statvalue="209" type="checkstyle"/>
         <result date="2013-03-14" statvalue="209" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="209" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_ca.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_ca.properties">
         <result date="2013-03-11" statvalue="71" type="checkstyle"/>
         <result date="2013-03-12" statvalue="71" type="checkstyle"/>
         <result date="2013-03-14" statvalue="71" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="71" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources.properties">
         <result date="2013-03-11" statvalue="21" type="checkstyle"/>
         <result date="2013-03-12" statvalue="21" type="checkstyle"/>
         <result date="2013-03-14" statvalue="21" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="21" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_pt_BR.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_pt_BR.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_de.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_de.properties">
         <result date="2013-03-11" statvalue="81" type="checkstyle"/>
         <result date="2013-03-12" statvalue="81" type="checkstyle"/>
         <result date="2013-03-14" statvalue="81" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="81" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_zh_TW.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_zh_TW.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_tr.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_tr.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_it.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_it.properties">
         <result date="2013-03-11" statvalue="78" type="checkstyle"/>
         <result date="2013-03-12" statvalue="78" type="checkstyle"/>
         <result date="2013-03-14" statvalue="78" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="78" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_ApplicationResources_es.properties" path="/home/tibi/git/mTor/src/main/resources/ApplicationResources_es.properties">
         <result date="2013-03-11" statvalue="72" type="checkstyle"/>
         <result date="2013-03-12" statvalue="72" type="checkstyle"/>
         <result date="2013-03-14" statvalue="72" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="72" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_zh_CN.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_zh_CN.properties">
         <result date="2013-03-11" statvalue="7" type="checkstyle"/>
         <result date="2013-03-12" statvalue="7" type="checkstyle"/>
         <result date="2013-03-14" statvalue="7" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="7" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_fr.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_fr.properties">
         <result date="2013-03-11" statvalue="12" type="checkstyle"/>
         <result date="2013-03-12" statvalue="12" type="checkstyle"/>
         <result date="2013-03-14" statvalue="12" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="12" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_ca.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_ca.properties">
         <result date="2013-03-11" statvalue="5" type="checkstyle"/>
         <result date="2013-03-12" statvalue="5" type="checkstyle"/>
         <result date="2013-03-14" statvalue="5" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="5" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_zh_TW.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_zh_TW.properties">
         <result date="2013-03-11" statvalue="8" type="checkstyle"/>
         <result date="2013-03-12" statvalue="8" type="checkstyle"/>
         <result date="2013-03-14" statvalue="8" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="8" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_tr.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_tr.properties">
         <result date="2013-03-11" statvalue="8" type="checkstyle"/>
         <result date="2013-03-12" statvalue="8" type="checkstyle"/>
         <result date="2013-03-14" statvalue="8" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="8" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag.properties">
         <result date="2013-03-11" statvalue="18" type="checkstyle"/>
         <result date="2013-03-12" statvalue="18" type="checkstyle"/>
         <result date="2013-03-14" statvalue="18" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="18" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_en.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_en.properties">
         <result date="2013-03-11" statvalue="22" type="checkstyle"/>
         <result date="2013-03-12" statvalue="22" type="checkstyle"/>
         <result date="2013-03-14" statvalue="22" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="22" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_zh.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_zh.properties">
         <result date="2013-03-11" statvalue="7" type="checkstyle"/>
         <result date="2013-03-12" statvalue="7" type="checkstyle"/>
         <result date="2013-03-14" statvalue="7" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="7" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_pt.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_pt.properties">
         <result date="2013-03-11" statvalue="6" type="checkstyle"/>
         <result date="2013-03-12" statvalue="6" type="checkstyle"/>
         <result date="2013-03-14" statvalue="6" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="6" type="checkstyle"/>
     </file>
     <file
         id="_home_tibi_git_mTor_src_main_resources_displaytag_es.properties" path="/home/tibi/git/mTor/src/main/resources/displaytag_es.properties">
         <result date="2013-03-11" statvalue="6" type="checkstyle"/>
         <result date="2013-03-12" statvalue="6" type="checkstyle"/>
         <result date="2013-03-14" statvalue="6" type="checkstyle"/>
-        <result date="2013-03-15" statvalue="6" type="checkstyle"/>
     </file>
     <file id="nl_bhit_mtor_client_wsdl_MessageServiceStub.java" path="nl/bhit/mtor/client/wsdl/MessageServiceStub.java">
         <result date="2013-03-11" statvalue="2167" type="pmd"/>
@@ -1032,6 +990,130 @@
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
         <result date="2013-03-14" statvalue="30" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="23" type="cobertura-branch"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
+        <result date="2013-03-15" statvalue="5" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="3" type="findbugs"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
@@ -1248,7 +1330,7 @@
         <result date="2013-03-12" statvalue="62" type="cobertura-branch"/>
         <result date="2013-03-14" statvalue="82" type="cobertura-line"/>
         <result date="2013-03-14" statvalue="62" type="cobertura-branch"/>
-        <result date="2013-03-15" statvalue="82" type="cobertura-line"/>
+        <result date="2013-03-15" statvalue="88" type="cobertura-line"/>
         <result date="2013-03-15" statvalue="62" type="cobertura-branch"/>
     </file>
     <file
@@ -1362,6 +1444,7 @@
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_FileUploadAction.java" path="nl/bhit/mtor/server/webapp/action/FileUploadAction.java">
         <result date="2013-03-14" statvalue="1" type="findbugs"/>
+        <result date="2013-03-15" statvalue="1" type="checkstyle"/>
         <result date="2013-03-15" statvalue="1" type="findbugs"/>
     </file>
     <file id="nl_bhit_mtor_server_webapp_action_ReloadAction.java" path="nl/bhit/mtor/server/webapp/action/ReloadAction.java">
