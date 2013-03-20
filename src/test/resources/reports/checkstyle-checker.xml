@@ -51,7 +51,7 @@
     <!--module name="NewlineAtEndOfFile"/-->
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
-    <module name="Translation"/>
+    <!-- <module name="Translation"/> -->
 
     <module name="FileLength"/>
 

@@ -1,14 +1,14 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import org.apache.struts2.ServletActionContext;
-
-import nl.bhit.mtor.Constants;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import nl.bhit.mtor.Constants;
+
+import org.apache.struts2.ServletActionContext;
 
 /**
  * Sample action that shows how to do file upload with Struts 2.
@@ -22,9 +22,10 @@ public class FileUploadAction extends BaseAction {
 
     /**
      * Upload the file
-     *
+     * 
      * @return String with result (cancel, input or sucess)
-     * @throws Exception if something goes wrong
+     * @throws Exception
+     *             if something goes wrong
      */
     public String upload() throws Exception {
         if (this.cancel != null) {
@@ -32,8 +33,8 @@ public class FileUploadAction extends BaseAction {
         }
 
         // the directory to upload to
-        String uploadDir = ServletActionContext.getServletContext().getRealPath("/resources")
-                + "/" + getRequest().getRemoteUser() + "/";
+        String uploadDir = ServletActionContext.getServletContext().getRealPath("/resources") + "/"
+                + getRequest().getRemoteUser() + "/";
 
         // write the file to the file specified
         File dirPath = new File(uploadDir);
@@ -42,10 +43,10 @@ public class FileUploadAction extends BaseAction {
             dirPath.mkdirs();
         }
 
-        //retrieve the file data
+        // retrieve the file data
         InputStream stream = new FileInputStream(file);
 
-        //write the file to the file specified
+        // write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + fileFileName);
         int bytesRead;
         byte[] buffer = new byte[8192];
@@ -58,11 +59,9 @@ public class FileUploadAction extends BaseAction {
         stream.close();
 
         // place the data into the request for retrieval on next page
-        getRequest().setAttribute("location", dirPath.getAbsolutePath()
-                + Constants.FILE_SEP + fileFileName);
+        getRequest().setAttribute("location", dirPath.getAbsolutePath() + Constants.FILE_SEP + fileFileName);
 
-        String link = getRequest().getContextPath() + "/resources" + "/"
-                + getRequest().getRemoteUser() + "/";
+        String link = getRequest().getContextPath() + "/resources" + "/" + getRequest().getRemoteUser() + "/";
 
         getRequest().setAttribute("link", link + fileFileName);
 
@@ -71,9 +70,10 @@ public class FileUploadAction extends BaseAction {
 
     /**
      * Default method - returns "input"
-     *
+     * 
      * @return "input"
      */
+    @Override
     public String execute() {
         return INPUT;
     }
@@ -118,7 +118,8 @@ public class FileUploadAction extends BaseAction {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             getFieldErrors().clear();
             if ("".equals(fileFileName) || file == null) {
-                super.addFieldError("file", getText("errors.requiredField", new String[] {getText("uploadForm.file")}));
+                super.addFieldError("file", getText("errors.requiredField", new String[] {//
+                        getText("uploadForm.file") }));
             } else if (file.length() > 2097152) {
                 addActionError(getText("maxLengthExceeded"));
             }

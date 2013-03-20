@@ -22,13 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Implementation of <strong>ActionSupport</strong> that contains
- * convenience methods for subclasses.  For example, getting the current
+ * convenience methods for subclasses. For example, getting the current
  * user and saving messages/errors. This class is intended to
  * be a base class for all Action classes.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseAction extends ActionSupport {
@@ -91,7 +90,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Simple method that returns "cancel" result
-     *
+     * 
      * @return "cancel"
      */
     public String cancel() {
@@ -100,8 +99,9 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Save the message in the session, appending if messages already exist
-     *
-     * @param msg the message to put in the session
+     * 
+     * @param msg
+     *            the message to put in the session
      */
     @SuppressWarnings("unchecked")
     protected void saveMessage(String msg) {
@@ -116,7 +116,7 @@ public class BaseAction extends ActionSupport {
     /**
      * Convenience method to get the Configuration HashMap
      * from the servlet context.
-     *
+     * 
      * @return the user's populated form from the session
      */
     protected Map getConfiguration() {
@@ -130,7 +130,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the request
-     *
+     * 
      * @return current request
      */
     protected HttpServletRequest getRequest() {
@@ -139,7 +139,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the response
-     *
+     * 
      * @return current response
      */
     protected HttpServletResponse getResponse() {
@@ -148,7 +148,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the session. This will create a session if one doesn't exist.
-     *
+     * 
      * @return the session from the request (request.getSession()).
      */
     protected HttpSession getSession() {
@@ -157,10 +157,13 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to send e-mail to users
-     *
-     * @param user the user to send to
-     * @param msg the message to send
-     * @param url the URL to the application (or where ever you'd like to send them)
+     * 
+     * @param user
+     *            the user to send to
+     * @param msg
+     *            the message to send
+     * @param url
+     *            the URL to the application (or where ever you'd like to send them)
      */
     protected void sendUserMessage(User user, String msg, String url) {
         if (log.isDebugEnabled()) {
@@ -200,8 +203,9 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method for setting a "from" parameter to indicate the previous page.
-     *
-     * @param from indicator for the originating page
+     * 
+     * @param from
+     *            indicator for the originating page
      */
     public void setFrom(String from) {
         this.from = from;
@@ -214,8 +218,8 @@ public class BaseAction extends ActionSupport {
     public void setSave(String save) {
         this.save = save;
     }
-    
-	public List getStatusList() {
-		return Status.getAsList();
-	}
+
+    public List getStatusList() {
+        return Status.getAsList();
+    }
 }

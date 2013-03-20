@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service("projectManager")
 public class ProjectManagerImpl extends GenericManagerImpl<Project, Long> implements ProjectManager {
-	ProjectDao projectDao;
+    ProjectDao projectDao;
 
-	@Autowired
-	public ProjectManagerImpl(ProjectDao projectDao) {
-		super(projectDao);
-		this.projectDao = projectDao;
-	}
+    @Autowired
+    public ProjectManagerImpl(ProjectDao projectDao) {
+        super(projectDao);
+        this.projectDao = projectDao;
+    }
 
 }

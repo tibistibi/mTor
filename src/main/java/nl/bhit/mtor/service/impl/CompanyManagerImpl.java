@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
 
 @Service("companyManager")
 public class CompanyManagerImpl extends GenericManagerImpl<Company, Long> implements CompanyManager {
-	CompanyDao companyDao;
+    CompanyDao companyDao;
 
-	@Autowired
-	public CompanyManagerImpl(CompanyDao companyDao) {
-		super(companyDao);
-		this.companyDao = companyDao;
-	}
+    @Autowired
+    public CompanyManagerImpl(CompanyDao companyDao) {
+        super(companyDao);
+        this.companyDao = companyDao;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Company> getAllByUSer(User user) {
-		return companyDao.getAllByUser(user);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Company> getAllByUSer(User user) {
+        return companyDao.getAllByUser(user);
+    }
 
 }

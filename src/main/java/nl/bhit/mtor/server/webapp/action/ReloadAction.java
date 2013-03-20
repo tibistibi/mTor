@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 /**
  * This class is used to reload the drop-downs initialized in the
  * StartupListener.
-
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ReloadAction extends BaseAction {
@@ -20,8 +20,10 @@ public class ReloadAction extends BaseAction {
     /**
      * Method that calls StartupListener.setContext() and returns user to
      * referrer location (or does a popup if none found).
+     * 
      * @return sucess when everything goes right
-     * @throws IOException when response.sendRedirect fails
+     * @throws IOException
+     *             when response.sendRedirect fails
      */
     public String execute() throws IOException {
         StartupListener.setupContext(getSession().getServletContext());

@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Action class to send password hints to registered users.
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class PasswordHintAction extends BaseAction {
@@ -19,7 +19,8 @@ public class PasswordHintAction extends BaseAction {
     private String username;
 
     /**
-     * @param username The username to set.
+     * @param username
+     *            The username to set.
      */
     public void setUsername(String username) {
         this.username = username;
@@ -27,7 +28,7 @@ public class PasswordHintAction extends BaseAction {
 
     /**
      * Execute sending the password hint via e-mail.
-     *
+     * 
      * @return success if username works, input if not
      */
     public String execute() {
@@ -66,10 +67,10 @@ public class PasswordHintAction extends BaseAction {
             mailMessage.setSubject(subject);
             mailMessage.setText(msg.toString());
             mailEngine.send(mailMessage);
-            
+
             args.add(username);
             args.add(user.getEmail());
-            
+
             saveMessage(getText("login.passwordHint.sent", args));
         } catch (UsernameNotFoundException e) {
             log.warn(e.getMessage());
