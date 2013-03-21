@@ -23,4 +23,21 @@ public interface MessageDao extends GenericDao<MTorMessage, Long> {
      */
     public MTorMessage getAliveByProject(Long projectId);
 
+    /**
+     * WIll find all not resolved message
+     * 
+     * @param authenticatedUser
+     * @return found messages
+     */
+    public List<MTorMessage> getUnresolvedAll(User user);
+
+    /**
+     * WIll find all not resolved message
+     * 
+     * @param userId
+     *            used to filter on
+     * @return found messages
+     */
+    public List<MTorMessage> getUnresolvedAll(Long userId);
+
 }

@@ -309,10 +309,10 @@
 
 			<!-- Sonar -->
 			<plugin>
-	          <groupId>org.codehaus.mojo</groupId>
-	          <artifactId>sonar-maven-plugin</artifactId>
-	          <version>2.0</version>
-	        </plugin>
+			  <groupId>org.codehaus.mojo</groupId>
+			  <artifactId>sonar-maven-plugin</artifactId>
+			  <version>${sonarVersion}</version>
+			</plugin>
 	        <!-- Sonar -->
             
         </plugins>
@@ -1180,6 +1180,7 @@
             <id>tibi</id>
             <properties>
 		        <jdbc.password></jdbc.password>
+		    	<sonarVersion>1.0</sonarVersion>		        
             </properties>
         </profile>
         <profile>
@@ -1192,17 +1193,29 @@
         </profile>
         <!-- ================= Sonar Profiles ================= -->
         <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <!-- optional URL to server. Default value is http://localhost:9000 -->
-                <sonar.host.url>
-                  http://localhost:9000
-                </sonar.host.url>
-            </properties>
-        </profile>
+		  <id>maven-2</id>
+		  <activation>
+		    <file>
+		      <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+		      <missing>${basedir}</missing>
+		    </file>
+		  </activation>
+		  <properties>
+		    <sonarVersion>1.0</sonarVersion>
+		  </properties>
+		</profile>
+		<profile>
+		  <id>maven-3</id>
+		  <activation>
+		    <file>
+		      <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+		      <exists>${basedir}</exists>
+		    </file>
+		  </activation>
+		  <properties>
+		    <sonarVersion>2.0</sonarVersion>
+		  </properties>
+		</profile>
     </profiles>
 
     <properties>

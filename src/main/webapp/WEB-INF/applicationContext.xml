@@ -12,32 +12,9 @@
     <context:component-scan base-package="nl.bhit"/>
 
     <!-- Add new DAOs here -->
-
     
-
-    <!--CompanyManager-START-->
-    <bean id="companyManager" class="nl.bhit.mtor.service.impl.CompanyManagerImpl">
-        <constructor-arg>
-            <bean class="nl.bhit.mtor.dao.hibernate.GenericDaoHibernate">
-                <constructor-arg value="nl.bhit.mtor.model.Company"/>
-            </bean>
-        </constructor-arg>
-    </bean>
-    <!--CompanyManager-END-->
-
     
-
-    <!--ProjectManager-START-->
-    <bean id="projectManager" class="nl.bhit.mtor.service.impl.ProjectManagerImpl">
-        <constructor-arg>
-            <bean class="nl.bhit.mtor.dao.hibernate.GenericDaoHibernate">
-                <constructor-arg value="nl.bhit.mtor.model.Project"/>
-            </bean>
-        </constructor-arg>
-    </bean>
-    <!--ProjectManager-END-->
-
     <!-- Add new Managers here -->
     
-
+    
 </beans>

@@ -23,6 +23,7 @@
         </jaxrs:features>
         <jaxrs:serviceBeans>
             <ref bean="userManager"/>
+            <ref bean="messageManager"/>
         </jaxrs:serviceBeans>
         <jaxrs:providers>
             <ref bean="jsonProvider"/>
