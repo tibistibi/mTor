@@ -15,7 +15,12 @@ The mTor server keeps track of these messages and will act accordingly. Either s
 mTor is webbased an admin can create a company which will have one or more projects. A user can login and see his projects and view the messages.
 
 ====
-This project is in its invanty now. At this moment the alerts are not working jet but they will be implemented (maybe with your help ;) ).
-
+Version 1.2
+Bugs are beging fixed and a REST interface is implemented for android app development.
+====
+Version 1.1 Performance issues are fixed. The server can now run for day's and probably much longer.
+====
+Version 1.0 it does something ;)
+Messages can be send and recieved
 
  
