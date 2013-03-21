@@ -2,21 +2,30 @@ package nl.bhit.mtor.model.soap;
 
 import java.io.Serializable;
 
+import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Status;
+
+import org.springframework.beans.BeanUtils;
 
 /**
  * this SoapMessage exposes the method of the Message which are needed in the SOAP interface.
  * 
- * @deprecated use the ClientMessage
  * @author tibi
  */
-// TODO (tibi) use the ClientMessage instead
-@Deprecated
-public class SoapMessage implements Serializable {
-    private static final long serialVersionUID = -29873897872583055L;
+public class ClientMessage implements Serializable {
+    private static final long serialVersionUID = -26773897872583055L;
     private String content;
     private Status status;
     private Long projectId;
+
+    public ClientMessage(MTorMessage source) {
+        BeanUtils.copyProperties(source, this);
+        this.setProjectId(source.getProject().getId());
+    }
+
+    public ClientMessage() {
+        // default cunstructor
+    }
 
     public String getContent() {
         return content;

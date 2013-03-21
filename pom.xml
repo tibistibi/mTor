@@ -1180,6 +1180,7 @@
             <id>tibi</id>
             <properties>
 		        <jdbc.password></jdbc.password>
+		    	<sonarVersion>1.0</sonarVersion>		        
             </properties>
         </profile>
         <profile>
