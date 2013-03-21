@@ -1,22 +1,20 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import org.apache.struts2.ServletActionContext;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.model.Role;
-import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 import nl.bhit.mtor.service.UserExistsException;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Action to allow new users to sign up.

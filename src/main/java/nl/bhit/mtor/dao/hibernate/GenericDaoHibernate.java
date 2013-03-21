@@ -199,7 +199,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     public void remove(PK id) {
         Session sess = getSession();
         IdentifierLoadAccess byId = sess.byId(persistentClass);
-        T entity = (T) byId.load(id);
+        @SuppressWarnings("unchecked")
+		T entity = (T)byId.load(id);
         sess.delete(entity);
     }
 
@@ -211,9 +212,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     public List<T> findByNamedQuery(String queryName, Map<String, Object> queryParams) {
         Session sess = getSession();
         Query namedQuery = sess.getNamedQuery(queryName);
-
-        for (String s : queryParams.keySet()) {
-            namedQuery.setParameter(s, queryParams.get(s));
+        
+        for (Map.Entry<String, Object> me : queryParams.entrySet()) {
+        	namedQuery.setParameter(me.getKey(), me.getValue());
         }
 
         return namedQuery.list();

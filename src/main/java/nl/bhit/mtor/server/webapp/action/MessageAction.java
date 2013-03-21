@@ -1,8 +1,6 @@
 package nl.bhit.mtor.server.webapp.action;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,7 +8,6 @@ import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
-import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
 import nl.bhit.mtor.service.GenericManager;
@@ -23,16 +20,22 @@ import com.opensymphony.xwork2.Preparable;
 
 @Component
 public class MessageAction extends BaseAction implements Preparable {
-    @Autowired
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 963285910852618368L;
+	
+	@Autowired
     private MessageManager messageManager;
     @Autowired
     private GenericManager<Project, Long> projectManager;
-    private List mTorMessages;
-    private List projects;
-    private List status;
+    private List<MTorMessage> mTorMessages;
+    private List<Project> projects;
     private MTorMessage message;
     private Long id;
-    private String query;
+    @SuppressWarnings("unused")
+	private String query;
 
     public void setMessageManager(MessageManager messageManager) {
         this.messageManager = messageManager;
@@ -42,7 +45,7 @@ public class MessageAction extends BaseAction implements Preparable {
         this.projectManager = projectManager;
     }
 
-    public List getMTorMessages() {
+    public List<MTorMessage> getMTorMessages() {
         return mTorMessages;
     }
 
@@ -102,11 +105,11 @@ public class MessageAction extends BaseAction implements Preparable {
         mTorMessages = messageManager.getAllDistinct();
     }
 
-    public List getProjectCompanyList() {
+    public List<Project> getProjectCompanyList() {
         if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
             List<Project> tempProjects = projectManager.getAllDistinct();
             String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-            projects = new ArrayList();
+            projects = new ArrayList<Project>();
             for (Project tempProject : tempProjects) {
                 Set<User> projectUsers = tempProject.getUsers();
                 for (User projectUser : projectUsers) {
@@ -159,11 +162,11 @@ public class MessageAction extends BaseAction implements Preparable {
             return delete();
         }
 
-        boolean isNew = (message.getId() == null);
+        boolean isNew = message.getId() == null;
 
         messageManager.save(message);
 
-        String key = (isNew) ? "message.added" : "message.updated";
+        String key = isNew ? "message.added" : "message.updated";
         saveMessage(getText(key));
 
         if (!isNew) {
@@ -173,9 +176,9 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     public String resolve() {
-        List<MTorMessage> mTorMessagesList = new ArrayList();
+        List<MTorMessage> mTorMessagesList = new ArrayList<MTorMessage>();
         mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
-
+        
         for (MTorMessage tempMessage : mTorMessagesList) {
             tempMessage.setResolved(true);
             messageManager.save(tempMessage);

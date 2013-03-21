@@ -108,7 +108,7 @@ public class LabelValue implements Comparable, Serializable {
         sb.append(", ");
         sb.append(this.value);
         sb.append("]");
-        return (sb.toString());
+        return sb.toString();
     }
 
     /**

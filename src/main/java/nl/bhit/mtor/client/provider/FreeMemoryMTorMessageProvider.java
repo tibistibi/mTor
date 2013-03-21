@@ -10,9 +10,9 @@ import org.apache.commons.logging.LogFactory;
 
 @MTorMessageProvider
 public class FreeMemoryMTorMessageProvider {
-    private static final Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
-    public static long WARN_LIMIT = 157286400L; // 150 MB in bytes
-    public static long ERROR_LIMIT = 52428800L; // 50 MB in bytes
+    private final static Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
+    public final static long WARN_LIMIT = 157286400L; // 150 MB in bytes
+    public final static long ERROR_LIMIT = 52428800L; // 50 MB in bytes
 
     /**
      * this method will return a warning message when the WARN_LIMIT is reached and an error message when the

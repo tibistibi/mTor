@@ -98,7 +98,7 @@ public class Project extends BaseObject implements Serializable {
         messages.add(message);
     }
 
-    public void removeMessage(String message) {
+    public void removeMessage(MTorMessage message) {
         messages.remove(message);
     }
 

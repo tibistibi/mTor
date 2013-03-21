@@ -25,7 +25,7 @@ public class MTorServerTimer {
         if (alertSender == null) {
             log.trace("create a new alertSender");
             final BeanFactory factory = new ClassPathXmlApplicationContext(getConfigLocations());
-            alertSender = (AlertSender) factory.getBean("alertSender");
+            alertSender = (AlertSender)factory.getBean("alertSender");
         }
         alertSender.process();
     }

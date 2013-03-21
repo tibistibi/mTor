@@ -90,7 +90,7 @@ public class CountryTag extends TagSupport {
                 LabelValue country = (LabelValue) country1;
                 sb.append("    <option value=\"").append(country.getValue()).append("\"");
 
-                if ((selected != null) && selected.equals(country.getValue())) {
+                if (selected != null && selected.equals(country.getValue())) {
                     sb.append(" selected=\"selected\"");
                 }
 

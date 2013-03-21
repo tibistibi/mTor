@@ -166,18 +166,18 @@ public class ProjectAction extends BaseAction implements Preparable {
         for (int i = 0; projectUsersId != null && i < projectUsersId.length; i++) {
         	projectSelectedUsers.add(userManager.getUser(projectUsersId[i]));
         }
-        if (project.getUsers() == null) {
+        if (project.getUsers() == null || project.getUsers().isEmpty()) {
         	project.setUsers(projectSelectedUsers);
         } else {
         	project.getUsers().retainAll(projectSelectedUsers);
         	project.getUsers().addAll(projectSelectedUsers);
         }
         
-        boolean isNew = (project.getId() == null);
+        boolean isNew = project.getId() == null;
         
         projectManager.save(project);
 
-        String key = (isNew) ? "project.added" : "project.updated";
+        String key = isNew ? "project.added" : "project.updated";
         saveMessage(getText(key));
 
         if (!isNew) {
