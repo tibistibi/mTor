@@ -35,6 +35,7 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
         return query.list();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public MTorMessage getAliveByProject(Long projectId) {
         String hql = "select m as message from MTorMessage as m left join m.project as p where p = :project and m.content like '%alive%'";
@@ -47,5 +48,20 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
             return results.get(0);
         }
         return null;
+    }
+
+    @Override
+    public List<MTorMessage> getUnresolvedAll(User user) {
+        return getUnresolvedAll(user.getId());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<MTorMessage> getUnresolvedAll(Long userId) {
+        Query query = getSession()
+                .createQuery(
+                        "select m as message from MTorMessage as m left join m.project as p left join p.users as u where m.resolved=false AND u = :user");
+        query.setLong("user", userId);
+        return query.list();
     }
 }

@@ -7,8 +7,11 @@ import nl.bhit.mtor.model.Status;
 /**
  * this SoapMessage exposes the method of the Message which are needed in the SOAP interface.
  * 
+ * @deprecated use the ClientMessage
  * @author tibi
  */
+// TODO (tibi) use the ClientMessage instead
+@Deprecated
 public class SoapMessage implements Serializable {
     private static final long serialVersionUID = -29873897872583055L;
     private String content;
