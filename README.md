@@ -14,13 +14,17 @@ mTor server will manage all incomming messages. An application can make use off 
 The mTor server keeps track of these messages and will act accordingly. Either send an email, sms or alert a mobile app. 
 mTor is webbased an admin can create a company which will have one or more projects. A user can login and see his projects and view the messages.
 
-====
 Version 1.2
+====
 Bugs are beging fixed and a REST interface is implemented for android app development.
+
+Version 1.1 
 ====
-Version 1.1 Performance issues are fixed. The server can now run for day's and probably much longer.
+Performance issues are fixed. The server can now run for day's and probably much longer.
+
+Version 1.0 
 ====
-Version 1.0 it does something ;)
+It does something ;)
 Messages can be send and recieved
 
  
