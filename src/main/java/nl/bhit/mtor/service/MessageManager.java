@@ -24,9 +24,9 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
             action = "saveSoapMessage")
     void saveSoapMessage(SoapMessage message);
 
-    public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
+    List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
 
-    public List<MTorMessage> getAllByUser(User user);
+    List<MTorMessage> getAllByUser(User user);
 
     // @Path("all")
     @GET
@@ -34,7 +34,7 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
      * will retrieve messages which belong to the logged in user.
      * @return
      */
-    public List<ClientMessage> getUnresolvedAllByLogedInUser();
+    List<ClientMessage> getUnresolvedAllByLogedInUser();
 
     @GET
     @Path("{id}")
@@ -42,6 +42,6 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
      * will retrieve messages which belong to the logged in user.
      * @return
      */
-    public List<ClientMessage> getUnresolvedAllByUser(@PathParam("id") Long id);
+    List<ClientMessage> getUnresolvedAllByUser(@PathParam("id") Long id);
 
 }

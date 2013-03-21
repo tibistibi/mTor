@@ -12,12 +12,20 @@ import nl.bhit.mtor.service.ProjectManager;
 import com.opensymphony.xwork2.Preparable;
 
 public class CompanyAction extends BaseAction implements Preparable {
-    private CompanyManager companyManager;
-    private ProjectManager projectManager;
-    private List companies;
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -970535300600109626L;
+	
+	private CompanyManager companyManager;
+    @SuppressWarnings("unused")
+	private ProjectManager projectManager;
+    private List<Company> companies;
     private Company company;
     private Long id;
-    private String query;
+    @SuppressWarnings("unused")
+	private String query;
 
     public void setCompanyManager(CompanyManager companyManager) {
         this.companyManager = companyManager;
@@ -27,7 +35,7 @@ public class CompanyAction extends BaseAction implements Preparable {
         this.projectManager = projectManager;
     }
 
-    public List getCompanies() {
+    public List<Company> getCompanies() {
         return companies;
     }
 
@@ -109,11 +117,11 @@ public class CompanyAction extends BaseAction implements Preparable {
             return delete();
         }
 
-        boolean isNew = (company.getId() == null);
+        boolean isNew = company.getId() == null;
 
         companyManager.save(company);
 
-        String key = (isNew) ? "company.added" : "company.updated";
+        String key = isNew ? "company.added" : "company.updated";
         saveMessage(getText(key));
 
         if (!isNew) {

@@ -98,7 +98,7 @@ public class Project extends BaseObject implements Serializable {
         messages.add(message);
     }
 
-    public void removeMessage(String message) {
+    public void removeMessage(MTorMessage message) {
         messages.remove(message);
     }
 
@@ -193,13 +193,24 @@ public class Project extends BaseObject implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj) {
+        	return true;
+        }
+        if (obj == null) {
+        	return false;
+        }
+        if (getClass() != obj.getClass()) {
+        	return false;
+        }
         Project other = (Project) obj;
         if (id == null) {
-            if (other.id != null) return false;
-        } else if (!id.equals(other.id)) return false;
+            if (other.id != null) {
+            	return false;
+            }
+        } else if (!id.equals(other.id)) {
+        	return false;
+        }
+        
         return true;
     }
 
