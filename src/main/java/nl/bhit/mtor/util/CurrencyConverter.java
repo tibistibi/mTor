@@ -56,7 +56,7 @@ public class CurrencyConverter implements Converter {
 
                     return num.doubleValue();
                 } catch (ParseException pe) {
-                    pe.printStackTrace();
+                	log.error("Error parsing " + value, pe);
                 }
             } else if (value instanceof Double) {
                 if (log.isDebugEnabled()) {

@@ -157,12 +157,12 @@ public class ConstantsTag extends TagSupport {
      * @throws JspException if the scopeName is not a valid name.
      */
     public int getScope(String scopeName) throws JspException {
-        Integer scope = (Integer) SCOPES.get(scopeName.toLowerCase());
+        Integer scopeValue = (Integer)SCOPES.get(scopeName.toLowerCase());
 
-        if (scope == null) {
+        if (scopeValue == null) {
             throw new JspException("Scope '" + scopeName + "' not a valid option");
         }
 
-        return scope;
+        return scopeValue;
     }
 }

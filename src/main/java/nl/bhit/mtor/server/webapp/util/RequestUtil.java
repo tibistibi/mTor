@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServletResponse;
  * Convenience class for setting and retrieving cookies.
  */
 public final class RequestUtil {
+	
     private static final Log log = LogFactory.getLog(RequestUtil.class);
+    
+    private final static int COOKIE_MAX_AGE_MILLISECONDS = 3600 /*seconds per hour*/ * 24 /*hour per day*/ * 30 /*days*/;
+    private final static int HTTP_PORT_NUMBER = 80;
+    private final static int HTTPS_PORT_NUMBER = 443;
 
     /**
      * Checkstyle rule: utility classes should not have public constructor
@@ -36,7 +41,7 @@ public final class RequestUtil {
         Cookie cookie = new Cookie(name, value);
         cookie.setSecure(false);
         cookie.setPath(path);
-        cookie.setMaxAge(3600 * 24 * 30); // 30 days
+        cookie.setMaxAge(COOKIE_MAX_AGE_MILLISECONDS);
 
         response.addCookie(cookie);
     }
@@ -99,13 +104,13 @@ public final class RequestUtil {
         StringBuffer url = new StringBuffer();
         int port = request.getServerPort();
         if (port < 0) {
-            port = 80; // Work around java.net.URL bug
+            port = HTTP_PORT_NUMBER; // Work around java.net.URL bug
         }
         String scheme = request.getScheme();
         url.append(scheme);
         url.append("://");
         url.append(request.getServerName());
-        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && port != 443)) {
+        if ((scheme.equals("http") && (port != HTTP_PORT_NUMBER)) || (scheme.equals("https") && port != HTTPS_PORT_NUMBER)) {
             url.append(':');
             url.append(port);
         }

@@ -1,5 +1,10 @@
 package nl.bhit.mtor.service;
 
+import java.util.Map;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.velocity.app.VelocityEngine;
@@ -11,10 +16,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.velocity.VelocityEngineUtils;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.util.Map;
 
 /**
  * Class for sending e-mail messages based on Velocity templates
@@ -60,8 +61,7 @@ public class MailEngine {
         try {
             result = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateName, model);
         } catch (VelocityException e) {
-            e.printStackTrace();
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
 
         msg.setText(result);

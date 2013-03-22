@@ -107,8 +107,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         try {
             return userDao.saveUser(user);
         } catch (Exception e) {
-            e.printStackTrace();
-            log.warn(e.getMessage());
+            log.warn(e.getMessage(), e);
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
     }
