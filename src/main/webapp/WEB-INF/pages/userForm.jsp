@@ -34,7 +34,7 @@
         <s:if test="user.version == null">
             <input type="hidden" name="encryptPass" value="true"/>
         </s:if>
-        <s:textfield key="user.username"  required="true" onchange="usernameChanged()"/>
+        <s:textfield key="user.username" required="true" onchange="usernameChanged()"/>
 
         <c:if test="${cookieLogin != 'true'}">
             <s:password key="user.password" showPassword="true" required="true"
@@ -56,7 +56,7 @@
 			<label for="projects" class="control-label">Assign projects:</label>
 	        <select id="projects" name="projects" multiple="true" style="margin-left:20px;">
 	            <c:forEach items="${projectList}" var="project">
-	            <option value="${project.id}"}>${project.name}</option>
+	            	<option value="${project.id}" ${user.projects.contains(project) ? 'selected' : ''}>${project.name}</option>
 	            </c:forEach>
 	        </select>
 		</security:authorize>
