@@ -1181,6 +1181,10 @@
             <properties>
 		        <jdbc.password></jdbc.password>
 		    	<sonarVersion>1.0</sonarVersion>		        
+		        <sonar.host>s.bhit.nl</sonar.host>
+		        <sonar.port>8080</sonar.port>
+		        <sonar.jdbc.username>sonar</sonar.jdbc.username>
+		        <sonar.jdbc.password>N9SPeyE5</sonar.jdbc.password>
             </properties>
         </profile>
         <profile>
