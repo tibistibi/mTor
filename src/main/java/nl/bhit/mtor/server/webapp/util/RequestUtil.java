@@ -14,9 +14,9 @@ public final class RequestUtil {
 	
     private static final Log log = LogFactory.getLog(RequestUtil.class);
     
-    private final static int COOKIE_MAX_AGE_MILLISECONDS = 3600 /*seconds per hour*/ * 24 /*hour per day*/ * 30 /*days*/;
-    private final static int HTTP_PORT_NUMBER = 80;
-    private final static int HTTPS_PORT_NUMBER = 443;
+    private static final int COOKIE_MAX_AGE_MILLISECONDS = 3600 /*seconds per hour*/ * 24 /*hour per day*/ * 30 /*days*/;
+    private static final int HTTP_PORT_NUMBER = 80;
+    private static final int HTTPS_PORT_NUMBER = 443;
 
     /**
      * Checkstyle rule: utility classes should not have public constructor
