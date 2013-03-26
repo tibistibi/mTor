@@ -142,9 +142,21 @@ public class MessageServiceSender {
     }
 
     private static Status getStatus(nl.bhit.mtor.model.Status status) {
-        if (status == nl.bhit.mtor.model.Status.INFO) return Status.INFO;
-        if (status == nl.bhit.mtor.model.Status.WARN) return Status.WARN;
-        return Status.ERROR;
+    	Status msgStatus;
+    	
+    	switch (status) {
+			case INFO:
+				msgStatus = Status.INFO;
+				break;
+			case WARN:
+				msgStatus = Status.WARN;
+				break;
+			default:
+				msgStatus = Status.ERROR;
+				break;
+		}
+    	
+    	return msgStatus;
     }
 
     protected Long getPorjectId() {

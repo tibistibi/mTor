@@ -10,9 +10,16 @@ import org.apache.commons.logging.LogFactory;
 
 @MTorMessageProvider
 public class FreeMemoryMTorMessageProvider {
-    private final static Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
-    public final static long WARN_LIMIT = 157286400L; // 150 MB in bytes
-    public final static long ERROR_LIMIT = 52428800L; // 50 MB in bytes
+
+	
+    private static final Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
+    
+    public static final long WARN_LIMIT = 157286400L; // 150 MB in bytes
+    public static final long ERROR_LIMIT = 52428800L; // 50 MB in bytes
+    
+    private static final String ERROR_MSG = "The free memory is less then " + ERROR_LIMIT + "!";
+    private static final String WARN_MSG = "The free memory is less then " + WARN_LIMIT + "! It is running low.";
+
 
     /**
      * this method will return a warning message when the WARN_LIMIT is reached and an error message when the
@@ -26,13 +33,12 @@ public class FreeMemoryMTorMessageProvider {
         final long free = Runtime.getRuntime().freeMemory();
         log.trace("free memory is: " + free);
         if (free < ERROR_LIMIT) {
-            log.trace("The free memory is less then " + ERROR_LIMIT + "!");
-            return createMessage(message, "The free memory is less then " + ERROR_LIMIT + "!", Status.ERROR);
+            log.trace(ERROR_MSG);
+            return createMessage(message, ERROR_MSG, Status.ERROR);
         }
         if (free < WARN_LIMIT) {
-            log.trace("The free memory is less then " + WARN_LIMIT + "! It is running low.");
-            return createMessage(message, "The free memory is less then " + WARN_LIMIT + "! It is running low.",
-                    Status.WARN);
+            log.trace(WARN_MSG);
+            return createMessage(message, WARN_MSG, Status.WARN);
         }
         return null;
     }

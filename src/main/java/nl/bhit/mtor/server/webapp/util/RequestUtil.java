@@ -93,7 +93,7 @@ public final class RequestUtil {
      */
     public static String getAppURL(HttpServletRequest request) {
         if (request == null) return "";
-        
+         
         StringBuffer url = new StringBuffer();
         int port = request.getServerPort();
         if (port < 0) {

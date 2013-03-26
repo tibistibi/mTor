@@ -10,9 +10,9 @@ import nl.bhit.mtor.model.User;
  */
 public interface MessageDao extends GenericDao<MTorMessage, Long> {
 
-    public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
+    List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
 
-    public List<MTorMessage> getAllByUser(User user);
+    List<MTorMessage> getAllByUser(User user);
 
     /**
      * will search for the 'alive' message of the project
@@ -21,7 +21,7 @@ public interface MessageDao extends GenericDao<MTorMessage, Long> {
      *            the id of the project
      * @return the found message
      */
-    public MTorMessage getAliveByProject(Long projectId);
+    MTorMessage getAliveByProject(Long projectId);
 
     /**
      * WIll find all not resolved message
@@ -29,7 +29,7 @@ public interface MessageDao extends GenericDao<MTorMessage, Long> {
      * @param authenticatedUser
      * @return found messages
      */
-    public List<MTorMessage> getUnresolvedAll(User user);
+    List<MTorMessage> getUnresolvedAll(User user);
 
     /**
      * WIll find all not resolved message
@@ -38,6 +38,6 @@ public interface MessageDao extends GenericDao<MTorMessage, Long> {
      *            used to filter on
      * @return found messages
      */
-    public List<MTorMessage> getUnresolvedAll(Long userId);
+    List<MTorMessage> getUnresolvedAll(Long userId);
 
 }

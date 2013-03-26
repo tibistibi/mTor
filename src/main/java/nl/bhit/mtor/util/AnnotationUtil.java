@@ -19,10 +19,9 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
  * @author tibi
  */
 public class AnnotationUtil {
-    private final static ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(
-            false);
+    private static final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
 
-    protected final static Log log = LogFactory.getLog(AnnotationUtil.class);
+    protected static final Log log = LogFactory.getLog(AnnotationUtil.class);
 
     /**
      * will search for annotation of type searchForAnnotation within the basePackage

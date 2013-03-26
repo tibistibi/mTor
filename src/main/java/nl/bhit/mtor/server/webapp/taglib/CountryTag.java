@@ -134,14 +134,14 @@ public class CountryTag extends TagSupport {
         List<LabelValue> countries = new ArrayList<LabelValue>();
 
         for (Locale anAvailable : available) {
-            final String iso = anAvailable.getCountry();
-            final String name = anAvailable.getDisplayCountry(locale);
+            final String countryISO = anAvailable.getCountry();
+            final String countryName = anAvailable.getDisplayCountry(locale);
 
-            if (!"".equals(iso) && !"".equals(name)) {
-                LabelValue country = new LabelValue(name, iso);
+            if (!"".equals(countryISO) && !"".equals(countryName)) {
+                LabelValue country = new LabelValue(countryName, countryISO);
 
                 if (!countries.contains(country)) {
-                    countries.add(new LabelValue(name, iso));
+                    countries.add(new LabelValue(countryName, countryISO));
                 }
             }
         }

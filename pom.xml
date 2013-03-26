@@ -1189,34 +1189,49 @@
 		        <tomcat.deploy.url>http://tomcat.bhit.nl:7070/manager/text</tomcat.deploy.url>
 		        <jdbc.username>mTor</jdbc.username>
 		        <jdbc.password>SECRET</jdbc.password>
+		        <sonar.host>s.bhit.nl</sonar.host>
+		        <sonar.port>8080</sonar.port>
+		        <sonar.jdbc.username>sonar</sonar.jdbc.username>
+		        <sonar.jdbc.password>N9SPeyE5</sonar.jdbc.password>
             </properties>
+        </profile>
+        <profile>
+        	<id>miquel</id>
+        	<properties>
+        		<sonarVersion>2.0</sonarVersion>
+        		<sonar.host>s.bhit.nl</sonar.host>
+        		<sonar.port>8080</sonar.port>
+        		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		        <sonar.jdbc.password>N9SPeyE5</sonar.jdbc.password>
+        	</properties>
         </profile>
         <!-- ================= Sonar Profiles ================= -->
         <profile>
-		  <id>maven-2</id>
-		  <activation>
-		    <file>
-		      <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
-		      <missing>${basedir}</missing>
-		    </file>
-		  </activation>
-		  <properties>
-		    <sonarVersion>1.0</sonarVersion>
-		  </properties>
+        	<id>maven-2</id>
+        	<activation>
+			    <file>
+			    	<!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+			    	<missing>${basedir}</missing>
+			    </file>
+		    </activation>
+		    <properties>
+		    	<sonarVersion>1.0</sonarVersion>
+		    </properties>
 		</profile>
 		<profile>
-		  <id>maven-3</id>
-		  <activation>
-		    <file>
-		      <!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
-		      <exists>${basedir}</exists>
-		    </file>
-		  </activation>
-		  <properties>
-		    <sonarVersion>2.0</sonarVersion>
-		  </properties>
+			<id>maven-3</id>
+			<activation>
+				<file>
+					<!-- basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+					<exists>${basedir}</exists>
+				</file>
+			</activation>
+			<properties>
+				<sonarVersion>2.0</sonarVersion>
+			</properties>
 		</profile>
-    </profiles>
+		
+	</profiles>
 
     <properties>
         <!-- Application settings -->
@@ -1270,7 +1285,18 @@
         <jdbc.url>jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8&amp;amp;autoReconnect=true</jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password>abc123</jdbc.password>
-
+        
+        <!-- Sonar settings -->
+        <sonar.host>localhost</sonar.host>
+        <sonar.port>9000</sonar.port>
+        <sonar.host.url>http://${sonar.host}:${sonar.port}</sonar.host.url>
+        <sonar.db.name>sonar</sonar.db.name>
+        <sonar.db.port>3306</sonar.db.port>
+		<sonar.jdbc.url>jdbc:mysql://${sonar.host}:${sonar.db.port}/${sonar.db.name}?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;rewriteBatchedStatements=true</sonar.jdbc.url>
+		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		<sonar.jdbc.password>sonar</sonar.jdbc.password>
+		<sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+        
         <!-- Properties calculated by AppFuse when running full-source plugin -->
         <aspectj.version>1.6.10</aspectj.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
@@ -1294,6 +1320,6 @@
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <tomcat.deploy.url>http://tomcat.bhit.nl:7070/manager/text</tomcat.deploy.url>
-
+        
     </properties>
 </project>
