@@ -1,12 +1,5 @@
 package nl.bhit.mtor.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import nl.bhit.mtor.Constants;
-
-import org.springframework.context.i18n.LocaleContextHolder;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,6 +8,12 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import nl.bhit.mtor.Constants;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  * Date Utility Class used to convert Strings to Dates and Timestamps
@@ -71,7 +70,7 @@ public final class DateUtil {
             returnValue = df.format(aDate);
         }
 
-        return (returnValue);
+        return returnValue;
     }
 
     /**
@@ -103,7 +102,7 @@ public final class DateUtil {
             throw new ParseException(pe.getMessage(), pe.getErrorOffset());
         }
 
-        return (date);
+        return date;
     }
 
     /**
@@ -160,7 +159,7 @@ public final class DateUtil {
             returnValue = df.format(aDate);
         }
 
-        return (returnValue);
+        return returnValue;
     }
 
     /**

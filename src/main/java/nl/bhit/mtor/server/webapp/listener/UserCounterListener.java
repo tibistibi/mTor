@@ -52,7 +52,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
      */
     public synchronized void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
-        servletContext.setAttribute((COUNT_KEY), Integer.toString(counter));
+        servletContext.setAttribute(COUNT_KEY, Integer.toString(counter));
     }
 
     /**
@@ -146,7 +146,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             Authentication auth = securityContext.getAuthentication();
-            if (auth != null && (auth.getPrincipal() instanceof User)) {
+            if (auth != null && auth.getPrincipal() instanceof User) {
                 User user = (User) auth.getPrincipal();
                 removeUsername(user);
             }

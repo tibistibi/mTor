@@ -97,7 +97,7 @@ public class ConstantsTag extends TagSupport {
         }
 
         // Continue processing this page
-        return (SKIP_BODY);
+        return SKIP_BODY;
     }
 
     public void setClassName(String clazz) {
@@ -113,7 +113,7 @@ public class ConstantsTag extends TagSupport {
     }
 
     public String getScope() {
-        return (this.scope);
+        return this.scope;
     }
 
     public void setVar(String var) {
@@ -121,7 +121,7 @@ public class ConstantsTag extends TagSupport {
     }
 
     public String getVar() {
-        return (this.var);
+        return this.var;
     }
 
     /**

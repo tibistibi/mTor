@@ -112,7 +112,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return (name != null ? name.hashCode() : 0);
+        return name != null ? name.hashCode() : 0;
     }
 
     /**

@@ -1,9 +1,7 @@
 package nl.bhit.mtor.server.webapp.filter;
 
-import nl.bhit.mtor.Constants;
-
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
+import java.util.Locale;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -11,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Map;
+
+import nl.bhit.mtor.Constants;
+
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * Filter to wrap request with a request including user preferred locale.
@@ -30,7 +30,6 @@ public class LocaleFilter extends OncePerRequestFilter {
      * @throws IOException when something goes wrong
      * @throws ServletException when a communication failure happens
      */
-    @SuppressWarnings("unchecked")
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain)
             throws IOException, ServletException {

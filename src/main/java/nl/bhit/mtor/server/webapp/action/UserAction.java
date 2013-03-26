@@ -1,18 +1,24 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import com.opensymphony.xwork2.Preparable;
-import org.apache.struts2.ServletActionContext;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Role;
-import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 import nl.bhit.mtor.service.GenericManager;
 import nl.bhit.mtor.service.UserExistsException;
 
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
@@ -23,25 +29,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+import com.opensymphony.xwork2.Preparable;
 
 /**
  * Action for facilitating User Management feature.
  */
 public class UserAction extends BaseAction implements Preparable {
+	
     private static final long serialVersionUID = 6776558938712115191L;
+    
     private GenericManager<Project, Long> projectManager;
     private List<User> users;
     private User user;
     private String id;
     private String query;
-    private List projects;
+    private List<Project> projects;
 
     @Autowired
     public void setProjectManager(GenericManager<Project, Long> projectManager) {
@@ -53,7 +55,7 @@ public class UserAction extends BaseAction implements Preparable {
      */
     public void prepare() {
         // prevent failures on new
-        if (getRequest().getMethod().equalsIgnoreCase("post") && (!"".equals(getRequest().getParameter("user.id")))) {
+        if (getRequest().getMethod().equalsIgnoreCase("post") && !"".equals(getRequest().getParameter("user.id"))) {
             user = userManager.getUser(getRequest().getParameter("user.id"));
         }
     }
@@ -109,7 +111,7 @@ public class UserAction extends BaseAction implements Preparable {
         boolean editProfile = request.getRequestURI().contains("editProfile");
 
         // if URL is "editProfile" - make sure it's the current user
-        if (editProfile && ((request.getParameter("id") != null) || (request.getParameter("from") != null))) {
+        if (editProfile && (request.getParameter("id") != null || request.getParameter("from") != null)) {
             ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" + request.getParameter("id")
                     + "'");
@@ -188,7 +190,7 @@ public class UserAction extends BaseAction implements Preparable {
 
         Integer originalVersion = user.getVersion();
 
-        boolean isNew = ("".equals(getRequest().getParameter("user.version")));
+        boolean isNew = "".equals(getRequest().getParameter("user.version"));
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
@@ -214,7 +216,7 @@ public class UserAction extends BaseAction implements Preparable {
             Long projectName = Long.parseLong(userProjects[i]);
             user.addProject(projectManager.get(projectName));
         }
-
+        
         user.setEmail(user.getUsername());
 
         try {
@@ -274,8 +276,8 @@ public class UserAction extends BaseAction implements Preparable {
     public String list() {
         try {
             users = userManager.search(query);
-            Collection usersNew = new LinkedHashSet(users);
-            users = new ArrayList(usersNew);
+            Collection<User> usersNew = new LinkedHashSet<User>(users);
+            users = new ArrayList<User>(usersNew);
         } catch (SearchException se) {
             addActionError(se.getMessage());
             users = userManager.getUsers();
@@ -283,7 +285,7 @@ public class UserAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
-    public List getProjectList() {
+    public List<Project> getProjectList() {
         projects = projectManager.getAllDistinct();
         return projects;
     }

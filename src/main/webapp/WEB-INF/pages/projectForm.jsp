@@ -24,7 +24,7 @@
         <label for="projectUsers" class="control-label">Assign to user:</label>
         <select id="projectUsers" name="projectUsers" multiple="true" style="margin-left:20px;">
             <c:forEach items="${userList}" var="user">
-            <option value="${user.getId()}">${user.getFullName()}</option>
+            	<option value="${user.getId()}" ${project.users.contains(user) ? 'selected' : ''}>${user.getFullName()}</option>
             </c:forEach>
         </select>
         <s:checkbox property="project.monitoring" key="project.monitoring"/>
