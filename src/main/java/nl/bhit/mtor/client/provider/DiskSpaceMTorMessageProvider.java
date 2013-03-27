@@ -18,8 +18,9 @@ import org.apache.commons.logging.LogFactory;
 @MTorMessageProvider
 public class DiskSpaceMTorMessageProvider {
     private final static Log log = LogFactory.getLog(DiskSpaceMTorMessageProvider.class);
-    public final static long ERROR_LIMIT = 1000000L;
-    public final static long WARN_LIMIT = 10000000L;
+    
+    private static long ERROR_LIMIT = 1000000L;
+    private static long WARN_LIMIT = 10000000L;
 
     /**
      * this method will return a warning message when the WARN_LIMMI is reached and an error message when the
@@ -53,5 +54,24 @@ public class DiskSpaceMTorMessageProvider {
         log.trace("free disk space is: " + free);
         return free;
     }
+
+    /*
+     * Getters & Setters
+     */
+	public static long getErrorLimit() {
+		return ERROR_LIMIT;
+	}
+
+	public static void setErrorLimit(long errorLimit) {
+		ERROR_LIMIT = errorLimit;
+	}
+
+	public static long getWarnLimit() {
+		return WARN_LIMIT;
+	}
+
+	public static void setWarnLimit(long warnLimit) {
+		WARN_LIMIT = warnLimit;
+	}
 
 }
