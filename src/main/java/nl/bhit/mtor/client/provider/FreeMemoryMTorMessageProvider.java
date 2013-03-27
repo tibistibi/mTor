@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 @MTorMessageProvider
 public class FreeMemoryMTorMessageProvider {
+
 	
     private static final Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
     
@@ -18,6 +19,7 @@ public class FreeMemoryMTorMessageProvider {
     
     private static final String ERROR_MSG = "The free memory is less then " + ERROR_LIMIT + "!";
     private static final String WARN_MSG = "The free memory is less then " + WARN_LIMIT + "! It is running low.";
+
 
     /**
      * this method will return a warning message when the WARN_LIMIT is reached and an error message when the

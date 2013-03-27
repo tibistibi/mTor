@@ -43,5 +43,4 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
      * @return
      */
     List<ClientMessage> getUnresolvedAllByUser(@PathParam("id") Long id);
-
 }
