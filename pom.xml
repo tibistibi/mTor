@@ -1204,8 +1204,11 @@
         	<properties>
         		<sonarVersion>2.0</sonarVersion>
         		<sonar.host>s.bhit.nl</sonar.host>
-		        <sonar.port>8181</sonar.port>
-        		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		        <sonar.login>miquel</sonar.login>
+		        <sonar.password>CHANGE ME</sonar.password>
+				<sonar.port>8181</sonar.port>
+		        <sonar.jdbc.username>sonar</sonar.jdbc.username>
+		        <sonar.jdbc.password>CHANGEME</sonar.jdbc.password>
         	</properties>
         </profile>
         <!-- ================= Sonar Profiles ================= -->
@@ -1297,7 +1300,10 @@
         <sonar.db.port>3306</sonar.db.port>
 		<sonar.jdbc.url>jdbc:mysql://${sonar.host}:${sonar.db.port}/${sonar.db.name}?useUnicode=true&amp;amp;characterEncoding=utf8&amp;amp;rewriteBatchedStatements=true</sonar.jdbc.url>
 		<sonar.jdbc.username>sonar</sonar.jdbc.username>
+		<sonar.jdbc.password>sonar</sonar.jdbc.password>
 		<sonar.jdbc.driver>com.mysql.jdbc.Driver</sonar.jdbc.driver>
+        <sonar.login>admin</sonar.login>
+        <sonar.password>admin</sonar.password>
         
         <!-- Properties calculated by AppFuse when running full-source plugin -->
         <aspectj.version>1.6.10</aspectj.version>
@@ -1310,7 +1316,13 @@
         <ehcache.version>2.6.2</ehcache.version>
         <ehcache.web.version>2.0.4</ehcache.web.version>
         <hibernate.search.version>4.1.1.Final</hibernate.search.version>
-        <hibernate.version>4.1.8.Final</hibernate.version>
+        <!-- 
+        	Downgrading hibernate version solves a cascade error. We have different behavior with
+        	the same source code. It works in 4.1.2.Final and doesn't work in 4.1.8.Final. More info:
+        	https://forum.hibernate.org/viewtopic.php?f=1&t=1024394
+        	https://hibernate.atlassian.net/browse/HHH-7605
+         -->
+        <hibernate.version>4.1.2.Final</hibernate.version>
         <javamail.version>1.4.1</javamail.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jstl.version>1.2</jstl.version>

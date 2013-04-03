@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import nl.bhit.mtor.dao.UserDao;
 import nl.bhit.mtor.model.User;
 
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -56,7 +57,12 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getId());
         }
-        getSession().saveOrUpdate(user);
+        try {
+        	getSession().saveOrUpdate(user);
+        } catch (NonUniqueObjectException nuoe) {
+        	log.debug(nuoe.getMessage(), nuoe);
+        	getSession().saveOrUpdate(getSession().merge(user));
+        }
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getSession().flush();
         return user;
@@ -81,7 +87,8 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List users = getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
+        @SuppressWarnings("unchecked")
+		List<User> users = (List<User>)getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
         if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         } else {
