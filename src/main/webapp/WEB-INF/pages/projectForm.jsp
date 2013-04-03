@@ -21,12 +21,10 @@
         <!-- todo: change this to read the identifier field from the other pojo -->
         <s:select key="project.company" name="project.company.id" list="companyList" listKey="id" listValue="id"></s:select>
         <s:textfield key="project.name" required="true" maxlength="255" />
-        <label for="projectUsers" class="control-label">Assign to user:</label>
-        <select id="projectUsers" name="projectUsers" multiple="true" style="margin-left:20px;">
-            <c:forEach items="${userList}" var="user">
-            	<option value="${user.getId()}" ${project.users.contains(user) ? 'selected' : ''}>${user.getFullName()}</option>
-            </c:forEach>
-        </select>
+        <s:select id="projectUsers" name="projectUsers" key="projectDetail.user.assign" 
+        		  list="userList" multiple="true"
+        		  listKey="id" listValue="fullName"
+        		  value="assignedUsers"/>
         <s:checkbox property="project.monitoring" key="project.monitoring"/>
 
         <div id="actions" class="form-actions">
