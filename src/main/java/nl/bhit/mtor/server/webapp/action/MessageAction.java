@@ -83,22 +83,6 @@ public class MessageAction extends BaseAction implements Preparable {
 
     private void getMessagesForUser() {
         mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser());
-        /*
-         * // messages = messageManager.search(query, Message.class);
-         * mTorMessages = new ArrayList();
-         * List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
-         * List<Project> tempProjects = getProjectCompanyList();
-         * for (MTorMessage tempMessage : tempMessages) {
-         * String messageProjectName = tempMessage.getProject().getName();
-         * for (Project tempProject : tempProjects) {
-         * if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
-         * mTorMessages.add(tempMessage);
-         * }
-         * }
-         * }
-         * Collection messagesNew = new LinkedHashSet(mTorMessages);
-         * mTorMessages = new ArrayList(messagesNew);
-         */
     }
 
     private void getMessagesForAdmin() {
@@ -176,8 +160,7 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     public String resolve() {
-        List<MTorMessage> mTorMessagesList = new ArrayList<MTorMessage>();
-        mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
+        List<MTorMessage> mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
         
         for (MTorMessage tempMessage : mTorMessagesList) {
             tempMessage.setResolved(true);

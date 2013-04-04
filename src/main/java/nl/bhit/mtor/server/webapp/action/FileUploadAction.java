@@ -3,18 +3,25 @@ package nl.bhit.mtor.server.webapp.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import nl.bhit.mtor.Constants;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.struts2.ServletActionContext;
 
 /**
  * Sample action that shows how to do file upload with Struts 2.
  */
 public class FileUploadAction extends BaseAction {
+	
     private static final long serialVersionUID = -9208910183310010569L;
+    
+    private static final int BYTE_CHUNK_LENGTH = 8192;
+    private static final int MAX_FILE_LENGTH = 2097152;
+    
     private File file;
     private String fileContentType;
     private String fileFileName;
@@ -24,10 +31,10 @@ public class FileUploadAction extends BaseAction {
      * Upload the file
      * 
      * @return String with result (cancel, input or sucess)
-     * @throws Exception
+     * @throws IOException
      *             if something goes wrong
      */
-    public String upload() throws Exception {
+    public String upload() throws IOException{
         if (this.cancel != null) {
             return "cancel";
         }
@@ -42,22 +49,24 @@ public class FileUploadAction extends BaseAction {
         if (!dirPath.exists()) {
             dirPath.mkdirs();
         }
-
-        // retrieve the file data
-        InputStream stream = new FileInputStream(file);
-
-        // write the file to the file specified
-        OutputStream bos = new FileOutputStream(uploadDir + fileFileName);
-        int bytesRead;
-        byte[] buffer = new byte[8192];
-
-        while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
-            bos.write(buffer, 0, bytesRead);
+        
+        InputStream stream = null;
+        OutputStream bos = null;
+        try {
+	        // retrieve the file data
+	    	stream = new FileInputStream(file);
+	        // write the file to the file specified
+	    	bos = new FileOutputStream(uploadDir + fileFileName);
+	        int bytesRead;
+	        byte[] buffer = new byte[BYTE_CHUNK_LENGTH];
+	        while ((bytesRead = stream.read(buffer, 0, BYTE_CHUNK_LENGTH)) != -1) {
+	            bos.write(buffer, 0, bytesRead);
+	        }
+        } finally {
+        	IOUtils.closeQuietly(bos);
+        	IOUtils.closeQuietly(stream);
         }
-
-        bos.close();
-        stream.close();
-
+        
         // place the data into the request for retrieval on next page
         getRequest().setAttribute("location", dirPath.getAbsolutePath() + Constants.FILE_SEP + fileFileName);
 
@@ -118,9 +127,9 @@ public class FileUploadAction extends BaseAction {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             getFieldErrors().clear();
             if ("".equals(fileFileName) || file == null) {
-                super.addFieldError("file", getText("errors.requiredField", new String[] {//
+                super.addFieldError("file", getText("errors.requiredField", new String[] {
                         getText("uploadForm.file") }));
-            } else if (file.length() > 2097152) {
+            } else if (file.length() > MAX_FILE_LENGTH) {
                 addActionError(getText("maxLengthExceeded"));
             }
         }

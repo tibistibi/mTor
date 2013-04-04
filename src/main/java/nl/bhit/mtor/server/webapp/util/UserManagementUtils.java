@@ -3,10 +3,6 @@ package nl.bhit.mtor.server.webapp.util;
 import nl.bhit.mtor.model.User;
 
 import org.apache.log4j.Logger;
-/*import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;*/
 
 /**
  * A utility class for user retrieval from the session (the logged in user).

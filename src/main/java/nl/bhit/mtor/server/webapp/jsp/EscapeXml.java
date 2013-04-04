@@ -34,7 +34,8 @@ public class EscapeXml {
     private static final String[] ESCAPES;
 
     static {
-        int size = '>' + 1; // '>' is the largest escaped value
+    	// '>' is the largest escaped value
+        int size = '>' + 1;
         ESCAPES = new String[size];
         ESCAPES['<'] = "&lt;";
         ESCAPES['>'] = "&gt;";

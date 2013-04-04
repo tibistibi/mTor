@@ -112,12 +112,13 @@ public class Address extends BaseObject implements Serializable {
      */
     @Override
     public int hashCode() {
+    	final int prime = 29;
         int result;
         result = address != null ? address.hashCode() : 0;
-        result = 29 * result + (city != null ? city.hashCode() : 0);
-        result = 29 * result + (province != null ? province.hashCode() : 0);
-        result = 29 * result + (country != null ? country.hashCode() : 0);
-        result = 29 * result + (postalCode != null ? postalCode.hashCode() : 0);
+        result = prime * result + (city != null ? city.hashCode() : 0);
+        result = prime * result + (province != null ? province.hashCode() : 0);
+        result = prime * result + (country != null ? country.hashCode() : 0);
+        result = prime * result + (postalCode != null ? postalCode.hashCode() : 0);
         return result;
     }
 

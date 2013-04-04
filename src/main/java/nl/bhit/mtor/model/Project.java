@@ -24,14 +24,17 @@ import javax.persistence.Table;
 @Table(
         name = "PROJECT")
 public class Project extends BaseObject implements Serializable {
+	
     private static final long serialVersionUID = 5444456904374632294L;
+    
+    public static final long INTERVAL = 5 /*minutes*/ * 60 /*seconds x minute*/ * 1000 /*milliseconds x second*/;
+    
+    private boolean monitoring;
     private Long id;
     private String name;
-    private Set<MTorMessage> messages;
     private Company company;
+    private Set<MTorMessage> messages;
     private Set<User> users;
-    private boolean monitoring;
-    public static final long INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
 
     public Project() {
         this.messages = new TreeSet<MTorMessage>();

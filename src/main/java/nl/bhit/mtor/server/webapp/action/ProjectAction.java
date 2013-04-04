@@ -196,7 +196,7 @@ public class ProjectAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
+    public String save() {
         if (cancel != null) {
             return "cancel";
         }

@@ -23,7 +23,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
  *         to correct time pattern. Minutes should be mm not MM (MM is month).
  */
 public final class DateUtil {
+	
     private static Log log = LogFactory.getLog(DateUtil.class);
+    
     private static final String TIME_PATTERN = "HH:mm";
 
     /**
@@ -98,7 +100,6 @@ public final class DateUtil {
         try {
             date = df.parse(strDate);
         } catch (ParseException pe) {
-            // log.error("ParseException: " + pe);
             throw new ParseException(pe.getMessage(), pe.getErrorOffset());
         }
 
