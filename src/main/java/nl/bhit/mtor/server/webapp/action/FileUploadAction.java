@@ -14,7 +14,12 @@ import org.apache.struts2.ServletActionContext;
  * Sample action that shows how to do file upload with Struts 2.
  */
 public class FileUploadAction extends BaseAction {
+	
     private static final long serialVersionUID = -9208910183310010569L;
+    
+    private static final int BYTE_CHUNK_LENGTH = 8192;
+    private static final int MAX_FILE_LENGTH = 2097152;
+    
     private File file;
     private String fileContentType;
     private String fileFileName;
@@ -49,9 +54,9 @@ public class FileUploadAction extends BaseAction {
         // write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + fileFileName);
         int bytesRead;
-        byte[] buffer = new byte[8192];
+        byte[] buffer = new byte[BYTE_CHUNK_LENGTH];
 
-        while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
+        while ((bytesRead = stream.read(buffer, 0, BYTE_CHUNK_LENGTH)) != -1) {
             bos.write(buffer, 0, bytesRead);
         }
 
@@ -118,9 +123,9 @@ public class FileUploadAction extends BaseAction {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             getFieldErrors().clear();
             if ("".equals(fileFileName) || file == null) {
-                super.addFieldError("file", getText("errors.requiredField", new String[] {//
+                super.addFieldError("file", getText("errors.requiredField", new String[] {
                         getText("uploadForm.file") }));
-            } else if (file.length() > 2097152) {
+            } else if (file.length() > MAX_FILE_LENGTH) {
                 addActionError(getText("maxLengthExceeded"));
             }
         }

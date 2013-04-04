@@ -229,7 +229,8 @@ public class UserAction extends BaseAction implements Preparable {
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-            user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
+        	// APF-788: Removing roles from user doesn't work
+            user.getRoles().clear();
             String[] userRoles = getRequest().getParameterValues(REQUEST_PARAMS.USER_ROLES.getParamName());
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {

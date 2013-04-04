@@ -17,10 +17,13 @@ import org.apache.commons.logging.LogFactory;
  */
 @MTorMessageProvider
 public class DiskSpaceMTorMessageProvider {
+	
     private final static Log log = LogFactory.getLog(DiskSpaceMTorMessageProvider.class);
     
-    private static long ERROR_LIMIT = 1000000L;
-    private static long WARN_LIMIT = 10000000L;
+    private static final long THRESHOLD_LIMIT = 1000000L;
+    
+    private static long ERROR_LIMIT = THRESHOLD_LIMIT;
+    private static long WARN_LIMIT = THRESHOLD_LIMIT;
 
     /**
      * this method will return a warning message when the WARN_LIMMI is reached and an error message when the

@@ -51,16 +51,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Indexed
 @XmlRootElement
 public class User extends BaseObject implements Serializable, UserDetails {
+	
     private static final long serialVersionUID = 3832626162173359411L;
 
     private Long id;
-    private String username; // required
-    private String password; // required
+    private String username;
+    private String password;
     private String confirmPassword;
     private String passwordHint;
-    private String firstName; // required
-    private String lastName; // required
-    private String email; // required; unique
+    private String firstName;
+    private String lastName;
+    private String email;
     private String phoneNumber;
     private String website;
     private Address address = new Address();
