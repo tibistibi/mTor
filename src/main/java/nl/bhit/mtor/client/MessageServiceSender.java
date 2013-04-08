@@ -3,6 +3,7 @@ package nl.bhit.mtor.client;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.rmi.RemoteException;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
@@ -13,6 +14,7 @@ import nl.bhit.mtor.client.wsdl.MessageServiceStub.Status;
 import nl.bhit.mtor.util.AnnotationUtil;
 
 import org.apache.axis2.AxisFault;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -28,9 +30,11 @@ public class MessageServiceSender {
 
     private static final String M_TOR_PROJECT_ID = "mTor.project.id";
     private static final String M_TOR_SERVER_URL = "mTor.server.url";
+    private static final String M_TOR_PACKAGES = "mTor.packages";
     private static final String M_TOR_PROPERTIES = "mTor.properties";
     protected final Log log = LogFactory.getLog(MessageServiceSender.class);
     Properties properties;
+    private final String defaultBasePackage = "nl.bhit.mtor";
 
     public MessageServiceSender() {
         properties = new Properties();
@@ -62,8 +66,30 @@ public class MessageServiceSender {
      */
     public void sendMessages() {
         log.trace("start sending message, will search for MTorMessageProvider classes");
+
+        for (String basePackage : getBasePackages()) {
+            log.trace("sendMessages for base package: " + basePackage);
+            sendMessages(basePackage);
+        }
+    }
+
+    protected Set<String> getBasePackages() {
+        Set<String> result = new HashSet<String>();
+        result.add(defaultBasePackage);
+        String[] pieces = StringUtils.split(getBasePackegeFromProperty(), ",");
+        for (int i = 0; i < pieces.length; i++) {
+            result.add(StringUtils.trim(pieces[i]));
+        }
+        return result;
+    }
+
+    protected String getBasePackegeFromProperty() {
+        return properties.getProperty(M_TOR_PACKAGES);
+    }
+
+    private void sendMessages(String basePackage) {
         try {
-            final Set<BeanDefinition> candidates = AnnotationUtil.findProviders(MTorMessageProvider.class, "nl.bhit");
+            final Set<BeanDefinition> candidates = AnnotationUtil.findProviders(MTorMessageProvider.class, basePackage);
             for (BeanDefinition beanDefinition : candidates) {
                 sendMessageForThisProvider(beanDefinition);
             }
@@ -142,21 +168,21 @@ public class MessageServiceSender {
     }
 
     private static Status getStatus(nl.bhit.mtor.model.Status status) {
-    	Status msgStatus;
-    	
-    	switch (status) {
-			case INFO:
-				msgStatus = Status.INFO;
-				break;
-			case WARN:
-				msgStatus = Status.WARN;
-				break;
-			default:
-				msgStatus = Status.ERROR;
-				break;
-		}
-    	
-    	return msgStatus;
+        Status msgStatus;
+
+        switch (status) {
+            case INFO:
+                msgStatus = Status.INFO;
+                break;
+            case WARN:
+                msgStatus = Status.WARN;
+                break;
+            default:
+                msgStatus = Status.ERROR;
+                break;
+        }
+
+        return msgStatus;
     }
 
     protected Long getPorjectId() {
