@@ -18,16 +18,29 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
         super(Project.class);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<Project> getWithNonResolvedMessages(User user) {
         Query query = getSession().createQuery(
                 "select p as project from Project as p left join p.users as u where u = :user");
         query.setLong("user", user.getId());
         List<Project> result = query.list();
+        addNonResolved(result);
+        return result;
+    }
 
+    @SuppressWarnings("unchecked")
+    public List<Project> getWithNonResolvedMessages() {
+        Query query = getSession().createQuery("select p as project from Project");
+        List<Project> result = query.list();
+        addNonResolved(result);
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void addNonResolved(List<Project> result) {
         for (Project project : result) {
-            query = getSession()
+            Query query = getSession()
                     .createQuery(
                             "select m as message from MTorMessage as m where m.project.id  = :projectId AND  m.resolved = :resolved");
             query.setLong("projectId", project.getId());
@@ -35,7 +48,5 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
             HashSet<MTorMessage> messges = new HashSet<MTorMessage>(query.list());
             project.setMessages(messges);
         }
-
-        return result;
     }
 }

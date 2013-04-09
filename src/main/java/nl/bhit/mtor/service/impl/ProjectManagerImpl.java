@@ -24,4 +24,8 @@ public class ProjectManagerImpl extends GenericManagerImpl<Project, Long> implem
     public List<Project> getWithNonResolvedMessages(User user) {
         return projectDao.getWithNonResolvedMessages(user);
     }
+
+    public List<Project> getWithNonResolvedMessages() {
+        return projectDao.getWithNonResolvedMessages();
+    }
 }

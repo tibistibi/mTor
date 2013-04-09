@@ -19,4 +19,11 @@ public interface ProjectDao extends GenericDao<Project, Long> {
      */
     List<Project> getWithNonResolvedMessages(User user);
 
+    /**
+     * Get project with non resolved messages
+     * 
+     * @return all projects with messages
+     */
+    List<Project> getWithNonResolvedMessages();
+
 }

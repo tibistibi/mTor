@@ -7,9 +7,9 @@ import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.service.ProjectManager;
 import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.MessageManager;
+import nl.bhit.mtor.service.ProjectManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,7 +36,7 @@ public class AlertSender {
     protected final Log log = LogFactory.getLog(AlertSender.class);
 
     public void process() {
-        List<Project> projects = projectManager.getAllDistinct();
+        List<Project> projects = projectManager.getWithNonResolvedMessages();
 
         for (Project project : projects) {
             if (project.isMonitoring()) {

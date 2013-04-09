@@ -16,4 +16,11 @@ public interface ProjectManager extends GenericManager<Project, Long> {
      */
     List<Project> getWithNonResolvedMessages(User user);
 
+    /**
+     * Get project with non resolved messages
+     * 
+     * @return all projects with non resolved messages.
+     */
+    List<Project> getWithNonResolvedMessages();
+
 }
