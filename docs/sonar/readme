@@ -1,0 +1,15 @@
+In order to install Sonar server with MySQL database (already installed) follow this steps:
+	1) Download and install Sonar (http://docs.codehaus.org/display/SONAR/Installing+Sonar).
+	2) Execute "/docs/sonar/scripts/sonar_create_db.sql" script on your MySQL database.
+	3) Copy (if its necessary) the file "/docs/sonar/configuration/sonar.properties" to your "/{SONAR_PATH}/conf/".
+	4) Execute, via shell command, the "/{SONAR_PATH}/bin/linux-{YOUR_VERSION}/sonar.sh start" (or the start .bat in Windows SO).
+	5) When Sonar server is started, go to "Settings --> System". In "Backup --> Restore configuration" option you should load "/docs/sonar/configuration/sonar_base_configuration.xml".
+	6) Finally, execute "mvn sonar:sonar".
+
+Some interesting links:
+	http://www.sonarsource.org/
+	http://pmd.sourceforge.net/
+	http://findbugs.sourceforge.net/
+	http://checkstyle.sourceforge.net/
+	http://www.oracle.com/technetwork/java/codeconventions-150003.pdf
+	http://www.appperfect.com/support/java-coding-rules/codeconvention.html
