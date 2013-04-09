@@ -37,6 +37,17 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
 
     @SuppressWarnings("unchecked")
     @Override
+    public List<MTorMessage> getAllByUser(User user, boolean resolved) {
+        Query query = getSession()
+                .createQuery(
+                        "select m as message from MTorMessage as m left join m.project as p left join p.users as u where m.resolved = :resolved AND u = :user");
+        query.setLong("user", user.getId());
+        query.setBoolean("resolved", resolved);
+        return query.list();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
     public MTorMessage getAliveByProject(Long projectId) {
         String hql = "select m as message from MTorMessage as m left join m.project as p where p = :project and m.content like '%alive%'";
         log.trace("running hql:" + hql);

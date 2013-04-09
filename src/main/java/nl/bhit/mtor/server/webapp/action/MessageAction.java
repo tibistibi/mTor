@@ -20,13 +20,13 @@ import com.opensymphony.xwork2.Preparable;
 
 @Component
 public class MessageAction extends BaseAction implements Preparable {
-	
+
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 963285910852618368L;
-	
-	@Autowired
+    private static final long serialVersionUID = 963285910852618368L;
+
+    @Autowired
     private MessageManager messageManager;
     @Autowired
     private GenericManager<Project, Long> projectManager;
@@ -35,7 +35,7 @@ public class MessageAction extends BaseAction implements Preparable {
     private MTorMessage message;
     private Long id;
     @SuppressWarnings("unused")
-	private String query;
+    private String query;
 
     public void setMessageManager(MessageManager messageManager) {
         this.messageManager = messageManager;
@@ -82,7 +82,7 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     private void getMessagesForUser() {
-        mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser());
+        mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser(), false);
         /*
          * // messages = messageManager.search(query, Message.class);
          * mTorMessages = new ArrayList();
@@ -178,7 +178,7 @@ public class MessageAction extends BaseAction implements Preparable {
     public String resolve() {
         List<MTorMessage> mTorMessagesList = new ArrayList<MTorMessage>();
         mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
-        
+
         for (MTorMessage tempMessage : mTorMessagesList) {
             tempMessage.setResolved(true);
             messageManager.save(tempMessage);
