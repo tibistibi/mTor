@@ -1,8 +1,10 @@
 package nl.bhit.mtor.dao.hibernate;
 
+import java.util.HashSet;
 import java.util.List;
 
 import nl.bhit.mtor.dao.ProjectDao;
+import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.User;
 
@@ -19,11 +21,21 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
     @SuppressWarnings("unchecked")
     @Override
     public List<Project> getWithNonResolvedMessages(User user) {
-        Query query = getSession()
-                .createQuery(
-                        "select p as project from MTorMessage as m left join m.project as p left join p.users as u where m.resolved = :resolved AND u = :user");
+        Query query = getSession().createQuery(
+                "select p as project from Project as p left join p.users as u where u = :user");
         query.setLong("user", user.getId());
-        query.setBoolean("resolved", false);
-        return query.list();
+        List<Project> result = query.list();
+
+        for (Project project : result) {
+            query = getSession()
+                    .createQuery(
+                            "select m as message from MTorMessage as m where m.project.id  = :projectId AND  m.resolved = :resolved");
+            query.setLong("projectId", project.getId());
+            query.setBoolean("resolved", false);
+            HashSet<MTorMessage> messges = new HashSet<MTorMessage>(query.list());
+            project.setMessages(messges);
+        }
+
+        return result;
     }
 }
