@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class RequestUtil {
 	
-    private static final Log log = LogFactory.getLog(RequestUtil.class);
+    private static final Log LOG = LogFactory.getLog(RequestUtil.class);
     
     private static final int COOKIE_MAX_AGE = 3600 /*seconds x hour*/ * 24 /*hour x day*/ * 30 /*days*/;
     private static final int HTTP_DEFAULT_PORT = 80;
@@ -34,8 +34,8 @@ public final class RequestUtil {
      */
     public static void setCookie(HttpServletResponse response, String name,
                                  String value, String path) {
-        if (log.isDebugEnabled()) {
-            log.debug("Setting cookie '" + name + "' on path '" + path + "'");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Setting cookie '" + name + "' on path '" + path + "'");
         }
 
         Cookie cookie = new Cookie(name, value);
@@ -97,7 +97,9 @@ public final class RequestUtil {
      * @return URL to application
      */
     public static String getAppURL(HttpServletRequest request) {
-        if (request == null) return "";
+        if (request == null) {
+        	return "";
+        }
          
         StringBuffer url = new StringBuffer();
         int port = request.getServerPort();

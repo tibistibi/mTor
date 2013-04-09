@@ -45,8 +45,8 @@ public class ProjectAction extends BaseAction implements Preparable {
     	}
     }
 	
-	private CompanyManager companyManager;
-    private ProjectManager projectManager;
+	private transient CompanyManager companyManager;
+    private transient ProjectManager projectManager;
     
     private Project project;
     private Long id;
@@ -134,18 +134,18 @@ public class ProjectAction extends BaseAction implements Preparable {
         if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
             List<Project> tempProjects = projectManager.getAllDistinct();
             String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-            List<Project> projects = new ArrayList<Project>();
+            List<Project> lstProjects = new ArrayList<Project>();
             for (Project tempProject : tempProjects) {
                 Set<User> projectUsers = tempProject.getUsers();
                 for (User projectUser : projectUsers) {
                     if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
-                        projects.add(tempProject);
+                        lstProjects.add(tempProject);
                     }
                 }
             }
             List<Company> tempCompanies = new ArrayList<Company>();
-            for (Project project : projects) {
-                tempCompanies.add(project.getCompany());
+            for (Project p : lstProjects) {
+                tempCompanies.add(p.getCompany());
             }
             Collection<Company> companiesNew = new LinkedHashSet<Company>(tempCompanies);
             companies = new ArrayList<Company>(companiesNew);

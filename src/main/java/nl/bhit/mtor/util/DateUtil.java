@@ -24,7 +24,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  */
 public final class DateUtil {
 	
-    private static Log log = LogFactory.getLog(DateUtil.class);
+    private static final Log LOG = LogFactory.getLog(DateUtil.class);
     
     private static final String TIME_PATTERN = "HH:mm";
 
@@ -93,8 +93,8 @@ public final class DateUtil {
         Date date;
         df = new SimpleDateFormat(aMask);
 
-        if (log.isDebugEnabled()) {
-            log.debug("converting '" + strDate + "' to date with mask '" + aMask + "'");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("converting '" + strDate + "' to date with mask '" + aMask + "'");
         }
 
         try {
@@ -154,7 +154,7 @@ public final class DateUtil {
         String returnValue = "";
 
         if (aDate == null) {
-            log.warn("aDate is null!");
+            LOG.warn("aDate is null!");
         } else {
             df = new SimpleDateFormat(aMask);
             returnValue = df.format(aDate);

@@ -18,13 +18,12 @@ import org.apache.commons.logging.LogFactory;
 @MTorMessageProvider
 public class DiskSpaceMTorMessageProvider {
 	
-    private final static Log log = LogFactory.getLog(DiskSpaceMTorMessageProvider.class);
+    private final static Log LOG = LogFactory.getLog(DiskSpaceMTorMessageProvider.class);
     
-    private static final long THRESHOLD_LIMIT = 1000000L;
     private static final String ROOT_PATH = "/";
     
-    private static long ERROR_LIMIT = THRESHOLD_LIMIT;
-    private static long WARN_LIMIT = THRESHOLD_LIMIT;
+    public static long errorLimit = 1000000L;
+    public static long warnLimit = 10000000L;
 
     /**
      * this method will return a warning message when the WARN_LIMMI is reached and an error message when the
@@ -36,17 +35,17 @@ public class DiskSpaceMTorMessageProvider {
     public static SoapMessage getDiskSpaceMessage() {
         SoapMessage message = new SoapMessage();
         long free = getFreeDiskSpace();
-        if (free < ERROR_LIMIT) {
+        if (free < errorLimit) {
             return createMessage(message, "The hard drive is almost full!", Status.ERROR);
         }
-        if (free < WARN_LIMIT) {
+        if (free < warnLimit) {
             return createMessage(message, "The hard drive is getting full!", Status.WARN);
         }
         return null;
     }
 
     protected static SoapMessage createMessage(SoapMessage message, String errorMessage, Status status) {
-        log.warn(errorMessage);
+        LOG.warn(errorMessage);
         message.setContent(errorMessage);
         message.setStatus(status);
         return message;
@@ -55,7 +54,7 @@ public class DiskSpaceMTorMessageProvider {
     protected static long getFreeDiskSpace() {
         File tmp = new File(ROOT_PATH);
         long free = tmp.getFreeSpace();
-        log.trace("free disk space is: " + free);
+        LOG.trace("free disk space is: " + free);
         return free;
     }
 
@@ -63,19 +62,19 @@ public class DiskSpaceMTorMessageProvider {
      * Getters & Setters
      */
 	public static long getErrorLimit() {
-		return ERROR_LIMIT;
+		return errorLimit;
 	}
 
 	public static void setErrorLimit(long errorLimit) {
-		ERROR_LIMIT = errorLimit;
+		DiskSpaceMTorMessageProvider.errorLimit = errorLimit;
 	}
 
 	public static long getWarnLimit() {
-		return WARN_LIMIT;
+		return warnLimit;
 	}
 
 	public static void setWarnLimit(long warnLimit) {
-		WARN_LIMIT = warnLimit;
+		DiskSpaceMTorMessageProvider.warnLimit = warnLimit;
 	}
 
 }

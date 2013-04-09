@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  */
 public final class UserManagementUtils {
 
-    private static final transient Logger log = Logger.getLogger(UserManagementUtils.class);
+    private static final transient Logger LOG = Logger.getLogger(UserManagementUtils.class);
 
     private UserManagementUtils() {
         // hide me (utility class)
@@ -21,7 +21,7 @@ public final class UserManagementUtils {
      * @return the logged in user.
      */
     public static User getAuthenticatedUser() {
-        log.trace("retrieving the, loggid in, user from the session.");
+    	LOG.trace("retrieving the, loggid in, user from the session.");
         User result = null;
         final org.springframework.security.core.context.SecurityContext ctx = org.springframework.security.core.context.SecurityContextHolder.getContext();
         if (ctx.getAuthentication() != null) {
@@ -32,7 +32,7 @@ public final class UserManagementUtils {
                 result = (User) auth.getDetails();
             }
         }
-        log.trace("Logged in user:" + result);
+        LOG.trace("Logged in user:" + result);
         return result;
     }
 }

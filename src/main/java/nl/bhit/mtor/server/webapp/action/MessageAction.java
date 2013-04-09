@@ -10,8 +10,8 @@ import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
-import nl.bhit.mtor.service.GenericManager;
 import nl.bhit.mtor.service.MessageManager;
+import nl.bhit.mtor.service.ProjectManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,21 +27,22 @@ public class MessageAction extends BaseAction implements Preparable {
 	private static final long serialVersionUID = 963285910852618368L;
 	
 	@Autowired
-    private MessageManager messageManager;
+    private transient MessageManager messageManager;
     @Autowired
-    private GenericManager<Project, Long> projectManager;
-    private List<MTorMessage> mTorMessages;
-    private List<Project> projects;
-    private MTorMessage message;
+    private transient ProjectManager projectManager;
+    
     private Long id;
     @SuppressWarnings("unused")
 	private String query;
+    private MTorMessage message;
+    private List<MTorMessage> mTorMessages;
+    private List<Project> projects;
 
     public void setMessageManager(MessageManager messageManager) {
         this.messageManager = messageManager;
     }
 
-    public void setProjectManager(GenericManager<Project, Long> projectManager) {
+    public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
     }
 
@@ -137,7 +138,7 @@ public class MessageAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
+    public String save() {
         if (cancel != null) {
             return "cancel";
         }

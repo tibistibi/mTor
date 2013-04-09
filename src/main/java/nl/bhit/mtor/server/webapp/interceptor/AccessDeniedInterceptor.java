@@ -13,7 +13,12 @@ import org.springframework.security.access.AccessDeniedException;
  */
 public class AccessDeniedInterceptor implements Interceptor {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 585589495470464389L;
+
+	@Override
     public String intercept(ActionInvocation invocation) throws Exception {
         try {
             return invocation.invoke();

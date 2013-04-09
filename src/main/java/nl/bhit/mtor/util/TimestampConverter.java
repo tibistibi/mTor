@@ -1,11 +1,12 @@
 package nl.bhit.mtor.util;
 
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.lang.StringUtils;
-
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.commons.beanutils.ConversionException;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This class is converts a java.util.Date to a String and a String to a
@@ -29,7 +30,7 @@ public class TimestampConverter extends DateConverter {
      *            the String value
      * @return a converted date
      */
-    protected Object convertToDate(Class type, Object value) {
+    protected Object convertToDate(Class<?> type, Object value) {
         DateFormat df = new SimpleDateFormat(TS_FORMAT);
         if (value instanceof String) {
             try {
@@ -38,8 +39,8 @@ public class TimestampConverter extends DateConverter {
                 }
 
                 return df.parse((String) value);
-            } catch (Exception pe) {
-                throw new ConversionException("Error converting String to Timestamp");
+            } catch (ParseException pe) {
+                throw new ConversionException("Error converting String to Timestamp", pe);
             }
         }
 
@@ -55,13 +56,13 @@ public class TimestampConverter extends DateConverter {
      *            the date instance
      * @return string version of date using default date pattern
      */
-    protected Object convertToString(Class type, Object value) {
+    protected Object convertToString(Class<?> type, Object value) {
         DateFormat df = new SimpleDateFormat(TS_FORMAT);
         if (value instanceof Date) {
             try {
                 return df.format(value);
             } catch (Exception e) {
-                throw new ConversionException("Error converting Timestamp to String");
+                throw new ConversionException("Error converting Timestamp to String", e);
             }
         }
 

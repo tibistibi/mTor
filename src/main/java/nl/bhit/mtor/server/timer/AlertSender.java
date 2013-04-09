@@ -33,7 +33,7 @@ public class AlertSender {
     @Autowired
     MailEngine mailEngine;
 
-    protected final Log log = LogFactory.getLog(AlertSender.class);
+    protected static final Log LOG = LogFactory.getLog(AlertSender.class);
 
     public void process() {
         List<Project> projects = projectManager.getAllDistinct();
@@ -45,11 +45,6 @@ public class AlertSender {
                         sendMailToUser(project, user);
                     }
                     // TODO (tibi) rewrite code to make it more readable
-                    /*
-                     * if (!project.hasStatus(Status.ERROR)) {
-                     * sendMailToUsers(project);
-                     * }
-                     */
                     Set<MTorMessage> currentMessages = project.getMessages();
                     if (!currentMessages.isEmpty()) {
                         for (MTorMessage message : currentMessages) {
@@ -86,8 +81,8 @@ public class AlertSender {
     }
 
     private void sendHeartBeatAlert(String to) {
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + to + "]...");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");
@@ -99,8 +94,8 @@ public class AlertSender {
 
     private void sendMessageAlert(Project project, String subject, String content, User user) {
         String to = user.getEmail();
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + to + "]...");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");

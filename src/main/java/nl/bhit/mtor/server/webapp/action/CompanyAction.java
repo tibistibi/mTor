@@ -18,14 +18,15 @@ public class CompanyAction extends BaseAction implements Preparable {
 	 */
 	private static final long serialVersionUID = -970535300600109626L;
 	
-	private CompanyManager companyManager;
+	private transient CompanyManager companyManager;
     @SuppressWarnings("unused")
-	private ProjectManager projectManager;
-    private List<Company> companies;
-    private Company company;
+	private transient ProjectManager projectManager;
+    
     private Long id;
     @SuppressWarnings("unused")
 	private String query;
+    private Company company;
+    private List<Company> companies;
 
     public void setCompanyManager(CompanyManager companyManager) {
         this.companyManager = companyManager;
@@ -108,7 +109,7 @@ public class CompanyAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
+    public String save() {
         if (cancel != null) {
             return "cancel";
         }
