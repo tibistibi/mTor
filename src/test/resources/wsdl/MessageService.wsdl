@@ -3,12 +3,21 @@
     </wsdl:import>
   <wsdl:binding name="MessageServiceSoapBinding" type="ns1:MessageManager">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getMessagesWithTimestamp">
+    <wsdl:operation name="getUnresolvedAllByUser">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="getMessagesWithTimestamp">
+      <wsdl:input name="getUnresolvedAllByUser">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="getMessagesWithTimestampResponse">
+      <wsdl:output name="getUnresolvedAllByUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUnresolvedAllByLogedInUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getUnresolvedAllByLogedInUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUnresolvedAllByLogedInUserResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
