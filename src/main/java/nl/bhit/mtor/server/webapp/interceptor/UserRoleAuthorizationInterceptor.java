@@ -47,7 +47,7 @@ public class UserRoleAuthorizationInterceptor implements Interceptor {
      * @param authorizedRoles array of role names
      */
     public final void setAuthorizedRoles(String[] authorizedRoles) {
-        this.authorizedRoles = authorizedRoles == null ? null : authorizedRoles.clone();
+        this.authorizedRoles = authorizedRoles;
     }
 
     /**

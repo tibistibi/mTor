@@ -1,26 +1,31 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
-
-import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.model.Status;
-import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.service.MailEngine;
-import nl.bhit.mtor.service.RoleManager;
-import nl.bhit.mtor.service.UserManager;
-
-import org.springframework.mail.SimpleMailMessage;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import nl.bhit.mtor.Constants;
+import nl.bhit.mtor.model.Status;
+import nl.bhit.mtor.model.User;
+import nl.bhit.mtor.service.GenericManager;
+import nl.bhit.mtor.service.MailEngine;
+import nl.bhit.mtor.service.RoleManager;
+import nl.bhit.mtor.service.UserManager;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
+import org.springframework.mail.SimpleMailMessage;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * Implementation of <strong>ActionSupport</strong> that contains
@@ -105,9 +110,9 @@ public class BaseAction extends ActionSupport {
      */
     @SuppressWarnings("unchecked")
     protected void saveMessage(String msg) {
-        List messages = (List)getRequest().getSession().getAttribute("messages");
+        List<String> messages = (List<String>)getRequest().getSession().getAttribute("messages");
         if (messages == null) {
-            messages = new ArrayList();
+            messages = new ArrayList<String>();
         }
         messages.add(msg);
         getRequest().getSession().setAttribute("messages", messages);
@@ -120,7 +125,7 @@ public class BaseAction extends ActionSupport {
      * @return the user's populated form from the session
      */
     protected Map getConfiguration() {
-        Map config = (HashMap) getSession().getServletContext().getAttribute(Constants.CONFIG);
+        Map config = (HashMap)getSession().getServletContext().getAttribute(Constants.CONFIG);
         // so unit tests don't puke when nothing's been set
         if (config == null) {
             return new HashMap();
@@ -200,6 +205,78 @@ public class BaseAction extends ActionSupport {
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
     }
+    
+    /**
+     * Convenience method that wraps addElementsById call. Useful if we want to work with long ids and
+     * string array values. This method convert string to long values.
+     * 
+     * Note that manager and setToUpdate can NOT be null. If they are the method will do anything and returns.
+     * If some format exception occurs during string to long values conversion the method returns.
+     * 
+     * @param manager					Manager that allows us to load appropriate entities to setToUpdate.
+     * @param setToUpdate				Set of elements that we want to update.
+     * @param selectedIds				Array of strings with the elements selected by user.
+     * @param clearSetIfEmpty			Flag that indicates if we want to clear the set when selectedIds is empty.
+     * 									True will clear the set if selectedIds is empty (indicates that user doesn't want any element).
+     * 									False won't clear the set (useful when the page is loaded and there is no user's selection).
+     */
+	protected <E extends Serializable, PK extends Serializable> void addElementsByLongId(final GenericManager<E, PK> manager, 
+																						 final Set<E> setToUpdate, 
+																						 final String[] selectedIds, 
+																						 boolean clearSetIfEmpty) {
+    	if (manager == null || setToUpdate == null) {
+    		return;
+    	}
+    	final Set<PK> selIds = new HashSet<PK>();
+    	if (selectedIds != null && selectedIds.length > 0) {
+	    	try {
+		    	for (String strId : selectedIds) {
+		    		@SuppressWarnings("unchecked")
+		    		PK id = (PK)Long.valueOf(strId);
+		    		selIds.add(id);
+		    	}
+	    	} catch (NumberFormatException nfe) {
+	    		return;
+	    	}
+    	}
+    	addElementsById(manager, setToUpdate, selIds, clearSetIfEmpty);
+    }
+    
+    /**
+     * Updates a set of elements (entities) based on user selection.
+     * 
+     * @param manager					Manager that allows us to load appropriate entities to setToUpdate.
+     * @param setToUpdate				Set of elements that we want to update.
+     * @param selectedIds				Array of strings with the elements selected by user.
+     * @param clearSetIfEmpty			Flag that indicates if we want to clear the set when selectedIds is empty.
+     * 									True will clear the set if selectedIds is empty (indicates that user doesn't want any element).
+     * 									False won't clear the set (useful when the page is loaded and there is no user's selection).
+     */
+    protected <E extends Serializable, PK extends Serializable> void addElementsById(final GenericManager<E, PK> manager, 
+    																				 final Set<E> setToUpdate, 
+    																				 final Set<PK> selectedIds, 
+    																				 boolean clearSetIfEmpty) {
+    	if (manager == null || setToUpdate == null) {
+    		return;
+    	}
+    	
+    	if (selectedIds == null || selectedIds.isEmpty()) {
+    		if (clearSetIfEmpty) {
+    			setToUpdate.clear();
+    		}
+    	} else if (setToUpdate.isEmpty()) {
+    		for (PK id : selectedIds) {
+    			setToUpdate.add(manager.get(id));
+    		}
+    	} else {
+    		Set<E> selectedElements = new HashSet<E>();
+    		for (PK id : selectedIds) {
+    			selectedElements.add(manager.get(id));
+    		}
+    		setToUpdate.retainAll(selectedElements);
+    		setToUpdate.addAll(selectedElements);
+    	}
+    }
 
     /**
      * Convenience method for setting a "from" parameter to indicate the previous page.
@@ -219,7 +296,7 @@ public class BaseAction extends ActionSupport {
         this.save = save;
     }
 
-    public List getStatusList() {
+    public List<Status> getStatusList() {
         return Status.getAsList();
     }
 }

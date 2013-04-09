@@ -3,6 +3,7 @@ package nl.bhit.mtor.server.webapp.action;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Role;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
-import nl.bhit.mtor.service.GenericManager;
+import nl.bhit.mtor.service.ProjectManager;
+import nl.bhit.mtor.service.RoleManager;
 import nl.bhit.mtor.service.UserExistsException;
 
 import org.apache.struts2.ServletActionContext;
@@ -38,16 +40,49 @@ public class UserAction extends BaseAction implements Preparable {
 	
     private static final long serialVersionUID = 6776558938712115191L;
     
-    private GenericManager<Project, Long> projectManager;
-    private List<User> users;
+    /**
+     * Enumeration of all parameter names used by this action.
+     * 
+     * @author admindes
+     *
+     */
+    private enum REQUEST_PARAMS {
+    	
+    	PROJECTS_IDS("projects"),
+    	USER_ROLES("userRoles");
+    	
+    	private String name;
+    	
+    	private REQUEST_PARAMS(String name) {
+    		this.name = name;
+    	}
+    	
+    	public String getParamName() {
+    		return name;
+    	}
+    }
+    
+    private RoleManager roleManager;
+    private ProjectManager projectManager;
+    
     private User user;
     private String id;
     private String query;
+    
+    private List<User> users;
     private List<Project> projects;
-
+    private List<String> assignedProjectsIds;
+    private List<Role> roles;
+    private List<String> assignedRolesIds;
+    
     @Autowired
-    public void setProjectManager(GenericManager<Project, Long> projectManager) {
+    public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
+    }
+    
+    @Autowired
+    public void setRoleManager(RoleManager roleManager) {
+        this.roleManager = roleManager;
     }
 
     /**
@@ -129,13 +164,13 @@ public class UserAction extends BaseAction implements Preparable {
             user.addRole(new Role(Constants.USER_ROLE));
         }
 
-        String[] userProjects = getRequest().getParameterValues("projects");
-
-        for (int i = 0; userProjects != null && i < userProjects.length; i++) {
-            Long projectName = Long.parseLong(userProjects[i]);
-            user.addProject(projectManager.get(projectName));
+        if (user.getProjects() == null) {
+        	user.setProjects(new HashSet<Project>());
         }
-
+        addElementsByLongId(projectManager, user.getProjects(), 
+        					getRequest().getParameterValues(REQUEST_PARAMS.PROJECTS_IDS.getParamName()),
+        					false);
+        
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
 
@@ -187,15 +222,16 @@ public class UserAction extends BaseAction implements Preparable {
      *             when setting "access denied" fails on response
      */
     public String save() throws Exception {
-
+    	
         Integer originalVersion = user.getVersion();
 
         boolean isNew = "".equals(getRequest().getParameter("user.version"));
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-            user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
-            String[] userRoles = getRequest().getParameterValues("userRoles");
+        	// APF-788: Removing roles from user doesn't work
+            user.getRoles().clear();
+            String[] userRoles = getRequest().getParameterValues(REQUEST_PARAMS.USER_ROLES.getParamName());
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {
                 String roleName = userRoles[i];
@@ -206,16 +242,13 @@ public class UserAction extends BaseAction implements Preparable {
                 }
             }
         }
-
-        if (user.getProjects() != null) {
-            user.getProjects().clear();
+        
+        if (user.getProjects() == null) {
+        	user.setProjects(new HashSet<Project>());
         }
-        String[] userProjects = getRequest().getParameterValues("projects");
-
-        for (int i = 0; userProjects != null && i < userProjects.length; i++) {
-            Long projectName = Long.parseLong(userProjects[i]);
-            user.addProject(projectManager.get(projectName));
-        }
+        addElementsByLongId(projectManager, user.getProjects(), 
+        					getRequest().getParameterValues(REQUEST_PARAMS.PROJECTS_IDS.getParamName()),
+        					true);
         
         user.setEmail(user.getUsername());
 
@@ -285,9 +318,63 @@ public class UserAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
+    /**
+     * Obtains all available projects from the database.
+     * 
+     * @return		All available projects.
+     */
     public List<Project> getProjectList() {
+    	//REVIEW: its correct return all projects from DB? Maybe only all of this projects associated with the company of the current user?
         projects = projectManager.getAllDistinct();
         return projects;
     }
-
+    
+    /**
+     * Populates assignedProjectsIds attribute with all the project's ids assigned to this user.
+     * It should be a string list and its used in order to make the default list selection.
+     * 
+     * @return		List with project's id assigned to the current user.
+     */
+    public List<String> getAssignedProjects() {
+    	if (assignedProjectsIds == null) {
+    		assignedProjectsIds = new ArrayList<String>();
+    	}
+    	assignedProjectsIds.clear();
+    	if (user.getProjects() != null) {
+	    	for (final Project p : user.getProjects()) {
+	    		assignedProjectsIds.add(String.valueOf(p.getId()));
+	    	}
+    	}
+    	return assignedProjectsIds;
+    }
+    
+    /**
+     * Obtains all available roles from the database.
+     * 
+     * @return		All available roles.
+     */
+    public List<Role> getRoleList() {
+    	roles = roleManager.getAllDistinct();
+    	return roles;
+    }
+    
+    /**
+     * Populates assignedRolesIds attribute with all the role's ids assigned to this user.
+     * It should be a string list and its used in order to make the default list selection.
+     * 
+     * @return		List with role's id assigned to the current user.
+     */
+    public List<String> getAssignedRoles() {
+    	if (assignedRolesIds == null) {
+    		assignedRolesIds = new ArrayList<String>();
+    	}
+    	assignedRolesIds.clear();
+    	if (user.getRoles() != null) {
+	    	for (final Role r : user.getRoles()) {
+	    		assignedRolesIds.add(String.valueOf(r.getName()));
+	    	}
+    	}
+    	return assignedRolesIds;
+    }
+    
 }

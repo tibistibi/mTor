@@ -149,6 +149,7 @@ public class LabelValue implements Comparable, Serializable {
      * @return hashCode
      */
     public int hashCode() {
-        return (this.getValue() == null) ? 17 : this.getValue().hashCode();
+    	final int prime = 17;
+        return this.getValue() == null ? prime : this.getValue().hashCode();
     }
 }

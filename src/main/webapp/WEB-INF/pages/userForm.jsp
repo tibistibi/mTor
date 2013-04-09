@@ -52,13 +52,11 @@
         <s:hidden key="user.phoneNumber"/>
         <s:hidden key="user.website"/>
          
-        <security:authorize ifAllGranted="ROLE_ADMIN">         
-			<label for="projects" class="control-label">Assign projects:</label>
-	        <select id="projects" name="projects" multiple="true" style="margin-left:20px;">
-	            <c:forEach items="${projectList}" var="project">
-	            	<option value="${project.id}" ${user.projects.contains(project) ? 'selected' : ''}>${project.name}</option>
-	            </c:forEach>
-	        </select>
+        <security:authorize ifAllGranted="ROLE_ADMIN">
+			<s:select id="projects" name="projects" key="user.assign.projects" 
+					  list="projectList" multiple="true" 
+					  listKey="id" listValue="name"   
+					  value="assignedProjects"/>
 		</security:authorize>
 		
         <fieldset>
@@ -107,14 +105,10 @@
             </div>
         </fieldset>
         <fieldset class="control-group">
-            <label for="userRoles" class="control-label"><fmt:message key="userProfile.assignRoles"/></label>
-            <div class="controls">
-                <select id="userRoles" name="userRoles" multiple="true">
-                    <c:forEach items="${availableRoles}" var="role">
-                    <option value="${role.value}" ${fn:contains(user.roles, role.label) ? 'selected' : ''}>${role.label}</option>
-                    </c:forEach>
-                </select>
-            </div>
+        	<s:select id="userRoles" name="userRoles" key="userProfile.assignRoles" 
+        			  list="roleList" multiple="true"
+        			  listKey="name" listValue="name"
+        			  value="assignedRoles"/>
         </fieldset>
     </c:when>
     <c:otherwise>

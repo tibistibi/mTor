@@ -24,14 +24,38 @@ public class ProjectAction extends BaseAction implements Preparable {
 	 */
 	private static final long serialVersionUID = 7012940279849835576L;
 	
+    /**
+     * Enumeration of all parameter names used by this action.
+     * 
+     * @author admindes
+     *
+     */
+    private enum REQUEST_PARAMS {
+    	
+    	USERS_IDS("projectUsers");
+    	
+    	private String name;
+    	
+    	private REQUEST_PARAMS(String name) {
+    		this.name = name;
+    	}
+    	
+    	public String getParamName() {
+    		return name;
+    	}
+    }
+	
 	private CompanyManager companyManager;
     private ProjectManager projectManager;
-    private List<Project> projects;
-    private List<Company> companies;
-    private List<User> users;
+    
     private Project project;
     private Long id;
     private String query;
+    
+    private List<Project> projects;
+    private List<Company> companies;
+    private List<User> users;
+    private List<String> assignedUsersIds;
 
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
@@ -43,6 +67,25 @@ public class ProjectAction extends BaseAction implements Preparable {
 
     public List<Project> getProjects() {
         return projects;
+    }
+    
+    /**
+     * Populates assignedUsersIds attribute with all the user's ids assigned to this project.
+     * It should be a string list and its used in order to make the default list selection.
+     * 
+     * @return		List with user's id assigned to the current project.
+     */
+    public List<String> getAssignedUsers() {
+    	if (assignedUsersIds == null) {
+    		assignedUsersIds = new ArrayList<String>();
+    	}
+    	assignedUsersIds.clear();
+    	if (project.getUsers() != null) {
+	    	for (final User u : project.getUsers()) {
+	    		assignedUsersIds.add(String.valueOf(u.getId()));
+	    	}
+    	}
+    	return assignedUsersIds;
     }
 
     /**
@@ -142,13 +185,14 @@ public class ProjectAction extends BaseAction implements Preparable {
         } else {
             project = new Project();
         }
-        String[] projectUsers = getRequest().getParameterValues("projectUsers");
-
-        for (int i = 0; projectUsers != null && i < projectUsers.length; i++) {
-            String userName = projectUsers[i];
-            project.addUser(userManager.getUser(userName));
+        
+        if (project.getUsers() == null) {
+        	project.setUsers(new HashSet<User>());
         }
-
+        addElementsByLongId(userManager, project.getUsers(), 
+        					getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), 
+        					false);
+        
         return SUCCESS;
     }
 
@@ -161,17 +205,12 @@ public class ProjectAction extends BaseAction implements Preparable {
             return delete();
         }
         
-        String[] projectUsersId = getRequest().getParameterValues("projectUsers");
-        Set<User> projectSelectedUsers = new HashSet<User>();
-        for (int i = 0; projectUsersId != null && i < projectUsersId.length; i++) {
-        	projectSelectedUsers.add(userManager.getUser(projectUsersId[i]));
+        if (project.getUsers() == null) {
+        	project.setUsers(new HashSet<User>());
         }
-        if (project.getUsers() == null || project.getUsers().isEmpty()) {
-        	project.setUsers(projectSelectedUsers);
-        } else {
-        	project.getUsers().retainAll(projectSelectedUsers);
-        	project.getUsers().addAll(projectSelectedUsers);
-        }
+        addElementsByLongId(userManager, project.getUsers(), 
+        					getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), 
+        					true);
         
         boolean isNew = project.getId() == null;
         
