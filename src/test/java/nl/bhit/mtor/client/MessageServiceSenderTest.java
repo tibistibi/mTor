@@ -1,17 +1,12 @@
 package nl.bhit.mtor.client;
 
+import java.util.Set;
+
 import junit.framework.TestCase;
 
-import nl.bhit.mtor.client.MessageServiceSender;
-
-import nl.bhit.mtor.client.MessageServiceSender;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Test;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MessageServiceSenderTest extends TestCase {
@@ -19,11 +14,11 @@ public class MessageServiceSenderTest extends TestCase {
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
     protected final Log log = LogFactory.getLog(getClass());
+    MessageServiceSender client = new MessageServiceSender();
 
     @Test
     public void testAddMessage() {
         log.trace("start testAddMessage...");
-        MessageServiceSender client = new MessageServiceSender();
         try {
             client.sendMessages();
             log.info("sending worked");
@@ -31,5 +26,11 @@ public class MessageServiceSenderTest extends TestCase {
             log.info("sending failed. this test only works with active soap service");
             log.info("error", e);
         }
+    }
+
+    @Test
+    public void testGetBasePackages() {
+        Set<String> result = client.getBasePackages();
+        Assert.assertEquals(1, result.size());
     }
 }
