@@ -1,13 +1,13 @@
 package nl.bhit.mtor.util;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.text.DecimalFormat;
-import java.text.ParseException;
 
 /**
  * This class is converts a Double to a double-digit String
@@ -16,7 +16,9 @@ import java.text.ParseException;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class CurrencyConverter implements Converter {
+	
     private final Log log = LogFactory.getLog(CurrencyConverter.class);
+    
     private DecimalFormat formatter = new DecimalFormat("###,###.00");
 
     public void setDecimalFormatter(DecimalFormat df) {
@@ -50,8 +52,7 @@ public class CurrencyConverter implements Converter {
                     if (log.isDebugEnabled()) {
                         log.debug("converting '" + value + "' to a decimal");
                     }
-
-                    // formatter.setDecimalSeparatorAlwaysShown(true);
+                    
                     Number num = formatter.parse(String.valueOf(value));
 
                     return num.doubleValue();

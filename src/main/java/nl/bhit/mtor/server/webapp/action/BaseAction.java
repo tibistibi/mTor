@@ -51,12 +51,12 @@ public class BaseAction extends ActionSupport {
     /**
      * The UserManager
      */
-    protected UserManager userManager;
+    protected transient UserManager userManager;
 
     /**
      * The RoleManager
      */
-    protected RoleManager roleManager;
+    protected transient RoleManager roleManager;
 
     /**
      * Indicator if the user clicked cancel
@@ -81,7 +81,7 @@ public class BaseAction extends ActionSupport {
     /**
      * MailEngine for sending e-mail
      */
-    protected MailEngine mailEngine;
+    protected transient MailEngine mailEngine;
 
     /**
      * A message pre-populated with default data
@@ -124,11 +124,12 @@ public class BaseAction extends ActionSupport {
      * 
      * @return the user's populated form from the session
      */
-    protected Map getConfiguration() {
-        Map config = (HashMap)getSession().getServletContext().getAttribute(Constants.CONFIG);
+    protected Map<String, Object> getConfiguration() {
+        @SuppressWarnings("unchecked")
+		Map<String, Object> config = (HashMap<String, Object>)getSession().getServletContext().getAttribute(Constants.CONFIG);
         // so unit tests don't puke when nothing's been set
         if (config == null) {
-            return new HashMap();
+            return new HashMap<String, Object>();
         }
         return config;
     }
@@ -180,7 +181,6 @@ public class BaseAction extends ActionSupport {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", user);
         // TODO: figure out how to get bundle specified in struts.xml
-        // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
         mailEngine.sendMessage(mailMessage, templateName, model);

@@ -33,6 +33,7 @@ import java.util.Map;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class StartupListener implements ServletContextListener {
+	
     private static final Log log = LogFactory.getLog(StartupListener.class);
 
     /**
@@ -46,7 +47,7 @@ public class StartupListener implements ServletContextListener {
 
         // Orion starts Servlets before Listeners, so check if the config
         // object already exists
-        Map<String, Object> config = (HashMap<String, Object>) context.getAttribute(Constants.CONFIG);
+        Map<String, Object> config = (HashMap<String, Object>)context.getAttribute(Constants.CONFIG);
 
         if (config == null) {
             config = new HashMap<String, Object>();
@@ -114,8 +115,6 @@ public class StartupListener implements ServletContextListener {
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        //LogFactory.release(Thread.currentThread().getContextClassLoader());
-        //Commented out the above call to avoid warning when SLF4J in classpath.
         //WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
         //WARN: Please see http://www.slf4j.org/codes.html for an explanation.
     }

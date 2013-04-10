@@ -10,8 +10,8 @@ import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
-import nl.bhit.mtor.service.GenericManager;
 import nl.bhit.mtor.service.MessageManager;
+import nl.bhit.mtor.service.ProjectManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,28 +20,29 @@ import com.opensymphony.xwork2.Preparable;
 
 @Component
 public class MessageAction extends BaseAction implements Preparable {
-
+	
     /**
 	 * 
 	 */
-    private static final long serialVersionUID = 963285910852618368L;
-
+	private static final long serialVersionUID = 963285910852618368L;
+	
+	@Autowired
+    private transient MessageManager messageManager;
     @Autowired
-    private MessageManager messageManager;
-    @Autowired
-    private GenericManager<Project, Long> projectManager;
-    private List<MTorMessage> mTorMessages;
-    private List<Project> projects;
-    private MTorMessage message;
+    private transient ProjectManager projectManager;
+    
     private Long id;
     @SuppressWarnings("unused")
-    private String query;
+	private String query;
+    private MTorMessage message;
+    private List<MTorMessage> mTorMessages;
+    private List<Project> projects;
 
     public void setMessageManager(MessageManager messageManager) {
         this.messageManager = messageManager;
     }
 
-    public void setProjectManager(GenericManager<Project, Long> projectManager) {
+    public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
     }
 
@@ -82,23 +83,7 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     private void getMessagesForUser() {
-        mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser(), false);
-        /*
-         * // messages = messageManager.search(query, Message.class);
-         * mTorMessages = new ArrayList();
-         * List<MTorMessage> tempMessages = messageManager.search(query, MTorMessage.class);
-         * List<Project> tempProjects = getProjectCompanyList();
-         * for (MTorMessage tempMessage : tempMessages) {
-         * String messageProjectName = tempMessage.getProject().getName();
-         * for (Project tempProject : tempProjects) {
-         * if (tempProject.getName().equalsIgnoreCase(messageProjectName)) {
-         * mTorMessages.add(tempMessage);
-         * }
-         * }
-         * }
-         * Collection messagesNew = new LinkedHashSet(mTorMessages);
-         * mTorMessages = new ArrayList(messagesNew);
-         */
+        mTorMessages = messageManager.getAllByUser(UserManagementUtils.getAuthenticatedUser());
     }
 
     private void getMessagesForAdmin() {
@@ -153,7 +138,7 @@ public class MessageAction extends BaseAction implements Preparable {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
+    public String save() {
         if (cancel != null) {
             return "cancel";
         }
@@ -176,9 +161,8 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     public String resolve() {
-        List<MTorMessage> mTorMessagesList = new ArrayList<MTorMessage>();
-        mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
-
+        List<MTorMessage> mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
+        
         for (MTorMessage tempMessage : mTorMessagesList) {
             tempMessage.setResolved(true);
             messageManager.save(tempMessage);

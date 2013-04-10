@@ -23,8 +23,13 @@ import org.hibernate.search.indexes.IndexReaderAccessor;
  * 
  * @author jgarcia
  */
-class HibernateSearchTools {
-    protected static final Log log = LogFactory.getLog(HibernateSearchTools.class);
+final class HibernateSearchTools {
+	
+    protected static final Log LOG = LogFactory.getLog(HibernateSearchTools.class);
+    
+    private HibernateSearchTools() {
+    	//Utility classes shouldn't has a public/default constructor.
+    }
 
     /**
      * Generates a lucene query to search for a given term in all the indexed fields of a class
@@ -40,7 +45,7 @@ class HibernateSearchTools {
      * @return
      * @throws ParseException
      */
-    public static Query generateQuery(String searchTerm, Class searchedEntity, Session sess, Analyzer defaultAnalyzer)
+    public static Query generateQuery(String searchTerm, Class<?> searchedEntity, Session sess, Analyzer defaultAnalyzer)
             throws ParseException {
         Query qry = null;
 
@@ -97,13 +102,13 @@ class HibernateSearchTools {
      * @param sess
      *            the hibernate session
      */
-    public static void reindex(Class clazz, Session sess) {
+    public static void reindex(Class<?> clazz, Session sess) {
         FullTextSession txtSession = Search.getFullTextSession(sess);
         MassIndexer massIndexer = txtSession.createIndexer(clazz);
         try {
             massIndexer.startAndWait();
         } catch (InterruptedException e) {
-            log.error("mass reindexing interrupted: " + e.getMessage());
+            LOG.error("mass reindexing interrupted: " + e.getMessage());
         } finally {
             txtSession.flushToIndexes();
         }
@@ -128,7 +133,7 @@ class HibernateSearchTools {
                 massIndexer.start();
             }
         } catch (InterruptedException e) {
-            log.error("mass reindexing interrupted: " + e.getMessage());
+            LOG.error("mass reindexing interrupted: " + e.getMessage());
         } finally {
             txtSession.flushToIndexes();
         }

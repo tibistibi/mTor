@@ -1,11 +1,5 @@
 package nl.bhit.mtor.server.webapp.taglib;
 
-import nl.bhit.mtor.model.LabelValue;
-
-import org.displaytag.tags.el.ExpressionEvaluator;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -13,6 +7,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import nl.bhit.mtor.model.LabelValue;
+
+import org.displaytag.tags.el.ExpressionEvaluator;
 
 /**
  * Tag for creating multiple &lt;select&gt; options for displaying a list of
@@ -26,7 +27,9 @@ import java.util.Locale;
  * @version $Revision: 1.4.2.1 $ $Date: 2006-06-10 08:00:48 -0600 (Sat, 10 Jun 2006) $
  */
 public class CountryTag extends TagSupport {
+	
     private static final long serialVersionUID = 3905528206810167095L;
+    
     private String name;
     private String prompt;
     private String scope;
@@ -63,7 +66,7 @@ public class CountryTag extends TagSupport {
         }
 
         Locale userLocale = pageContext.getRequest().getLocale();
-        List countries = this.buildCountryList(userLocale);
+        List<LabelValue> countries = this.buildCountryList(userLocale);
 
         if (scope != null) {
             if (scope.equals("page")) {
@@ -108,16 +111,7 @@ public class CountryTag extends TagSupport {
 
         return super.doStartTag();
     }
-
-    // /**
-    // * Release aquired resources to enable tag reusage.
-    // *
-    // * @see javax.servlet.jsp.tagext.Tag#release()
-    // */
-    // public void release() {
-    // super.release();
-    // }
-
+    
     /**
      * Build a List of LabelValues for all the available countries. Uses
      * the two letter uppercase ISO name of the country as the value and the
@@ -127,7 +121,6 @@ public class CountryTag extends TagSupport {
      *
      * @return List of LabelValues for all available countries.
      */
-    @SuppressWarnings("unchecked")
     protected List<LabelValue> buildCountryList(Locale locale) {
         final Locale[] available = Locale.getAvailableLocales();
 
@@ -153,10 +146,11 @@ public class CountryTag extends TagSupport {
 
     /**
      * Class to compare LabelValues using their labels with
-     * locale-sensitive behaviour.
+     * locale-sensitive behavior.
      */
-    public class LabelValueComparator implements Comparator {
-        private Comparator c;
+    public class LabelValueComparator implements Comparator<LabelValue> {
+    	
+        private Collator c;
 
         /**
          * Creates a new LabelValueComparator object.
@@ -175,11 +169,7 @@ public class CountryTag extends TagSupport {
          *
          * @return The value returned by comparing the localized labels.
          */
-        @SuppressWarnings("unchecked")
-        public final int compare(Object o1, Object o2) {
-            LabelValue lhs = (LabelValue) o1;
-            LabelValue rhs = (LabelValue) o2;
-
+        public final int compare(LabelValue lhs, LabelValue rhs) {
             return c.compare(lhs.getLabel(), rhs.getLabel());
         }
     }

@@ -24,11 +24,13 @@ import org.hibernate.search.annotations.Indexed;
 @Table(
         name = "MESSAGE")
 public class MTorMessage extends BaseObject implements Serializable {
+	
     private static final long serialVersionUID = 1775343633035089024L;
+    
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
-    protected final Log log = LogFactory.getLog(MTorMessage.class);
+    protected static final Log LOG = LogFactory.getLog(MTorMessage.class);
 
     private Long id;
     private String content;
@@ -43,7 +45,7 @@ public class MTorMessage extends BaseObject implements Serializable {
     }
 
     public void init() {
-        log.trace("initing MTorMessage");
+        LOG.trace("initing MTorMessage");
         timestamp = new Date();
         resolved = false;
         alertSent = false;
@@ -54,7 +56,7 @@ public class MTorMessage extends BaseObject implements Serializable {
     }
 
     @ManyToOne(
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     @JoinColumn(
             name = "PROJECT_FK")
     public Project getProject() {

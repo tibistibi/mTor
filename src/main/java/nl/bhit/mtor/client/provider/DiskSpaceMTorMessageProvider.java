@@ -64,7 +64,7 @@ public class DiskSpaceMTorMessageProvider {
     }
 
     public static void setErrorLimit(long errorLimit) {
-        errorLimit = errorLimit;
+        DiskSpaceMTorMessageProvider.errorLimit = errorLimit;
     }
 
     public static long getWarnLimit() {
@@ -72,7 +72,7 @@ public class DiskSpaceMTorMessageProvider {
     }
 
     public static void setWarnLimit(long warnLimit) {
-        warnLimit = warnLimit;
+    	DiskSpaceMTorMessageProvider.warnLimit = warnLimit;
     }
 
 }

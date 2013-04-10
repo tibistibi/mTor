@@ -18,10 +18,15 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
  * 
  * @author tibi
  */
-public class AnnotationUtil {
-    private static final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
-
-    protected static final Log log = LogFactory.getLog(AnnotationUtil.class);
+public final class AnnotationUtil {
+	
+	protected static final Log LOG = LogFactory.getLog(AnnotationUtil.class);
+	
+    private static final ClassPathScanningCandidateComponentProvider PROVIDER = new ClassPathScanningCandidateComponentProvider(false);
+    
+    private AnnotationUtil() {
+    	//Helper class shouldn't has a public/default constructor.
+    }
 
     /**
      * will search for annotation of type searchForAnnotation within the basePackage
@@ -33,9 +38,9 @@ public class AnnotationUtil {
      * @return the found candidates.
      */
     public static Set<BeanDefinition> findProviders(Class<? extends Annotation> searchForAnnotation, String basePackage) {
-        provider.addIncludeFilter(new AnnotationTypeFilter(searchForAnnotation));
-        provider.setResourceLoader(new PathMatchingResourcePatternResolver(AnnotationUtil.class.getClassLoader()));
-        return provider.findCandidateComponents(basePackage);
+    	PROVIDER.addIncludeFilter(new AnnotationTypeFilter(searchForAnnotation));
+    	PROVIDER.setResourceLoader(new PathMatchingResourcePatternResolver(AnnotationUtil.class.getClassLoader()));
+        return PROVIDER.findCandidateComponents(basePackage);
     }
 
     /**
@@ -54,8 +59,8 @@ public class AnnotationUtil {
         try {
             clazz = Class.forName(beanDefinition.getBeanClassName());
         } catch (ClassNotFoundException e) {
-            log.warn("Class not found, return null.");
-            log.debug("Error belonging to: class not found, return null.", e);
+            LOG.warn("Class not found, return null.");
+            LOG.debug("Error belonging to: class not found, return null.", e);
             return null;
         }
         for (Method method : clazz.getMethods()) {

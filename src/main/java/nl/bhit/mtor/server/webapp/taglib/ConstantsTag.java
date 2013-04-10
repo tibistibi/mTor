@@ -32,8 +32,10 @@ import java.util.Map;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ConstantsTag extends TagSupport {
+	
     private static final long serialVersionUID = 3258417209566116146L;
-    private final Log log = LogFactory.getLog(ConstantsTag.class);
+    
+    private static final Log LOG = LogFactory.getLog(ConstantsTag.class);
 
     /**
      * The class to expose the variables from.
@@ -58,7 +60,7 @@ public class ConstantsTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         // Using reflection, get the available field names in the class
-        Class c = null;
+        Class<?> c = null;
         int toScope = PageContext.PAGE_SCOPE;
 
         if (scope != null) {
@@ -68,8 +70,8 @@ public class ConstantsTag extends TagSupport {
         try {
             c = Class.forName(clazz);
         } catch (ClassNotFoundException cnf) {
-            log.error("ClassNotFound - maybe a typo?");
-            throw new JspException(cnf.getMessage());
+            LOG.error("ClassNotFound - maybe a typo?");
+            throw new JspException(cnf.getMessage(), cnf);
         }
 
         try {
@@ -87,12 +89,12 @@ public class ConstantsTag extends TagSupport {
                     Object value = c.getField(var).get(this);
                     pageContext.setAttribute(c.getField(var).getName(), value, toScope);
                 } catch (NoSuchFieldException nsf) {
-                    log.error(nsf.getMessage());
+                    LOG.error(nsf.getMessage());
                     throw new JspException(nsf);
                 }
             }
         } catch (IllegalAccessException iae) {
-            log.error("Illegal Access Exception - maybe a classloader issue?");
+            LOG.error("Illegal Access Exception - maybe a classloader issue?");
             throw new JspException(iae);
         }
 

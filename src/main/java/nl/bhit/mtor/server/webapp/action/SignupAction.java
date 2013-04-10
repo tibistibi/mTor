@@ -1,5 +1,6 @@
 package nl.bhit.mtor.server.webapp.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,20 +70,14 @@ public class SignupAction extends BaseAction {
      * Save the user, encrypting their passwords if necessary
      * 
      * @return success when good things happen
-     * @throws Exception
+     * @throws IOException
      *             when bad things happen
      */
-    public String save() throws Exception {
+    public String save() throws IOException{
         user.setEnabled(true);
 
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
-        // remove according new requirement for issue #30 signup role
-        // // Set the default anonymous role on this new user
-        // if (roleManager.getRole(Constants.ANONYMOUS_ROLE) == null) {
-        // roleManager.saveRole(new Role(Constants.ANONYMOUS_ROLE));
-        // }
-        // user.addRole(roleManager.getRole(Constants.ANONYMOUS_ROLE));
-
+        
         user.setEmail(user.getUsername());
 
         try {

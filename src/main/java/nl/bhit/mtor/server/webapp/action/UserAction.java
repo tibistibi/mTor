@@ -62,8 +62,7 @@ public class UserAction extends BaseAction implements Preparable {
     	}
     }
     
-    private RoleManager roleManager;
-    private ProjectManager projectManager;
+    private transient ProjectManager projectManager;
     
     private User user;
     private String id;
@@ -218,10 +217,10 @@ public class UserAction extends BaseAction implements Preparable {
      * Save user
      * 
      * @return success if everything worked, otherwise input
-     * @throws Exception
+     * @throws IOException
      *             when setting "access denied" fails on response
      */
-    public String save() throws Exception {
+    public String save() throws IOException {
     	
         Integer originalVersion = user.getVersion();
 
