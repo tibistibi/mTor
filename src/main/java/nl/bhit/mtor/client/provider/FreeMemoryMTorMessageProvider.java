@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 @MTorMessageProvider
 public class FreeMemoryMTorMessageProvider {
+
 	
     private static final Log log = LogFactory.getLog(FreeMemoryMTorMessageProvider.class);
     

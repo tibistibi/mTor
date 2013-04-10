@@ -1,7 +1,10 @@
 package nl.bhit.mtor.service.impl;
 
+import java.util.List;
+
 import nl.bhit.mtor.dao.ProjectDao;
 import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.service.ProjectManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +20,12 @@ public class ProjectManagerImpl extends GenericManagerImpl<Project, Long> implem
         this.projectDao = projectDao;
     }
 
+    @Override
+    public List<Project> getWithNonResolvedMessages(User user) {
+        return projectDao.getWithNonResolvedMessages(user);
+    }
+
+    public List<Project> getWithNonResolvedMessages() {
+        return projectDao.getWithNonResolvedMessages();
+    }
 }

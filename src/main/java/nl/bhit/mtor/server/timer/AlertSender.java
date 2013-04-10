@@ -7,9 +7,9 @@ import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.service.ProjectManager;
 import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.MessageManager;
+import nl.bhit.mtor.service.ProjectManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -33,18 +33,25 @@ public class AlertSender {
     @Autowired
     MailEngine mailEngine;
 
-    protected static final Log LOG = LogFactory.getLog(AlertSender.class);
+    protected final Log log = LogFactory.getLog(AlertSender.class);
 
     public void process() {
-        List<Project> projects = projectManager.getAllDistinct();
+        List<Project> projects = projectManager.getWithNonResolvedMessages();
 
         for (Project project : projects) {
+            log.trace("working on project: " + project.getId());
             if (project.isMonitoring()) {
+                log.trace("monitoring is on");
                 for (User user : project.getUsers()) {
                     if (!project.hasHeartBeat() && user.getStatusThreshold() != Status.NONE) {
                         sendMailToUser(project, user);
                     }
                     // TODO (tibi) rewrite code to make it more readable
+                    /*
+                     * if (!project.hasStatus(Status.ERROR)) {
+                     * sendMailToUsers(project);
+                     * }
+                     */
                     Set<MTorMessage> currentMessages = project.getMessages();
                     if (!currentMessages.isEmpty()) {
                         for (MTorMessage message : currentMessages) {
@@ -81,8 +88,8 @@ public class AlertSender {
     }
 
     private void sendHeartBeatAlert(String to) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("sending e-mail to user [" + to + "]...");
+        if (log.isDebugEnabled()) {
+            log.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");
@@ -94,8 +101,8 @@ public class AlertSender {
 
     private void sendMessageAlert(Project project, String subject, String content, User user) {
         String to = user.getEmail();
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("sending e-mail to user [" + to + "]...");
+        if (log.isDebugEnabled()) {
+            log.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");

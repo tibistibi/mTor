@@ -24,11 +24,11 @@ import javax.persistence.Table;
 @Table(
         name = "PROJECT")
 public class Project extends BaseObject implements Serializable {
-	
+
     private static final long serialVersionUID = 5444456904374632294L;
-    
-    public static final long INTERVAL = 5 /*minutes*/ * 60 /*seconds x minute*/ * 1000 /*milliseconds x second*/;
-    
+
+    public static final long INTERVAL = 5 /* minutes */* 60 /* seconds x minute */* 1000 /* milliseconds x second */;
+
     private boolean monitoring;
     private Long id;
     private String name;
@@ -85,7 +85,7 @@ public class Project extends BaseObject implements Serializable {
     }
 
     @OneToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @JoinColumn(
             name = "PROJECT_FK")
@@ -197,23 +197,23 @@ public class Project extends BaseObject implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-        	return true;
+            return true;
         }
         if (obj == null) {
-        	return false;
+            return false;
         }
         if (getClass() != obj.getClass()) {
-        	return false;
+            return false;
         }
         Project other = (Project) obj;
         if (id == null) {
             if (other.id != null) {
-            	return false;
+                return false;
             }
         } else if (!id.equals(other.id)) {
-        	return false;
+            return false;
         }
-        
+
         return true;
     }
 

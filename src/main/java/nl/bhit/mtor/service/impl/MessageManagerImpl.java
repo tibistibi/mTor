@@ -100,6 +100,13 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
     }
 
     @Override
+    @WebMethod(
+            exclude = true)
+    public List<MTorMessage> getAllByUser(User user, boolean resolved) {
+        return messageDao.getAllByUser(user, resolved);
+    }
+
+    @Override
     public List<ClientMessage> getUnresolvedAllByLogedInUser() {
         log.trace("starting getUnresolvedAllByLogedInUser");
         User authenticatedUser = UserManagementUtils.getAuthenticatedUser();

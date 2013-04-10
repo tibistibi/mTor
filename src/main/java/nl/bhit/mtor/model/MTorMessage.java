@@ -56,7 +56,7 @@ public class MTorMessage extends BaseObject implements Serializable {
     }
 
     @ManyToOne(
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     @JoinColumn(
             name = "PROJECT_FK")
     public Project getProject() {

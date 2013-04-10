@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.Company;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.User;
@@ -22,13 +21,12 @@ public class ProjectAction extends BaseAction implements Preparable {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 7012940279849835576L;
-	
+    private static final long serialVersionUID = 7012940279849835576L;
+
     /**
      * Enumeration of all parameter names used by this action.
      * 
      * @author admindes
-     *
      */
     private enum REQUEST_PARAMS {
     	
@@ -73,7 +71,7 @@ public class ProjectAction extends BaseAction implements Preparable {
      * Populates assignedUsersIds attribute with all the user's ids assigned to this project.
      * It should be a string list and its used in order to make the default list selection.
      * 
-     * @return		List with user's id assigned to the current project.
+     * @return List with user's id assigned to the current project.
      */
     public List<String> getAssignedUsers() {
     	if (assignedUsersIds == null) {
@@ -91,6 +89,7 @@ public class ProjectAction extends BaseAction implements Preparable {
     /**
      * Grab the entity from the database before populating with request parameters
      */
+    @Override
     public void prepare() {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             // prevent failures on new
@@ -106,25 +105,9 @@ public class ProjectAction extends BaseAction implements Preparable {
     }
 
     public String list() {
-        try {
-            if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-                Collection<Project> projectsNew = new LinkedHashSet<Project>(projectManager.search(query, Project.class));
-                List<Project> tempProjects = new ArrayList<Project>(projectsNew);
-                String loggedInUser = UserManagementUtils.getAuthenticatedUser().getFullName();
-                projects = new ArrayList<Project>();
-                for (Project tempProject : tempProjects) {
-                    Set<User> projectUsers = tempProject.getUsers();
-                    for (User projectUser : projectUsers) {
-                        if (projectUser.getFullName().equalsIgnoreCase(loggedInUser)) {
-                            projects.add(tempProject);
-                        }
-                    }
-                }
-            } else {
-                projects = projectManager.getAllDistinct();
-            }
-        } catch (SearchException se) {
-            addActionError(se.getMessage());
+        if (!getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+            projects = projectManager.getWithNonResolvedMessages(UserManagementUtils.getAuthenticatedUser());
+        } else {
             projects = projectManager.getAllDistinct();
         }
         return SUCCESS;
@@ -189,10 +172,9 @@ public class ProjectAction extends BaseAction implements Preparable {
         if (project.getUsers() == null) {
         	project.setUsers(new HashSet<User>());
         }
-        addElementsByLongId(userManager, project.getUsers(), 
-        					getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), 
-        					false);
-        
+        addElementsByLongId(userManager, project.getUsers(),
+                getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), false);
+
         return SUCCESS;
     }
 
@@ -208,10 +190,9 @@ public class ProjectAction extends BaseAction implements Preparable {
         if (project.getUsers() == null) {
         	project.setUsers(new HashSet<User>());
         }
-        addElementsByLongId(userManager, project.getUsers(), 
-        					getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), 
-        					true);
-        
+        addElementsByLongId(userManager, project.getUsers(),
+                getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), true);
+
         boolean isNew = project.getId() == null;
         
         projectManager.save(project);

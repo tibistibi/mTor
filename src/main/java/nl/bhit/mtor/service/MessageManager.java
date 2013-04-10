@@ -28,6 +28,17 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
 
     List<MTorMessage> getAllByUser(User user);
 
+    /**
+     * get messages
+     * 
+     * @param user
+     *            used to filter on
+     * @param resolved
+     *            used to filer on
+     * @return messages for this user filtered on resolved
+     */
+    List<MTorMessage> getAllByUser(User user, boolean resolved);
+
     // @Path("all")
     @GET
     /**
