@@ -29,20 +29,27 @@ public class ProjectDaoHibernate extends GenericDaoHibernate<Project, Long> impl
         return result;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public List<Project> getWithNonResolvedMessages() {
-        Query query = getSession().createQuery("select p as project from Project");
+        String queryString = "from Project";
+        log.debug("getting all projects: " + queryString);
+        Query query = getSession().createQuery(queryString);
         List<Project> result = query.list();
         addNonResolved(result);
         return result;
     }
 
     @SuppressWarnings("unchecked")
-    private void addNonResolved(List<Project> result) {
-        for (Project project : result) {
-            Query query = getSession()
-                    .createQuery(
-                            "select m as message from MTorMessage as m where m.project.id  = :projectId AND  m.resolved = :resolved");
+    private void addNonResolved(List<Project> projects) {
+        String queryString = "select m as message from MTorMessage as m where m.project.id  = :projectId AND  m.resolved = :resolved";
+        log.trace("retrieving messages with query: " + queryString);
+        if (projects == null) {
+            return;
+        }
+        for (Project project : projects) {
+            log.trace("retrieving messages for project: " + project);
+            Query query = getSession().createQuery(queryString);
             query.setLong("projectId", project.getId());
             query.setBoolean("resolved", false);
             HashSet<MTorMessage> messges = new HashSet<MTorMessage>(query.list());

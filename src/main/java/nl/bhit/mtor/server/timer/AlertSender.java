@@ -39,7 +39,9 @@ public class AlertSender {
         List<Project> projects = projectManager.getWithNonResolvedMessages();
 
         for (Project project : projects) {
+            log.trace("working on project: " + project.getId());
             if (project.isMonitoring()) {
+                log.trace("monitoring is on");
                 for (User user : project.getUsers()) {
                     if (!project.hasHeartBeat() && user.getStatusThreshold() != Status.NONE) {
                         sendMailToUser(project, user);
