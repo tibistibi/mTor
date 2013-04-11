@@ -40,28 +40,6 @@ public class UserAction extends BaseAction implements Preparable {
 	
     private static final long serialVersionUID = 6776558938712115191L;
     
-    /**
-     * Enumeration of all parameter names used by this action.
-     * 
-     * @author admindes
-     *
-     */
-    private enum REQUEST_PARAMS {
-    	
-    	PROJECTS_IDS("projects"),
-    	USER_ROLES("userRoles");
-    	
-    	private String name;
-    	
-    	private REQUEST_PARAMS(String name) {
-    		this.name = name;
-    	}
-    	
-    	public String getParamName() {
-    		return name;
-    	}
-    }
-    
     private transient ProjectManager projectManager;
     
     private User user;
@@ -167,7 +145,7 @@ public class UserAction extends BaseAction implements Preparable {
         	user.setProjects(new HashSet<Project>());
         }
         addElementsByLongId(projectManager, user.getProjects(), 
-        					getRequest().getParameterValues(REQUEST_PARAMS.PROJECTS_IDS.getParamName()),
+        					getRequest().getParameterValues("projects"),
         					false);
         
         if (user.getUsername() != null) {
@@ -230,7 +208,7 @@ public class UserAction extends BaseAction implements Preparable {
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
         	// APF-788: Removing roles from user doesn't work
             user.getRoles().clear();
-            String[] userRoles = getRequest().getParameterValues(REQUEST_PARAMS.USER_ROLES.getParamName());
+            String[] userRoles = getRequest().getParameterValues("userRoles");
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {
                 String roleName = userRoles[i];
@@ -246,7 +224,7 @@ public class UserAction extends BaseAction implements Preparable {
         	user.setProjects(new HashSet<Project>());
         }
         addElementsByLongId(projectManager, user.getProjects(), 
-        					getRequest().getParameterValues(REQUEST_PARAMS.PROJECTS_IDS.getParamName()),
+        					getRequest().getParameterValues("projects"),
         					true);
         
         user.setEmail(user.getUsername());

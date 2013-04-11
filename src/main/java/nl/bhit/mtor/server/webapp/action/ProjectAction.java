@@ -22,26 +22,6 @@ public class ProjectAction extends BaseAction implements Preparable {
 	 * 
 	 */
     private static final long serialVersionUID = 7012940279849835576L;
-
-    /**
-     * Enumeration of all parameter names used by this action.
-     * 
-     * @author admindes
-     */
-    private enum REQUEST_PARAMS {
-    	
-    	USERS_IDS("projectUsers");
-    	
-    	private String name;
-    	
-    	private REQUEST_PARAMS(String name) {
-    		this.name = name;
-    	}
-    	
-    	public String getParamName() {
-    		return name;
-    	}
-    }
 	
 	private transient CompanyManager companyManager;
     private transient ProjectManager projectManager;
@@ -173,7 +153,7 @@ public class ProjectAction extends BaseAction implements Preparable {
         	project.setUsers(new HashSet<User>());
         }
         addElementsByLongId(userManager, project.getUsers(),
-                getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), false);
+                getRequest().getParameterValues("projectUsers"), false);
 
         return SUCCESS;
     }
@@ -191,7 +171,7 @@ public class ProjectAction extends BaseAction implements Preparable {
         	project.setUsers(new HashSet<User>());
         }
         addElementsByLongId(userManager, project.getUsers(),
-                getRequest().getParameterValues(REQUEST_PARAMS.USERS_IDS.getParamName()), true);
+                getRequest().getParameterValues("projectUsers"), true);
 
         boolean isNew = project.getId() == null;
         
