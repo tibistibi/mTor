@@ -6,6 +6,10 @@
 
 <hibernate-configuration>
 	<session-factory>
+		<!-- In order to debug Hibernate SQL sentences -->
+		<!-- <property name="show_sql">true</property> -->
+        <!-- <property name="format_sql">true</property> -->
+        
 		<mapping class="nl.bhit.mtor.model.User" />
 		<mapping class="nl.bhit.mtor.model.Role" />
 		<mapping class="nl.bhit.mtor.model.Project" />
