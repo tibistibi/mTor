@@ -185,36 +185,61 @@ public class Project extends BaseObject implements Serializable {
             setUsers(setOfUsers);
         }
     }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (id == null ? 0 : id.hashCode());
-        return result;
+    
+    /**
+     * Adds and updates a set of users for this project
+     * 
+     * @param users
+     * 				Set of fully instantiated users
+     */
+    public void addUsers(Set<User> users) {
+    	if (users == null) {
+    		return;
+    	}
+    	
+    	getUsers().clear();
+    	for (final User u : users) {
+    		addUser(u);
+		}
     }
-
+    
+    /**
+     * Removes a user from this project
+     * 
+     * @param user
+     * 				fully instantiated user to remove
+     */
+    public void removeUser(final User user) {
+    	if (getUsers() == null || getUsers().isEmpty()) {
+    		return;
+    	}
+    	getUsers().remove(user);
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Project other = (Project) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
+        if (!(obj instanceof Project)) {
             return false;
         }
 
+        final Project project = (Project)obj;
+        if (name == null && project.getName() != null) {
+        	return false;
+        }
+        if (!name.equals(project.getName())) {
+        	return false;
+        }
+        
         return true;
+    }
+    
+    @Override
+    public int hashCode() {
+    	final int prime = 31;
+        return prime * (name == null ? 0 : name.hashCode());
     }
 
     @Override

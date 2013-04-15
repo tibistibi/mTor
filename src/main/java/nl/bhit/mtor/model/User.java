@@ -3,6 +3,7 @@ package nl.bhit.mtor.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -220,9 +221,53 @@ public class User extends BaseObject implements Serializable, UserDetails {
      *            the fully instantiated role
      */
     public void addRole(Role role) {
-        getRoles().add(role);
+    	if (getRoles() != null) {
+    		getRoles().add(role);
+        } else {
+            Set<Role> setOfRoles = new HashSet<Role>();
+            setOfRoles.add(role);
+            setRoles(setOfRoles);
+        }
     }
-
+    
+    /**
+     * Adds and updates a set of roles for the user
+     * 
+     * @param roles
+     * 				Set of fully instantiated roles
+     */
+    public void addRoles(Set<Role> roles) {
+    	if (roles == null) {
+    		return;
+    	}
+    	
+    	if (roles.isEmpty()) {
+    		if (getRoles() != null && !getRoles().isEmpty()) {
+    			getRoles().clear();
+    		}
+    	} else {
+    		Role roleAux = null;
+    		Iterator<Role> itRoles = getRoles().iterator();
+    		while (itRoles.hasNext()) {
+    			roleAux = itRoles.next();
+    			if (roles.contains(roleAux)) {
+    				roles.remove(roleAux);
+    			} else {
+    				itRoles.remove();
+    			}
+    		}
+    		for (final Role r : roles) {
+    			addRole(r);
+    		}
+    	}
+    }
+    
+    /**
+     * Adds a project for the user
+     * 
+     * @param project
+     *            the fully instantiated project
+     */
     public void addProject(Project project) {
         if (getProjects() != null) {
             getProjects().add(project);
@@ -231,6 +276,29 @@ public class User extends BaseObject implements Serializable, UserDetails {
             setOfProjects.add(project);
             setProjects(setOfProjects);
         }
+        project.addUser(this);
+    }
+    
+    /**
+     * Adds and updates a set of projects for the user
+     * 
+     * @param projects
+     * 				Set of fully instantiated projects
+     */
+    public void addProjects(Set<Project> projects) {
+    	if (projects == null) {
+    		return;
+    	}
+    	
+    	if (!projects.isEmpty()) {
+    		for (final Project p : getProjects()) {
+				p.removeUser(this);
+    		}
+    	}
+    	getProjects().clear();
+    	for (final Project p : projects) {
+			addProject(p);
+		}
     }
 
     /**
@@ -374,25 +442,34 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * {@inheritDoc}
      */
-    public boolean equals(Object o) {
-        if (this == o) {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (!(o instanceof User)) {
+        if (!(obj instanceof User)) {
             return false;
         }
 
-        final User user = (User) o;
-
-        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
+        final User user = (User)obj;
+        if (username == null && user.getUsername() != null) {
+        	return false;
+        }
+        if (!username.equals(user.getUsername())) {
+        	return false;
+        }
+        
+        return true;
 
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
-        return username != null ? username.hashCode() : 0;
+    	final int prime = 31;
+        return prime * (username == null ? 0 : username.hashCode());
     }
 
     /**
@@ -422,13 +499,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     @ManyToMany(
             fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "project_app_user",
-            joinColumns = { @JoinColumn(
-                    name = "users_id") },
-            inverseJoinColumns = { @JoinColumn(
-                    name = "PROJECT_ID") })
+            cascade = CascadeType.ALL,
+            mappedBy = "users")
     public Set<Project> getProjects() {
         return projects;
     }

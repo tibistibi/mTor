@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,6 @@ import nl.bhit.mtor.model.Role;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 import nl.bhit.mtor.service.ProjectManager;
-import nl.bhit.mtor.service.RoleManager;
 import nl.bhit.mtor.service.UserExistsException;
 
 import org.apache.struts2.ServletActionContext;
@@ -55,11 +55,6 @@ public class UserAction extends BaseAction implements Preparable {
     @Autowired
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
-    }
-    
-    @Autowired
-    public void setRoleManager(RoleManager roleManager) {
-        this.roleManager = roleManager;
     }
 
     /**
@@ -140,13 +135,11 @@ public class UserAction extends BaseAction implements Preparable {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));
         }
-
-        if (user.getProjects() == null) {
-        	user.setProjects(new HashSet<Project>());
+        
+        String[] selectedProjectIds = getRequest().getParameterValues("projects");
+        for (int i = 0; selectedProjectIds != null && i < selectedProjectIds.length; i++) {
+            user.addProject(projectManager.get(Long.valueOf(selectedProjectIds[i])));  
         }
-        addElementsByLongId(projectManager, user.getProjects(), 
-        					getRequest().getParameterValues("projects"),
-        					false);
         
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
@@ -203,29 +196,18 @@ public class UserAction extends BaseAction implements Preparable {
         Integer originalVersion = user.getVersion();
 
         boolean isNew = "".equals(getRequest().getParameter("user.version"));
+        
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-        	// APF-788: Removing roles from user doesn't work
-            user.getRoles().clear();
-            String[] userRoles = getRequest().getParameterValues("userRoles");
-
-            for (int i = 0; userRoles != null && i < userRoles.length; i++) {
-                String roleName = userRoles[i];
-                try {
-                    user.addRole(roleManager.getRole(roleName));
-                } catch (DataIntegrityViolationException e) {
-                    return showUserExistsException(originalVersion);
-                }
-            }
+	        try {
+	            updateRoles(originalVersion);
+	        } catch (DataIntegrityViolationException e) {
+	            return showUserExistsException(originalVersion);
+	        }
         }
         
-        if (user.getProjects() == null) {
-        	user.setProjects(new HashSet<Project>());
-        }
-        addElementsByLongId(projectManager, user.getProjects(), 
-        					getRequest().getParameterValues("projects"),
-        					true);
+        updateProjects();
         
         user.setEmail(user.getUsername());
 
@@ -277,7 +259,39 @@ public class UserAction extends BaseAction implements Preparable {
         user.setPassword(user.getConfirmPassword());
         return INPUT;
     }
-
+    
+    /**
+     * Collects the roles selected by admin and adds them.
+     * 
+     * @param originalVersion
+     * 							Version of the current user entity
+     * @throws DataIntegrityViolationException
+     * 									 	Thrown when an attempt to add some role results in violation of an integrity constraint
+     */
+    private void updateRoles(final Integer originalVersion) throws DataIntegrityViolationException{
+    	// APF-788: Removing roles from user doesn't work
+        final Set<Role> selectedRoles = new HashSet<Role>();
+        String[] strRoleIds = getRequest().getParameterValues("userRoles");
+        for (int i = 0; strRoleIds != null && i < strRoleIds.length; i++) {
+        	selectedRoles.add(roleManager.getRole(strRoleIds[i]));
+        }
+        user.addRoles(selectedRoles);
+    }
+    
+    /**
+     * Collects the projects selected by user and adds them.
+     */
+    private void updateProjects() {
+    	final Set<Project> selectedProjects = new HashSet<Project>();
+        String[] strProjectIds = getRequest().getParameterValues("projects");
+        if (strProjectIds != null && strProjectIds.length > 0) {
+        	for (String strId : strProjectIds) {
+        		selectedProjects.add(projectManager.get(Long.valueOf(strId)));
+        	}
+        }
+        user.addProjects(selectedProjects);
+    }
+    
     /**
      * Fetch all users from database and put into local "users" variable for retrieval in the UI.
      * 
