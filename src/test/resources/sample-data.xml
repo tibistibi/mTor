@@ -23,8 +23,8 @@
         <column>status_threshold</column>      
         <row>
             <value description="id">-1</value>
-            <value description="username">user</value>
-            <value description="password">b6b1f4781776979c0775c71ebdd8bdc084aac5fe</value>
+            <value description="username">user@yahoo.com</value>
+            <value description="password">dbdda448f26756752bf7871b2959dd11044fb538</value>
             <value description="first_name">Tomcat</value>
             <value description="last_name">User</value>
             <value description="address"></value>
@@ -149,33 +149,105 @@
         <column>TIMESTAMP</column>
         <column>RESOLVED</column>
         <column>ALERT_SENT</column>
-    <row>
-        <value description="ID">-1</value>
-        <value description="CONTENT">testMessage1</value>
-        <value description="PROJECT_FK">-1</value>
-        <value description="STATUS">ERROR</value>
-        <value description="TIMESTAMP">2013-01-25</value>
-        <value description="RESOLVED">true</value>
-        <value description="ALERT_SENT">false</value>
-    </row>
-    <row>
-        <value description="ID">-2</value>
-        <value description="CONTENT">testMessage2</value>
-        <value description="PROJECT_FK">-2</value>
-        <value description="STATUS">WARN</value>
-        <value description="TIMESTAMP">2013-01-25</value>
-        <value description="RESOLVED">false</value>
-        <value description="ALERT_SENT">false</value>
-    </row>
-    <row>
-        <value description="ID">-3</value>
-        <value description="CONTENT">testMessage3</value>
-        <value description="PROJECT_FK">-3</value>
-        <value description="STATUS">INFO</value>
-        <value description="TIMESTAMP">2013-01-25</value>
-        <value description="RESOLVED">false</value>
-        <value description="ALERT_SENT">false</value>
-    </row>
+	    <row>
+	        <value description="ID">-1</value>
+	        <value description="CONTENT">testMessage1</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-01-25</value>
+	        <value description="RESOLVED">true</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+	    <row>
+	        <value description="ID">-2</value>
+	        <value description="CONTENT">testMessage2</value>
+	        <value description="PROJECT_FK">-2</value>
+	        <value description="STATUS">WARN</value>
+	        <value description="TIMESTAMP">2013-01-25</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+	    <row>
+	        <value description="ID">-3</value>
+	        <value description="CONTENT">testMessage3</value>
+	        <value description="PROJECT_FK">-3</value>
+	        <value description="STATUS">INFO</value>
+	        <value description="TIMESTAMP">2013-01-25</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-4</value>
+	        <value description="CONTENT">testMessage4</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-01-26</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-5</value>
+	        <value description="CONTENT">testMessage5</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-01-27</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-6</value>
+	        <value description="CONTENT">testMessage6</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-01-28</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-7</value>
+	        <value description="CONTENT">testMessage7</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-02-01</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-8</value>
+	        <value description="CONTENT">testMessage8</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-02-02</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-9</value>
+	        <value description="CONTENT">testMessage9</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-02-16</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-10</value>
+	        <value description="CONTENT">testMessage10</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-03-18</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+        <row>
+	        <value description="ID">-11</value>
+	        <value description="CONTENT">testMessage11</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">ERROR</value>
+	        <value description="TIMESTAMP">2013-03-26</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
     </table>
     <!--Message-END-->
     
