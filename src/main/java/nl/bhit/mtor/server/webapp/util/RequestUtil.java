@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public final class RequestUtil {
 	
+	
     private static final Log LOG = LogFactory.getLog(RequestUtil.class);
     
     private static final int COOKIE_MAX_AGE = 3600 /*seconds x hour*/ * 24 /*hour x day*/ * 30 /*days*/;

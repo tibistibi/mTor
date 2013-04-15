@@ -31,7 +31,8 @@ public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements
      */
     @Override
     public Role getRoleByName(String rolename) {
-        List roles = getSession().createCriteria(Role.class).add(Restrictions.eq("name", rolename)).list();
+        @SuppressWarnings("unchecked")
+		List<Role> roles = getSession().createCriteria(Role.class).add(Restrictions.eq("name", rolename)).list();
         if (roles.isEmpty()) {
             return null;
         } else {
