@@ -224,16 +224,9 @@ public class Project extends BaseObject implements Serializable {
         if (!(obj instanceof Project)) {
             return false;
         }
-
-        final Project project = (Project)obj;
-        if (name == null && project.getName() != null) {
-        	return false;
-        }
-        if (!name.equals(project.getName())) {
-        	return false;
-        }
         
-        return true;
+        final Project project = (Project)obj;
+        return !(name != null ? !name.equals(project.getName()) : project.getName() != null);
     }
     
     @Override

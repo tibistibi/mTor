@@ -452,14 +452,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         }
 
         final User user = (User)obj;
-        if (username == null && user.getUsername() != null) {
-        	return false;
-        }
-        if (!username.equals(user.getUsername())) {
-        	return false;
-        }
-        
-        return true;
+        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
 
     }
 
