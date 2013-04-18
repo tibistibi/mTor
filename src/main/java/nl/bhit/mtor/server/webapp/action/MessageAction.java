@@ -20,20 +20,20 @@ import com.opensymphony.xwork2.Preparable;
 
 @Component
 public class MessageAction extends BaseAction implements Preparable {
-	
+
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 963285910852618368L;
-	
-	@Autowired
+    private static final long serialVersionUID = 963285910852618368L;
+
+    @Autowired
     private transient MessageManager messageManager;
     @Autowired
     private transient ProjectManager projectManager;
-    
+
     private Long id;
     @SuppressWarnings("unused")
-	private String query;
+    private String query;
     private MTorMessage message;
     private List<MTorMessage> mTorMessages;
     private List<Project> projects;
@@ -161,9 +161,11 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     public String resolve() {
+        log.trace("start resolving...");
         List<MTorMessage> mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
-        
+
         for (MTorMessage tempMessage : mTorMessagesList) {
+            log.trace("resolving issue id: " + tempMessage.getId());
             tempMessage.setResolved(true);
             messageManager.save(tempMessage);
         }
