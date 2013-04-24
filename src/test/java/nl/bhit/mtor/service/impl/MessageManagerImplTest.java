@@ -1,20 +1,20 @@
 package nl.bhit.mtor.service.impl;
 
+import static org.junit.Assert.assertSame;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import nl.bhit.mtor.dao.MessageDao;
 import nl.bhit.mtor.model.MTorMessage;
-import nl.bhit.mtor.service.impl.BaseManagerMockTestCase;
-import nl.bhit.mtor.service.impl.MessageManagerImpl;
 
 import org.jmock.Expectations;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class MessageManagerImplTest extends BaseManagerMockTestCase {
+	
     private MessageManagerImpl manager = null;
     private MessageDao dao = null;
 
@@ -52,7 +52,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
     public void testGetMessages() {
         log.debug("testing getAll...");
 
-        final List messages = new ArrayList();
+        final List<MTorMessage> messages = new ArrayList<MTorMessage>();
 
         // set expected behavior on dao
         context.checking(new Expectations() {
@@ -62,7 +62,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
             }
         });
 
-        List result = manager.getAll();
+        List<MTorMessage> result = manager.getAll();
         assertSame(messages, result);
     }
 
@@ -100,4 +100,5 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
 
         manager.remove(id);
     }
+    
 }

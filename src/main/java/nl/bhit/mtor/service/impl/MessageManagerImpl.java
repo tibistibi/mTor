@@ -9,6 +9,7 @@ import javax.jws.WebService;
 import nl.bhit.mtor.dao.MessageDao;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.model.soap.ClientMessage;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
         serviceName = "MessageService",
         endpointInterface = "nl.bhit.mtor.service.MessageManager")
 public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> implements MessageManager {
+	
     MessageDao messageDao;
     @Autowired
     private ProjectManager projectManager;
@@ -102,4 +104,21 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         return convertToClientMessageList(messages);
     }
 
+	@Override
+	public Long getMessageNumber(Project project, Status... status) {
+		if (project == null || project.getId() == null) {
+			return null;
+		}
+		return messageDao.getMessageNumberByProject(project.getId(), status);
+	}
+
+	@Override
+	public MTorMessage getNewestMessage(Project project, Status... status) {
+		if (project == null || project.getId() == null) {
+			return null;
+		}
+		List<MTorMessage> lstAux = messageDao.getLastNMessagesByProject(project.getId(), 1, status);
+		return lstAux == null ? null : lstAux.get(0);
+	}
+    
 }

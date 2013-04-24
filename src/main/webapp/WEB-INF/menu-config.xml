@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MenuConfig>
+    
     <Displayers>
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
-    <Menus> 
+    
+    <Menus>
+        
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu" roles="ROLE_ADMIN,ROLE_USER"/>
+        
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
+        
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
             <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers"/>
@@ -13,14 +18,15 @@
             <Item name="FileUpload" title="menu.selectFile" page="/uploadFile"/>
         </Menu>
         
-        
         <!--Company-START-->
         <Menu name="CompanyMenu" title="companyList.title" page="/companies" roles="ROLE_ADMIN,ROLE_USER"/>
         <!--Company-END-->
         
-        
         <!--Project-START-->
-        <Menu name="ProjectMenu" title="projectList.title" page="/projects" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="ProjectMenu" title="menu.project.title" page="/projects" roles="ROLE_ADMIN,ROLE_USER">
+            <Item name="OverviewProjects" title="menu.project.overview.title" page="/overview"/>
+            <Item name="ViewProjects" title="menu.project.projects.title" page="/projects"/>
+        </Menu>
         <!--Project-END-->
         
         <!--Message-START-->
@@ -29,11 +35,5 @@
         
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>
-
-
-
-
-
-
-
+    
 </MenuConfig>

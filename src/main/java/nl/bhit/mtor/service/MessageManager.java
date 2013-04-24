@@ -10,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import nl.bhit.mtor.model.MTorMessage;
+import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.model.soap.ClientMessage;
 
@@ -58,4 +60,29 @@ public interface MessageManager extends GenericManager<MTorMessage, Long> {
      * @return
      */
     List<ClientMessage> getUnresolvedAllByUser(@PathParam("id") Long id);
+    
+    /**
+     * Get the number of messages of specified project and specified status (if present).
+     * 
+     * @param project
+     * 				Project which we want to filter.
+     * @param status
+     * 				Status which we want to filter. Optional argument.
+     * @return
+     * 			Number of messages of this project with these status (if present). Null if no instantiated project is passed as parameter.
+     */
+    Long getMessageNumber(Project project, Status... status);
+    
+    /**
+     * Get the last message (most new by timestamp) of the specified project and specified status (if present).
+     * 
+     * @param project
+     * 				Project which we want to filter.
+     * @param status
+     * 				Status which we want to filter. Optional argument.
+     * @return
+     * 			Newest message of this project with these status (if present). Null if no instantiated project is passed as parameter or this project has no messages.
+     */
+    MTorMessage getNewestMessage(Project project, Status... status);
+    
 }
