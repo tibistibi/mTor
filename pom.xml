@@ -1247,6 +1247,12 @@
 				<sonarVersion>2.0</sonarVersion>
 			</properties>
 		</profile>
+		<profile>
+			<id>jan</id>
+			<properties>
+				<jdbc.password></jdbc.password>
+			</properties>
+		</profile>
 		
 	</profiles>
 

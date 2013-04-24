@@ -2,27 +2,31 @@ package nl.bhit.mtor.service;
 
 import java.util.List;
 
-import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.model.soap.ClientMessage;
-import nl.bhit.mtor.model.soap.SoapMessage;
 
 @WebService
 @Path("/messages")
 public interface MessageManager extends GenericManager<MTorMessage, Long> {
-    MTorMessage saveMessage(SoapMessage message);
-
-    @WebMethod(
-            exclude = false,
-            operationName = "saveSoapMessage",
-            action = "saveSoapMessage")
-    void saveSoapMessage(SoapMessage message);
+	
+	/**
+	 * save message coming from client REST put method
+	 * 
+	 * @param message
+	 * 			ClientMessage object (JSON object automatically converted by JAX RS)
+	 */
+    @PUT
+    @Consumes("application/json")
+    @Path("saveclientmessage")
+    void saveClientMessage(ClientMessage message);
 
     List<MTorMessage> getMessagesWithTimestamp(MTorMessage message);
 
