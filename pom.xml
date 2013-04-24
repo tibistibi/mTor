@@ -354,6 +354,12 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+<!-- GCM google clouod messageing (to android) -->
+        <repository>
+            <id>gcm-server-repository</id>
+            <url>https://github.com/slorber/gcm-server-repository/raw/master/releases/</url>
+        </repository>
+<!-- GCM google clouod messageing (to android) -->
     </repositories>
 
     <pluginRepositories>
@@ -856,7 +862,12 @@
             <type>pom</type>
         </dependency>
         -->
-        
+
+		<dependency>
+            <groupId>com.google.android.gcm</groupId>
+            <artifactId>gcm-server</artifactId>
+            <version>1.0.2</version>
+        </dependency>
     </dependencies>
 
     <reporting>
