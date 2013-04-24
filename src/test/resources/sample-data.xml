@@ -248,6 +248,42 @@
 	        <value description="RESOLVED">false</value>
 	        <value description="ALERT_SENT">false</value>
 	    </row>
+	    <row>
+	        <value description="ID">-12</value>
+	        <value description="CONTENT">testMessage12</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">WARN</value>
+	        <value description="TIMESTAMP">2013-01-15</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+   	    <row>
+	        <value description="ID">-13</value>
+	        <value description="CONTENT">testMessage13</value>
+	        <value description="PROJECT_FK">-1</value>
+	        <value description="STATUS">INFO</value>
+	        <value description="TIMESTAMP">2013-01-16</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+   	    <row>
+	        <value description="ID">-14</value>
+	        <value description="CONTENT">testMessage14</value>
+	        <value description="PROJECT_FK">-3</value>
+	        <value description="STATUS">INFO</value>
+	        <value description="TIMESTAMP">2013-01-26</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
+   	    <row>
+	        <value description="ID">-15</value>
+	        <value description="CONTENT">testMessage15</value>
+	        <value description="PROJECT_FK">-3</value>
+	        <value description="STATUS">WARN</value>
+	        <value description="TIMESTAMP">2013-01-26</value>
+	        <value description="RESOLVED">false</value>
+	        <value description="ALERT_SENT">false</value>
+	    </row>
     </table>
     <!--Message-END-->
     

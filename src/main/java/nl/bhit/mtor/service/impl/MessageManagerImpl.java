@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import nl.bhit.mtor.dao.MessageDao;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
+import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.model.soap.ClientMessage;
-import nl.bhit.mtor.model.soap.SoapMessage;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
 import nl.bhit.mtor.service.MessageManager;
 import nl.bhit.mtor.service.ProjectManager;
@@ -26,6 +25,7 @@ import org.springframework.stereotype.Service;
         serviceName = "MessageService",
         endpointInterface = "nl.bhit.mtor.service.MessageManager")
 public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> implements MessageManager {
+	
     MessageDao messageDao;
     @Autowired
     private ProjectManager projectManager;
@@ -35,52 +35,26 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         super(messageDao);
         this.messageDao = messageDao;
     }
-
+    
     @Override
     @WebMethod(
             exclude = true)
-    public MTorMessage saveMessage(SoapMessage soapMessage) {
-        MTorMessage message = soapMessageToMessage(soapMessage);
-        return messageDao.save(message);
-    }
-
-    @Override
-    @WebMethod(
-            exclude = false,
-            operationName = "saveSoapMessage",
-            action = "saveSoapMessage")
     // @RolesAllowed("basicUser")
-    public void saveSoapMessage(@WebParam(
-            name = "soapMessage") SoapMessage soapMessage) {
-        log.trace("saveSoapMessage..." + soapMessage);
-        saveMessage(soapMessage);
-    }
-
-    protected MTorMessage soapMessageToMessage(SoapMessage soapMessage) {
-        log.trace("soapMessageToMessage...retrieving the project: " + soapMessage.getProjectId());
-        Project project = projectManager.get(soapMessage.getProjectId());
-        MTorMessage message = getMTorMessage(soapMessage);
-        convert(soapMessage, project, message);
-        return message;
-    }
-
-    protected void convert(SoapMessage soapMessage, Project project, MTorMessage message) {
-        BeanUtils.copyProperties(soapMessage, message);
-        message.setProject(project);
-        message.setResolved(false);
-    }
-
-    private MTorMessage getMTorMessage(SoapMessage soapMessage) {
-        log.trace("getMTorMessage...");
-        MTorMessage message = messageDao.getAliveByProject(soapMessage.getProjectId());
+    public void saveClientMessage(ClientMessage clientMessage) {
+    	Project project = projectManager.get(clientMessage.getProjectId());
+        MTorMessage message = messageDao.getAliveByProject(clientMessage.getProjectId());
         if (message == null) {
             message = new MTorMessage();
         } else {
             message.init();
         }
-        return message;
+        BeanUtils.copyProperties(clientMessage, message);
+        message.setProject(project);
+        message.setResolved(false);
+        
+    	messageDao.save(message);
     }
-
+    
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
     }
@@ -130,4 +104,21 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         return convertToClientMessageList(messages);
     }
 
+	@Override
+	public Long getMessageNumber(Project project, Status... status) {
+		if (project == null || project.getId() == null) {
+			return null;
+		}
+		return messageDao.getMessageNumberByProject(project.getId(), status);
+	}
+
+	@Override
+	public MTorMessage getNewestMessage(Project project, Status... status) {
+		if (project == null || project.getId() == null) {
+			return null;
+		}
+		List<MTorMessage> lstAux = messageDao.getLastNMessagesByProject(project.getId(), 1, status);
+		return lstAux == null ? null : lstAux.get(0);
+	}
+    
 }

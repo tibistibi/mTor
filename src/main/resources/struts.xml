@@ -20,6 +20,10 @@
 
 	<!-- Configuration for the default package. -->
 	<package name="default" extends="struts-default">
+   		<result-types>
+	    	<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		
 		<interceptors>
 			<!-- Interceptor to handle allowing only admins to certain actions -->
 			<interceptor name="adminOnly" class="adminInterceptor" />
@@ -115,9 +119,8 @@
 			<result name="input">/</result>
 			<result name="success">/</result>
 		</action>
-
-
-
+		
+		
 		<!--CompanyAction-START -->
 		<action name="companies" class="nl.bhit.mtor.server.webapp.action.CompanyAction"
 			method="list">
@@ -138,9 +141,8 @@
 			<result name="success" type="redirectAction">companies</result>
 		</action>
 		<!--CompanyAction-END -->
-
-
-
+		
+		
 		<!--MessageAction-START -->
 		<action name="messages" class="nl.bhit.mtor.server.webapp.action.MessageAction"
 			method="list">
@@ -161,31 +163,46 @@
 			<result name="success" type="redirectAction">messages</result>
 		</action>
 		<!--MessageAction-END -->
-
-
-
+		
+		
 		<!--ProjectAction-START -->
 		<action name="projects" class="nl.bhit.mtor.server.webapp.action.ProjectAction"
 			method="list">
 			<result>/WEB-INF/pages/colorProjectList.jsp</result>
 		</action>
+		
+		<action name="overview" class="nl.bhit.mtor.server.webapp.action.ProjectOverviewAction">
+		    <result>/WEB-INF/pages/projectsOverview.jsp</result>
+		</action>
+		
+		<action name="overviewAjaxProjectsInfo" class="nl.bhit.mtor.server.webapp.action.ProjectOverviewAction" method="generalProjectsJSONInfo">
+			<result type="json">
+				<param name="root">jsonGeneralProjectsInfo</param>
+			</result>
+		</action>
+		
+		<action name="overviewAjaxProjectStats" class="nl.bhit.mtor.server.webapp.action.ProjectOverviewAction" method="projectJSONStats">
+			<result type="json">
+				<param name="root">jsonProjectStats</param>
+			</result>
+		</action>
+		
 		<action name="editProject" class="nl.bhit.mtor.server.webapp.action.ProjectAction"
 			method="edit">
 			<result>/WEB-INF/pages/projectForm.jsp</result>
 			<result name="error">/WEB-INF/pages/projectList.jsp</result>
 		</action>
+		
 		<action name="saveProject" class="nl.bhit.mtor.server.webapp.action.ProjectAction"
 			method="save">
 			<result name="input">/WEB-INF/pages/projectForm.jsp</result>
 			<result name="cancel" type="redirectAction">projects</result>
 			<result name="delete" type="redirectAction">projects</result>
 			<result name="success" type="redirectAction">projects</result>
-		</action>        <!--ProjectAction-END -->
-
+		</action>
+		<!--ProjectAction-END -->
 		
-
-
-
+		
         <!-- Add additional actions here -->
 	</package>
 

@@ -278,3 +278,100 @@ span.pagelinks {
 #projectList  .red{
 	background:#B73A33 !important;
 }
+
+/*	
+	ProjectOverview	
+*/
+div.projectOverviewPanel {
+	height: 140px;
+	width: 200px;
+	margin: 20px 0px 20px 20px;
+	padding: 10px 10px 10px 10px;
+	float: left;
+	overflow: auto;
+	border: 1px solid #777777;
+	border-radius: 25px;
+	transition: all 0.5s ease-in-out;
+	-webkit-transition: all 0.5s ease-in-out;
+}
+
+div.projectOverviewPanel:hover {
+	box-shadow: 10px 10px 5px #888888;
+	-webkit-box-shadow: 10px 10px 5px #888888;
+}
+
+div.projectOverviewName {
+	float: left;
+	width: 120px;
+	margin-left: 10px;
+	margin-right: 5px;
+	white-space: pre-wrap;      /* CSS3 */   
+	white-space: -moz-pre-wrap; /* Firefox */    
+	white-space: -pre-wrap;     /* Opera <7 */   
+	white-space: -o-pre-wrap;   /* Opera 7 */    
+	word-wrap: break-word;      /* IE */
+}
+
+div.projectOverviewInfoField {
+	float: left;
+	clear: both;
+	width: 30px;
+	height: 30px;
+	margin: 10px 5px 10px 25px;
+	padding-top: 5px;
+	border-radius: 50%;
+	text-align: center;
+	border: 3px solid green;
+}
+
+div.projectOverviewWarnField {
+	float: left;
+	margin: 10px 5px 10px 15px;
+	padding-top: 5px;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	border: 3px solid orange;
+}
+
+div.projectOverviewErrorField {
+	float: left;
+	margin: 10px 5px 10px 15px;
+	padding-top: 5px;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	border: 3px solid red;
+}
+
+div.projectOverviewNewestMsg {
+	float: left;
+	clear: both;
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 150px;
+	white-space: pre-wrap;      /* CSS3 */   
+	white-space: -moz-pre-wrap; /* Firefox */    
+	white-space: -pre-wrap;     /* Opera <7 */   
+	white-space: -o-pre-wrap;   /* Opera 7 */    
+	word-wrap: break-word;      /* IE */
+}
+
+div.projectOverviewModalDlg {
+    border:4px solid #CCC;
+    display:none;
+    position:absolute;
+    left:50%; 
+    top:50%;
+    margin:-25px 0 0 -50px;
+    border-radius:5px;
+}
+
+img.projectOverviewModalDlgClose {
+	position: absolute; 
+	top: 0; 
+	right: 0;
+	z-index: 10;
+}
