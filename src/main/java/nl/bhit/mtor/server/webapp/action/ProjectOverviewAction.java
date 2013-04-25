@@ -25,7 +25,7 @@ public class ProjectOverviewAction extends BaseAction implements Preparable {
 	private transient ProjectManager projectManager;
 	private transient MessageManager messageManager;
 	
-	private List<Project> lstProjects = new ArrayList<Project>();
+	private List<Project> projects = new ArrayList<Project>();
 	
 	private List<Map<String, String>> jsonGeneralProjectsInfo = new ArrayList<Map<String,String>>();
 	private Map<String, String> jsonProjectStats = new HashMap<String, String>();
@@ -40,12 +40,12 @@ public class ProjectOverviewAction extends BaseAction implements Preparable {
 
 	@Override
 	public void prepare() throws Exception {
-		lstProjects.clear();
+		projects.clear();
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
-        	setLstProjects(projectManager.getAll());        	
+        	setProjects(projectManager.getAll());        	
         } else {
         	User user = userManager.getUserByUsername(getRequest().getRemoteUser());
-        	setLstProjects(new ArrayList<Project>(user.getProjects()));
+        	setProjects(new ArrayList<Project>(user.getProjects()));
         }
 	}
 	
@@ -53,15 +53,15 @@ public class ProjectOverviewAction extends BaseAction implements Preparable {
 		if (jsonGeneralProjectsInfo != null) {
 			jsonGeneralProjectsInfo.clear();
 		}
-		if (lstProjects.isEmpty()) {
+		if (projects.isEmpty()) {
 			return SUCCESS;
 		}
 		
-		jsonGeneralProjectsInfo = new ArrayList<Map<String,String>>(lstProjects.size());
+		jsonGeneralProjectsInfo = new ArrayList<Map<String,String>>(projects.size());
 		Long numAux;
 		MTorMessage newestMsg;
 		Map<String, String> auxMap;
-		for (final Project p : lstProjects) {
+		for (final Project p : projects) {
 			auxMap = new HashMap<String, String>();
 			auxMap.put("name", p.getName());
 			numAux = messageManager.getMessageNumber(p, Status.INFO);
@@ -101,18 +101,18 @@ public class ProjectOverviewAction extends BaseAction implements Preparable {
 	 * Getters & Setters
 	 */
 	
-	public List<Project> getLstProjects() {
-		return lstProjects;
+	public List<Project> getProjects() {
+		return projects;
 	}
 
-	public void setLstProjects(List<Project> lstProjects) {
-		this.lstProjects = lstProjects;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
-
+	
 	public List<Map<String, String>> getJsonGeneralProjectsInfo() {
 		return jsonGeneralProjectsInfo;
 	}
-
+	
 	public void setJsonGeneralProjectsInfo(List<Map<String, String>> jsonGeneralProjectsInfo) {
 		this.jsonGeneralProjectsInfo = jsonGeneralProjectsInfo;
 	}
