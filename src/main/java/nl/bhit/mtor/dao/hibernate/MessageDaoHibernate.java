@@ -93,13 +93,14 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
 	@Override
 	public List<MTorMessage> getLastNMessagesByProject(Long projectId, int numberOfMessages, Status... status) {
         Query query = buildProjectStatusHQL(projectId, "select m as message", status);
+        query.setMaxResults(numberOfMessages);
         @SuppressWarnings("unchecked")
 		List<MTorMessage> lstAux = (List<MTorMessage>)query.list();
         return lstAux == null ? null : lstAux.subList(0, numberOfMessages > lstAux.size() ? lstAux.size() : numberOfMessages);
 	}
 	
 	/**
-	 * Helper method in order to build a Query instance based on project id and status.
+	 * Helper method in order to build a Query instance based on project id and status ordered by timestamp desc.
 	 * 
 	 * @param projectId
 	 * 					Project id which we want to filter.
