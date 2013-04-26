@@ -1,12 +1,17 @@
 package nl.bhit.mtor.server.webapp.listener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.service.GenericManager;
 import nl.bhit.mtor.service.LookupManager;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -14,12 +19,6 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>StartupListener class used to initialize and database settings
@@ -34,14 +33,14 @@ import java.util.Map;
  */
 public class StartupListener implements ServletContextListener {
 	
-    private static final Log log = LogFactory.getLog(StartupListener.class);
+	private static final transient Logger LOG = Logger.getLogger(StartupListener.class);
 
     /**
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public void contextInitialized(ServletContextEvent event) {
-        log.debug("Initializing context...");
+        LOG.debug("Initializing context...");
 
         ServletContext context = event.getServletContext();
 
@@ -68,19 +67,19 @@ public class StartupListener implements ServletContextListener {
                 }
             }
         } catch (NoSuchBeanDefinitionException n) {
-            log.debug("authenticationManager bean not found, assuming test and ignoring...");
+            LOG.debug("authenticationManager bean not found, assuming test and ignoring...");
             // ignore, should only happen when testing
         }
 
         context.setAttribute(Constants.CONFIG, config);
 
         // output the retrieved values for the Init and Context Parameters
-        if (log.isDebugEnabled()) {
-            log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
             if (passwordEncoder != null) {
-                log.debug("Password Encoder: " + passwordEncoder.getClass().getSimpleName());
+                LOG.debug("Password Encoder: " + passwordEncoder.getClass().getSimpleName());
             }
-            log.debug("Populating drop-downs...");
+            LOG.debug("Populating drop-downs...");
         }
 
         setupContext(context);
@@ -97,12 +96,12 @@ public class StartupListener implements ServletContextListener {
 
         // get list of possible roles
         context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
-        log.debug("Drop-down initialization complete [OK]");
+        LOG.debug("Drop-down initialization complete [OK]");
 
         // Any manager extending GenericManager will do:
-        GenericManager manager = (GenericManager) ctx.getBean("userManager");
+        GenericManager manager = (GenericManager)ctx.getBean("userManager");
         doReindexing(manager);
-        log.debug("Full text search reindexing complete [OK]");
+        LOG.debug("Full text search reindexing complete [OK]");
     }
 
     private static void doReindexing(GenericManager manager) {

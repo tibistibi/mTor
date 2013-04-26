@@ -6,7 +6,7 @@ import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.service.UserManager;
 
-import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.junit.After;
 import org.junit.Before;
@@ -37,10 +37,12 @@ import com.opensymphony.xwork2.util.ValueStackFactory;
                 "classpath:/applicationContext-service.xml", "classpath*:/applicationContext.xml",
                 "classpath:**/applicationContext*.xml" })
 public abstract class BaseActionTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+	
     /**
      * Transient log to prevent session synchronization issues - children can use instance for logging.
      */
-    protected transient final Log log = logger;
+	protected final transient Logger LOG = Logger.getLogger(getClass());
+    
     private int smtpPort = 25250;
     @Autowired
     public UserManager userManager;

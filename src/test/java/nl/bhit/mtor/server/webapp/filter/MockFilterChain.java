@@ -1,8 +1,6 @@
 package nl.bhit.mtor.server.webapp.filter;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
@@ -10,7 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Borrowed from the Display Tag project:
@@ -19,7 +19,9 @@ import java.io.IOException;
  * http://www.springframework.org/docs/api/org/springframework/mock/web/MockFilterChain.html
  */
 public class MockFilterChain implements FilterChain {
-    private final Log log = LogFactory.getLog(MockFilterChain.class);
+	
+	private static final transient Logger LOG = Logger.getLogger(MockFilterChain.class);
+    
     private String forwardURL;
 
     public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
@@ -31,7 +33,7 @@ public class MockFilterChain implements FilterChain {
         }
 
         this.forwardURL = uri;
-        log.debug("Forwarding to: " + uri);
+        LOG.debug("Forwarding to: " + uri);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher(uri);
         dispatcher.forward(request, response);

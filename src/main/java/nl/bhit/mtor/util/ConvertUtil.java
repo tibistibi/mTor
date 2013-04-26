@@ -1,11 +1,5 @@
 package nl.bhit.mtor.util;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import nl.bhit.mtor.model.LabelValue;
-
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,13 +8,19 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import nl.bhit.mtor.model.LabelValue;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
+
 /**
  * Utility class to convert one object to another.
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public final class ConvertUtil {
-    private static final Log log = LogFactory.getLog(ConvertUtil.class);
+	
+	private static final transient Logger LOG = Logger.getLogger(ConvertUtil.class);
 
     /**
      * Checkstyle rule: utility classes should not have public constructor
@@ -97,7 +97,7 @@ public final class ConvertUtil {
             Map<String, String> map = convertBundleToMap(rb);
             BeanUtils.copyProperties(obj, map);
         } catch (Exception e) {
-            log.error("Exception occurred populating object: " + e.getMessage(), e);
+            LOG.error("Exception occurred populating object: " + e.getMessage(), e);
         }
 
         return obj;

@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
         serviceName = "UserService",
         endpointInterface = "nl.bhit.mtor.service.UserService")
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
+	
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
     @Autowired(
@@ -95,19 +96,19 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                 if (saltSource == null) {
                     // backwards compatibility
                     user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
-                    log.warn("SaltSource not set, encrypting password w/o salt");
+                    LOG.warn("SaltSource not set, encrypting password w/o salt");
                 } else {
                     user.setPassword(passwordEncoder.encodePassword(user.getPassword(), saltSource.getSalt(user)));
                 }
             }
         } else {
-            log.warn("PasswordEncoder not set, skipping password encryption...");
+            LOG.warn("PasswordEncoder not set, skipping password encryption...");
         }
 
         try {
             return userDao.saveUser(user);
         } catch (Exception e) {
-            log.warn(e.getMessage(), e);
+            LOG.warn(e.getMessage(), e);
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
     }
@@ -117,7 +118,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public void removeUser(User user) {
-        log.debug("removing user: " + user);
+        LOG.debug("removing user: " + user);
         userDao.remove(user);
     }
 
@@ -126,7 +127,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public void removeUser(String userId) {
-        log.debug("removing user: " + userId);
+        LOG.debug("removing user: " + userId);
         userDao.remove(new Long(userId));
     }
 

@@ -16,7 +16,7 @@ public class CompanyDaoTest extends BaseDaoTestCase {
 
     @Test
     public void testGetByUser() {
-        log.debug("starting testGetByUser...");
+        LOG.debug("starting testGetByUser...");
         User user = new User();
         user.setId(-1L);
         List<Company> companies = companyDao.getAllByUser(user);

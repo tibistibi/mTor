@@ -120,7 +120,7 @@ public class UserAction extends BaseAction implements Preparable {
         // if URL is "editProfile" - make sure it's the current user
         if (editProfile && (request.getParameter("id") != null || request.getParameter("from") != null)) {
             ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" + request.getParameter("id")
+            LOG.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" + request.getParameter("id")
                     + "'");
             return null;
         }
@@ -145,7 +145,7 @@ public class UserAction extends BaseAction implements Preparable {
             user.setConfirmPassword(user.getPassword());
 
             // if user logged in with remember me, display a warning that they can't change passwords
-            log.debug("checking for remember me login...");
+            LOG.debug("checking for remember me login...");
 
             AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
             SecurityContext ctx = SecurityContextHolder.getContext();
@@ -215,7 +215,7 @@ public class UserAction extends BaseAction implements Preparable {
             userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-            log.warn(ade.getMessage());
+            LOG.warn(ade.getMessage());
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {

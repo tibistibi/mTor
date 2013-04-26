@@ -6,8 +6,7 @@ import java.util.List;
 import nl.bhit.mtor.dao.GenericDao;
 import nl.bhit.mtor.service.GenericManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class serves as the Base class for all other Managers - namely to hold
@@ -51,10 +50,11 @@ import org.apache.commons.logging.LogFactory;
  *         Updated by jgarcia: added full text search + reindexing
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
+	
     /**
-     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     * Log variable for all child classes. Uses Logger.getLogger(getClass()) from Log4J
      */
-    protected final Log log = LogFactory.getLog(getClass());
+	protected final transient Logger LOG = Logger.getLogger(getClass());
 
     /**
      * GenericDao instance, set by constructor of child classes

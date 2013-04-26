@@ -1,19 +1,17 @@
 package nl.bhit.mtor.server.webapp.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 /**
  * Convenience class for setting and retrieving cookies.
  */
 public final class RequestUtil {
 	
-	
-    private static final Log LOG = LogFactory.getLog(RequestUtil.class);
+	private static final transient Logger LOG = Logger.getLogger(RequestUtil.class);
     
     private static final int COOKIE_MAX_AGE = 3600 /*seconds x hour*/ * 24 /*hour x day*/ * 30 /*days*/;
     private static final int HTTP_DEFAULT_PORT = 80;

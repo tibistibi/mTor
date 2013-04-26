@@ -11,8 +11,7 @@ import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.MessageManager;
 import nl.bhit.mtor.service.ProjectManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -33,15 +32,15 @@ public class AlertSender {
     @Autowired
     MailEngine mailEngine;
 
-    protected final Log log = LogFactory.getLog(AlertSender.class);
+    private static final transient Logger LOG = Logger.getLogger(AlertSender.class);
 
     public void process() {
         List<Project> projects = projectManager.getWithNonResolvedMessages();
 
         for (Project project : projects) {
-            log.trace("working on project: " + project.getId());
+            LOG.trace("working on project: " + project.getId());
             if (project.isMonitoring()) {
-                log.trace("monitoring is on");
+            	LOG.trace("monitoring is on");
                 for (User user : project.getUsers()) {
                     if (!project.hasHeartBeat() && user.getStatusThreshold() != Status.NONE) {
                         sendMailToUser(project, user);
@@ -88,8 +87,8 @@ public class AlertSender {
     }
 
     private void sendHeartBeatAlert(String to) {
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + to + "]...");
+        if (LOG.isDebugEnabled()) {
+        	LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");
@@ -101,8 +100,8 @@ public class AlertSender {
 
     private void sendMessageAlert(Project project, String subject, String content, User user) {
         String to = user.getEmail();
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + to + "]...");
+        if (LOG.isDebugEnabled()) {
+        	LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");

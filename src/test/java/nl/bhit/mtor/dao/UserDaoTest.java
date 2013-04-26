@@ -1,21 +1,22 @@
 package nl.bhit.mtor.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
 import nl.bhit.mtor.Constants;
-import nl.bhit.mtor.dao.RoleDao;
-import nl.bhit.mtor.dao.UserDao;
 import nl.bhit.mtor.model.Address;
 import nl.bhit.mtor.model.Role;
 import nl.bhit.mtor.model.User;
 
-import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.ExpectedException;
-import org.springframework.test.annotation.NotTransactional;
-
-import static org.junit.Assert.*;
 
 public class UserDaoTest extends BaseDaoTestCase {
     @Autowired
@@ -44,7 +45,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         User user = dao.get(-1L);
         String password = dao.getUserPassword(user.getId());
         assertNotNull(password);
-        log.debug("password: " + password);
+        LOG.debug("password: " + password);
     }
 
     @Test

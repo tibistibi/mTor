@@ -20,8 +20,7 @@ import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.RoleManager;
 import nl.bhit.mtor.service.UserManager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -36,6 +35,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseAction extends ActionSupport {
+	
     private static final long serialVersionUID = 3525445612504421307L;
 
     /**
@@ -46,7 +46,7 @@ public class BaseAction extends ActionSupport {
     /**
      * Transient log to prevent session synchronization issues - children can use instance for logging.
      */
-    protected final transient Log log = LogFactory.getLog(getClass());
+    protected final transient Logger LOG = Logger.getLogger(getClass());
 
     /**
      * The UserManager
@@ -172,8 +172,8 @@ public class BaseAction extends ActionSupport {
      *            the URL to the application (or where ever you'd like to send them)
      */
     protected void sendUserMessage(User user, String msg, String url) {
-        if (log.isDebugEnabled()) {
-            log.debug("sending e-mail to user [" + user.getEmail() + "]...");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
 
         mailMessage.setTo(user.getFullName() + "<" + user.getEmail() + ">");

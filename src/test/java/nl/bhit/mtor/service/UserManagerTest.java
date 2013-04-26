@@ -1,20 +1,16 @@
 package nl.bhit.mtor.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.service.RoleManager;
-import nl.bhit.mtor.service.UserManager;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
-
 public class UserManagerTest extends BaseManagerTestCase {
-    private Log log = LogFactory.getLog(UserManagerTest.class);
+	    
     @Autowired
     private UserManager mgr;
     @Autowired
@@ -26,7 +22,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         user = mgr.getUserByUsername("user");
         assertNotNull(user);
 
-        log.debug(user);
+        LOG.debug(user);
         assertEquals(1, user.getRoles().size());
     }
 
@@ -35,7 +31,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         user = mgr.getUserByUsername("user");
         user.setPhoneNumber("303-555-1212");
 
-        log.debug("saving user with updated phone number: " + user);
+        LOG.debug("saving user with updated phone number: " + user);
 
         user = mgr.saveUser(user);
         assertEquals("303-555-1212", user.getPhoneNumber());
@@ -56,7 +52,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         assertEquals("john", user.getUsername());
         assertEquals(1, user.getRoles().size());
 
-        log.debug("removing user...");
+        LOG.debug("removing user...");
 
         mgr.removeUser(user.getId().toString());
 
@@ -64,7 +60,7 @@ public class UserManagerTest extends BaseManagerTestCase {
             user = mgr.getUserByUsername("john");
             fail("Expected 'Exception' not thrown");
         } catch (Exception e) {
-            log.debug(e);
+            LOG.debug(e);
             assertNotNull(e);
         }
     }

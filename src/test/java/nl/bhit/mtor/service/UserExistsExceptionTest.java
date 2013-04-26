@@ -1,12 +1,9 @@
 package nl.bhit.mtor.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import static org.junit.Assert.assertNotNull;
 import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.service.UserExistsException;
-import nl.bhit.mtor.service.UserManager;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +11,20 @@ import org.springframework.test.annotation.ExpectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
-import static org.junit.Assert.assertNotNull;
-
 @ContextConfiguration(
         locations = { "/applicationContext-service.xml", "/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml" })
 public class UserExistsExceptionTest extends AbstractTransactionalJUnit4SpringContextTests {
+	
+	private static final transient Logger LOG = Logger.getLogger(UserExistsExceptionTest.class);
+	
     @Autowired
     private UserManager manager;
-    private Log log = LogFactory.getLog(UserExistsExceptionTest.class);
 
     @Test
     @ExpectedException(UserExistsException.class)
     public void testAddExistingUser() throws Exception {
-        log.debug("entered 'testAddExistingUser' method");
+        LOG.debug("entered 'testAddExistingUser' method");
         assertNotNull(manager);
 
         User user = manager.getUser("-1");

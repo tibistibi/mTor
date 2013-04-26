@@ -54,13 +54,13 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      */
     @Override
     public User saveUser(User user) {
-        if (log.isDebugEnabled()) {
-            log.debug("user's id: " + user.getId());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("user's id: " + user.getId());
         }
         try {
         	getSession().saveOrUpdate(user);
         } catch (NonUniqueObjectException nuoe) {
-        	log.debug(nuoe.getMessage(), nuoe);
+        	LOG.debug(nuoe.getMessage(), nuoe);
         	getSession().saveOrUpdate(getSession().merge(user));
         }
         // necessary to throw a DataIntegrityViolation and catch it in UserManager

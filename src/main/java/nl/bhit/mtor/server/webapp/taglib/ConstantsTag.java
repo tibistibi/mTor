@@ -1,17 +1,17 @@
 package nl.bhit.mtor.server.webapp.taglib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import nl.bhit.mtor.Constants;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.tagext.TagSupport;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.TagSupport;
+
+import nl.bhit.mtor.Constants;
+
+import org.apache.log4j.Logger;
 
 
 /**
@@ -35,7 +35,7 @@ public class ConstantsTag extends TagSupport {
 	
     private static final long serialVersionUID = 3258417209566116146L;
     
-    private static final Log LOG = LogFactory.getLog(ConstantsTag.class);
+    private static final transient Logger LOG = Logger.getLogger(ConstantsTag.class);
 
     /**
      * The class to expose the variables from.

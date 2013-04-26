@@ -31,7 +31,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
 
     @Test
     public void testGetMessage() {
-        log.debug("testing get...");
+        LOG.debug("testing get...");
 
         final Long id = 7L;
         final MTorMessage message = new MTorMessage();
@@ -50,7 +50,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
 
     @Test
     public void testGetMessages() {
-        log.debug("testing getAll...");
+        LOG.debug("testing getAll...");
 
         final List<MTorMessage> messages = new ArrayList<MTorMessage>();
 
@@ -68,7 +68,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
 
     @Test
     public void testSaveMessage() {
-        log.debug("testing save...");
+        LOG.debug("testing save...");
 
         final MTorMessage message = new MTorMessage();
         // enter all required fields
@@ -87,7 +87,7 @@ public class MessageManagerImplTest extends BaseManagerMockTestCase {
 
     @Test
     public void testRemoveMessage() {
-        log.debug("testing remove...");
+        LOG.debug("testing remove...");
 
         final Long id = -11L;
 

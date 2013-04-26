@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import nl.bhit.mtor.model.MTorMessage;
-import nl.bhit.mtor.server.webapp.action.MessageAction;
 import nl.bhit.mtor.service.MessageManager;
 
 import org.apache.struts2.ServletActionContext;
@@ -61,7 +60,7 @@ public class MessageActionTest extends BaseActionTestCase {
 
     @Test
     public void testEdit() throws Exception {
-        log.debug("testing edit...");
+        LOG.debug("testing edit...");
         action.setId(-1L);
         assertNull(action.getMessage());
         assertEquals("success", action.edit());

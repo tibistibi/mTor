@@ -1,16 +1,17 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import org.apache.struts2.ServletActionContext;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import nl.bhit.mtor.model.User;
-import nl.bhit.mtor.server.webapp.action.UserAction;
 import nl.bhit.mtor.service.UserManager;
 
+import org.apache.struts2.ServletActionContext;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-
-import static org.junit.Assert.*;
 
 public class UserActionTest extends BaseActionTestCase {
     @Autowired
@@ -69,7 +70,7 @@ public class UserActionTest extends BaseActionTestCase {
         action.setFrom("list");
 
         Integer originalVersionNumber = user.getVersion();
-        log.debug("original version #: " + originalVersionNumber);
+        LOG.debug("original version #: " + originalVersionNumber);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("encryptPass", "true");
