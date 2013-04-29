@@ -96,7 +96,7 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
         query.setMaxResults(numberOfMessages);
         @SuppressWarnings("unchecked")
 		List<MTorMessage> lstAux = (List<MTorMessage>)query.list();
-        return lstAux == null ? null : lstAux.subList(0, numberOfMessages > lstAux.size() ? lstAux.size() : numberOfMessages);
+        return lstAux;
 	}
 	
 	/**
