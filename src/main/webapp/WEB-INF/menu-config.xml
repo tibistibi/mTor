@@ -34,6 +34,10 @@
         <!--Message-END-->
         
         <Menu name="Logout" title="user.logout" page="/logout" roles="ROLE_ADMIN,ROLE_USER"/>
+        <!--GCMClient-START-->
+        <Menu name="GCMClientMenu" title="gCMClientList.title" page="/gCMClients"/>
+        <!--GCMClient-END-->
     </Menus>
+
     
 </MenuConfig>
