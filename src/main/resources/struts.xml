@@ -203,6 +203,24 @@
 		<!--ProjectAction-END -->
 		
 		
+        <!--GCMClientAction-START-->
+        <action name="gCMClients" class="nl.bhit.mtor.server.webapp.action.GCMClientAction" method="list">
+            <result>/WEB-INF/pages/gCMClientList.jsp</result>
+        </action>
+
+        <action name="editGCMClient" class="nl.bhit.mtor.server.webapp.action.GCMClientAction" method="edit">
+            <result>/WEB-INF/pages/gCMClientForm.jsp</result>
+            <result name="error">/WEB-INF/pages/gCMClientList.jsp</result>
+        </action>
+
+        <action name="saveGCMClient" class="nl.bhit.mtor.server.webapp.action.GCMClientAction" method="save">
+            <result name="input">/WEB-INF/pages/gCMClientForm.jsp</result>
+            <result name="cancel" type="redirectAction">gCMClients</result>
+            <result name="delete" type="redirectAction">gCMClients</result>
+            <result name="success" type="redirectAction">gCMClients</result>
+        </action>
+        <!--GCMClientAction-END-->
+
         <!-- Add additional actions here -->
 	</package>
 

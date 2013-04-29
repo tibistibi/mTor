@@ -27,6 +27,9 @@
     <!--Message-END-->
     
     <menu:displayMenu name="Logout"/>
+    <!--GCMClient-START-->
+    <menu:displayMenu name="GCMClientMenu"/>
+    <!--GCMClient-END-->
 </ul>
 </div>
 </menu:useMenuDisplayer>
