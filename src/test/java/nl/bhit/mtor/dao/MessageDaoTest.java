@@ -26,20 +26,21 @@ public class MessageDaoTest extends BaseDaoTestCase {
     @Test
     @ExpectedException(DataAccessException.class)
     public void testAddAndRemoveMessage() {
+    	
         MTorMessage message = new MTorMessage();
 
         // enter all required fields
         message.setContent("JcVhYnKfBkNeWbBvCjTlXpKsYaHiXpHnOdNzKoFdAjPbVcDmLvPrEuLfCnIeNtNyApAoGgXyNkXfJjJdCdUwSgOiWiRbXdVhQlPnSeLzClLhFbZvIvEkCvJoRdNqHtChPbMfTpXzEfAdDwFsTlSbPlImUfIsYsDvCoRwYlFjKcVzQxRiDfCdQiHwPiGsYzTiIrWyUnSmCpTsPzKtOvGyYfFhGjVaAbMcQpOtDyKfYmErJeRpTmHmFbNsOmYvTpA");
         message.setTimestamp(new java.util.Date());
 
-        log.debug("adding message...");
+        LOG.debug("adding message...");
         message = messageDao.save(message);
 
         message = messageDao.get(message.getId());
 
         assertNotNull(message.getId());
 
-        log.debug("removing message...");
+        LOG.debug("removing message...");
 
         messageDao.remove(message.getId());
 
@@ -49,7 +50,7 @@ public class MessageDaoTest extends BaseDaoTestCase {
 
     @Test
     public void testGetMessagesWithTimestampBase() {
-        log.debug("starting testGetMessagesWithTimestamp...");
+        LOG.debug("starting testGetMessagesWithTimestamp...");
         MTorMessage message = createMessage(new Date(), projectDao.get(-1L));
         List<MTorMessage> messages = messageDao.getMessagesWithTimestamp(message);
         assertEquals(1, messages.size());
@@ -65,7 +66,7 @@ public class MessageDaoTest extends BaseDaoTestCase {
 
     @Test
     public void testGetAliveByProject() {
-        log.trace("starting testGetAliveByProject");
+        LOG.trace("starting testGetAliveByProject");
         long projectId = -1L;
         messageDao.save(createMessage(DateUtils.addDays(new Date(), 1), projectDao.get(projectId)));
         MTorMessage message = messageDao.getAliveByProject(projectId);

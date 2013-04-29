@@ -11,8 +11,7 @@ import java.util.ResourceBundle;
 
 import nl.bhit.mtor.Constants;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
@@ -24,7 +23,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  */
 public final class DateUtil {
 	
-    private static final Log LOG = LogFactory.getLog(DateUtil.class);
+	private static final transient Logger LOG = Logger.getLogger(DateUtil.class);
     
     private static final String TIME_PATTERN = "HH:mm";
 

@@ -2,8 +2,7 @@ package nl.bhit.mtor.dao.hibernate;
 
 import java.util.Collection;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -25,7 +24,7 @@ import org.hibernate.search.indexes.IndexReaderAccessor;
  */
 final class HibernateSearchTools {
 	
-    protected static final Log LOG = LogFactory.getLog(HibernateSearchTools.class);
+    private static final transient Logger LOG = Logger.getLogger(HibernateSearchTools.class);
     
     private HibernateSearchTools() {
     	//Utility classes shouldn't has a public/default constructor.

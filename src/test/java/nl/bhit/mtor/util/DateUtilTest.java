@@ -1,20 +1,17 @@
 package nl.bhit.mtor.util;
 
-import junit.framework.TestCase;
-import nl.bhit.mtor.util.DateUtil;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.i18n.LocaleContextHolder;
-
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateUtilTest extends TestCase {
-    // ~ Instance fields ========================================================
+import junit.framework.TestCase;
 
-    private final Log log = LogFactory.getLog(DateUtilTest.class);
+import org.apache.log4j.Logger;
+import org.springframework.context.i18n.LocaleContextHolder;
+
+public class DateUtilTest extends TestCase {
+	
+	private static final transient Logger LOG = Logger.getLogger(DateUtilTest.class);
 
     // ~ Constructors ===========================================================
 
@@ -42,26 +39,26 @@ public class DateUtilTest extends TestCase {
     }
 
     public void testGetDate() throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("db date to convert: " + new Date());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("db date to convert: " + new Date());
         }
 
         String date = DateUtil.getDate(new Date());
 
-        if (log.isDebugEnabled()) {
-            log.debug("converted ui date: " + date);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("converted ui date: " + date);
         }
 
         assertTrue(date != null);
     }
 
     public void testGetDateTime() {
-        if (log.isDebugEnabled()) {
-            log.debug("entered 'testGetDateTime' method");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("entered 'testGetDateTime' method");
         }
         String now = DateUtil.getTimeNow(new Date());
         assertTrue(now != null);
-        log.debug(now);
+        LOG.debug(now);
     }
 
     public void testGetDateWithNull() {

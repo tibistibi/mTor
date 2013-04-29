@@ -1,17 +1,15 @@
 package nl.bhit.mtor.service;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import nl.bhit.mtor.util.ConvertUtil;
-
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import nl.bhit.mtor.util.ConvertUtil;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 @ContextConfiguration(
         locations = { "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
@@ -27,7 +25,7 @@ public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4Spr
     /**
      * A simple logger
      */
-    protected final Log log = LogFactory.getLog(getClass());
+	protected final transient Logger LOG = Logger.getLogger(getClass());
     /**
      * The resourceBundle
      */
@@ -44,7 +42,7 @@ public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4Spr
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            // log.warn("No resource bundle found for: " + className);
+            // LOG.warn("No resource bundle found for: " + className);
         }
     }
 

@@ -1,22 +1,21 @@
 package nl.bhit.mtor.dao;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 /**
  * Base class for running DAO tests.
@@ -28,13 +27,15 @@ import org.hibernate.search.Search;
         locations = { "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
                 "classpath*:/applicationContext.xml", "classpath:**/applicationContext*.xml" })
 public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+	
     @Autowired
     private SessionFactory sessionFactory;
 
     /**
-     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     * Log variable for all child classes. Uses Logger.getLogger(getClass()) from Log4J logging
      */
-    protected final Log log = LogFactory.getLog(getClass());
+    protected final transient Logger LOG = Logger.getLogger(getClass());
+    
     /**
      * ResourceBundle loaded from src/test/resources/${package.name}/ClassName.properties (if exists)
      */
@@ -52,7 +53,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            log.trace("No resource bundle found for: " + className);
+            LOG.trace("No resource bundle found for: " + className);
         }
     }
 

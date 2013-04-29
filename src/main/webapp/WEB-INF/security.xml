@@ -14,7 +14,7 @@
         <intercept-url pattern="/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/saveSignup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <!-- todo add security-->
+        <!-- todo add security--> 
         <intercept-url pattern="/**/*gCMClient*" access="ROLE_ANONYMOUS"/>
         <intercept-url pattern="/**/*.action*" access="ROLE_ADMIN,ROLE_USER"/>
         <!--intercept-url pattern="/services/**" access="ROLE_ADMIN,ROLE_USER"/ -->

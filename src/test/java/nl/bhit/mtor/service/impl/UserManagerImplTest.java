@@ -1,22 +1,23 @@
 package nl.bhit.mtor.service.impl;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.RoleDao;
 import nl.bhit.mtor.dao.UserDao;
 import nl.bhit.mtor.model.Role;
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.service.UserExistsException;
-import nl.bhit.mtor.service.impl.RoleManagerImpl;
-import nl.bhit.mtor.service.impl.UserManagerImpl;
 
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import static org.junit.Assert.*;
-
 public class UserManagerImplTest extends BaseManagerMockTestCase {
+	
     // ~ Instance fields ========================================================
     private UserManagerImpl userManager = new UserManagerImpl();
     private RoleManagerImpl roleManager;
@@ -150,7 +151,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
             userManager.saveUser(user);
             fail("Expected UserExistsException not thrown");
         } catch (UserExistsException e) {
-            log.debug("expected exception: " + e.getMessage());
+            LOG.debug("expected exception: " + e.getMessage());
             assertNotNull(e);
         }
     }

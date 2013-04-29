@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -20,7 +19,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
  */
 public final class AnnotationUtil {
 	
-	protected static final Log LOG = LogFactory.getLog(AnnotationUtil.class);
+	private static final transient Logger LOG = Logger.getLogger(AnnotationUtil.class);
 	
     private static final ClassPathScanningCandidateComponentProvider PROVIDER = new ClassPathScanningCandidateComponentProvider(false);
     

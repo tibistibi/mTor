@@ -11,8 +11,7 @@ import javax.servlet.jsp.tagext.VariableInfo;
 
 import nl.bhit.mtor.Constants;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -22,7 +21,8 @@ import org.apache.commons.logging.LogFactory;
  * @author Matt Raible
  */
 public class ConstantsTei extends TagExtraInfo {
-    private final Log log = LogFactory.getLog(ConstantsTei.class);
+	
+	private static final transient Logger LOG = Logger.getLogger(ConstantsTei.class);
 
     /**
      * Return information about the scripting variables to be created.
@@ -62,7 +62,7 @@ public class ConstantsTei extends TagExtraInfo {
                          true, VariableInfo.AT_END));
             }
         } catch (Exception cnf) {
-            log.error(cnf.getMessage(), cnf);
+            LOG.error(cnf.getMessage(), cnf);
         }
 
         return vars.toArray(new VariableInfo[] {});

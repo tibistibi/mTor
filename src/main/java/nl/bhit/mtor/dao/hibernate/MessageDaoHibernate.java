@@ -21,9 +21,9 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
     @SuppressWarnings("unchecked")
     public List<MTorMessage> getMessagesWithTimestamp(MTorMessage message) {
         String queryString = "from MTorMessage where timestamp <= :timeStamp and project = :project";
-        log.trace("runing hql: " + queryString);
-        log.trace("timeStamp: " + message.getTimestamp());
-        log.trace("project: " + message.getProject().getId());
+        LOG.trace("runing hql: " + queryString);
+        LOG.trace("timeStamp: " + message.getTimestamp());
+        LOG.trace("project: " + message.getProject().getId());
 
         Query query = getSession().createQuery(queryString);
         query.setTimestamp("timeStamp", message.getTimestamp());
@@ -57,12 +57,12 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
     @Override
     public MTorMessage getAliveByProject(Long projectId) {
         String hql = "select m as message from MTorMessage as m left join m.project as p where p = :project and m.content like '%alive%'";
-        log.trace("running hql:" + hql);
+        LOG.trace("running hql:" + hql);
         Query query = getSession().createQuery(hql);
         query.setLong("project", projectId);
         List<MTorMessage> results = query.list();
         if (results != null && results.size() != 0) {
-            log.trace("found message" + results.get(0));
+            LOG.trace("found message" + results.get(0));
             return results.get(0);
         }
         return null;
@@ -93,13 +93,14 @@ public class MessageDaoHibernate extends GenericDaoHibernate<MTorMessage, Long> 
 	@Override
 	public List<MTorMessage> getLastNMessagesByProject(Long projectId, int numberOfMessages, Status... status) {
         Query query = buildProjectStatusHQL(projectId, "select m as message", status);
+        query.setMaxResults(numberOfMessages);
         @SuppressWarnings("unchecked")
 		List<MTorMessage> lstAux = (List<MTorMessage>)query.list();
         return lstAux == null ? null : lstAux.subList(0, numberOfMessages > lstAux.size() ? lstAux.size() : numberOfMessages);
 	}
 	
 	/**
-	 * Helper method in order to build a Query instance based on project id and status.
+	 * Helper method in order to build a Query instance based on project id and status ordered by timestamp desc.
 	 * 
 	 * @param projectId
 	 * 					Project id which we want to filter.

@@ -8,8 +8,7 @@ import nl.bhit.mtor.dao.BaseDaoTestCase;
 import nl.bhit.mtor.util.ConvertUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -22,10 +21,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JMock.class)
 public abstract class BaseManagerMockTestCase extends BaseDaoTestCase {
-    /**
-     * A logger
-     */
-    protected final Log log = LogFactory.getLog(getClass());
+	
     /**
      * The resourceBundle
      */
@@ -46,7 +42,7 @@ public abstract class BaseManagerMockTestCase extends BaseDaoTestCase {
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            // log.debug("No resource bundle found for: " + className);
+            // LOG.debug("No resource bundle found for: " + className);
         }
     }
 

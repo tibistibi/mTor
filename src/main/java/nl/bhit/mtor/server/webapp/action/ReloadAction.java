@@ -1,12 +1,13 @@
 package nl.bhit.mtor.server.webapp.action;
 
-import org.apache.struts2.ServletActionContext;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 
 import nl.bhit.mtor.server.webapp.listener.StartupListener;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * This class is used to reload the drop-downs initialized in the
@@ -15,6 +16,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ReloadAction extends BaseAction {
+	
     private static final long serialVersionUID = 295460450224891051L;
 
     /**
@@ -32,7 +34,7 @@ public class ReloadAction extends BaseAction {
         HttpServletResponse response = ServletActionContext.getResponse();
 
         if (referer != null) {
-            log.info("reload complete, reloading user back to: " + referer);
+            LOG.info("reload complete, reloading user back to: " + referer);
             saveMessage(getText("reload.succeeded"));
             response.sendRedirect(response.encodeRedirectURL(referer));
             return SUCCESS;

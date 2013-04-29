@@ -17,6 +17,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class CompanyActionTest extends BaseActionTestCase {
+	
     private CompanyAction action;
 
     @Override
@@ -57,7 +58,7 @@ public class CompanyActionTest extends BaseActionTestCase {
 
     @Test
     public void testEdit() throws Exception {
-        log.debug("testing edit...");
+        LOG.debug("testing edit...");
         action.setId(-1L);
         assertNull(action.getCompany());
         assertEquals("success", action.edit());

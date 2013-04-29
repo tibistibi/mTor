@@ -82,9 +82,9 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 
     @Override
     public List<ClientMessage> getUnresolvedAllByLogedInUser() {
-        log.trace("starting getUnresolvedAllByLogedInUser");
+        LOG.trace("starting getUnresolvedAllByLogedInUser");
         User authenticatedUser = UserManagementUtils.getAuthenticatedUser();
-        log.trace("found user with id: " + authenticatedUser.getId());
+        LOG.trace("found user with id: " + authenticatedUser.getId());
         List<MTorMessage> messages = messageDao.getUnresolvedAll(authenticatedUser);
         return convertToClientMessageList(messages);
     }
@@ -99,7 +99,7 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
 
     @Override
     public List<ClientMessage> getUnresolvedAllByUser(Long userId) {
-        log.trace("starting getUnresolvedByuser with userId: " + userId);
+        LOG.trace("starting getUnresolvedByuser with userId: " + userId);
         List<MTorMessage> messages = messageDao.getUnresolvedAll(userId);
         return convertToClientMessageList(messages);
     }

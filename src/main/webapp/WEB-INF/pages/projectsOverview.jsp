@@ -90,7 +90,7 @@
 </script>
 
 <s:form>
-	<s:iterator value="lstProjects" status="status" var="p">
+	<s:iterator value="projects" status="status" var="p">
 	 	<div class="projectOverviewPanel">
 	 		<img src="<c:url value="/images/project_32x32.png"/>" 
 	 			 alt="<fmt:message key="projectsOverview.icon.project"/>" 

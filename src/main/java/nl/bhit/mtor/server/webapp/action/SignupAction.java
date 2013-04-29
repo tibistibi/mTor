@@ -21,7 +21,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * Action to allow new users to sign up.
  */
 public class SignupAction extends BaseAction {
+	
     private static final long serialVersionUID = 6558317334878272308L;
+    
     private User user;
     private String cancel;
 
@@ -84,11 +86,11 @@ public class SignupAction extends BaseAction {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-            log.warn(ade.getMessage());
+            LOG.warn(ade.getMessage());
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
+            LOG.warn(e.getMessage());
             List<Object> args = new ArrayList<Object>();
             args.add(user.getUsername());
             args.add(user.getEmail());

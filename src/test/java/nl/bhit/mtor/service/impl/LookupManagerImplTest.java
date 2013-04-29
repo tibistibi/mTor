@@ -1,21 +1,21 @@
 package nl.bhit.mtor.service.impl;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.dao.LookupDao;
 import nl.bhit.mtor.model.LabelValue;
 import nl.bhit.mtor.model.Role;
-import nl.bhit.mtor.service.impl.LookupManagerImpl;
 
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertTrue;
-
 public class LookupManagerImplTest extends BaseManagerMockTestCase {
+	
     private LookupManagerImpl mgr = new LookupManagerImpl();
     private LookupDao lookupDao;
 
@@ -27,7 +27,7 @@ public class LookupManagerImplTest extends BaseManagerMockTestCase {
 
     @Test
     public void testGetAllRoles() {
-        log.debug("entered 'testGetAllRoles' method");
+        LOG.debug("entered 'testGetAllRoles' method");
 
         // set expected behavior on dao
         Role role = new Role(Constants.ADMIN_ROLE);

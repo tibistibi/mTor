@@ -1,13 +1,16 @@
 package nl.bhit.mtor.service;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import nl.bhit.mtor.Constants;
 import nl.bhit.mtor.model.Role;
 import nl.bhit.mtor.model.User;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.log4j.Logger;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.security.access.AccessDeniedException;
@@ -20,11 +23,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * This advice is responsible for enforcing security and only allowing administrators
  * to modify users. Users are allowed to modify themselves.
@@ -32,11 +30,13 @@ import java.util.Set;
  * @author mraible
  */
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
+	
+	private static final transient Logger LOG = Logger.getLogger(UserSecurityAdvice.class);
+	
     /**
      * Default "Access Denied" error message (not i18n-ized).
      */
     public static final String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
-    private final Log log = LogFactory.getLog(UserSecurityAdvice.class);
 
     /**
      * Method to enforce security and only allow administrators to modify users. Regular
@@ -75,7 +75,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
                 User currentUser = getCurrentUser(auth);
 
                 if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
-                    log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '"
+                    LOG.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '"
                             + user.getUsername() + "'!");
                     throw new AccessDeniedException(ACCESS_DENIED);
                 } else if (user.getId() != null && user.getId().equals(currentUser.getId()) && !administrator) {
@@ -97,13 +97,13 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
                     // if they don't match - access denied
                     // regular users aren't allowed to change their roles
                     if (!CollectionUtils.isEqualCollection(userRoles, authorizedRoles)) {
-                        log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to change their role(s)!");
+                        LOG.warn("Access Denied: '" + currentUser.getUsername() + "' tried to change their role(s)!");
                         throw new AccessDeniedException(ACCESS_DENIED);
                     }
                 }
             } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Registering new user '" + user.getUsername() + "'");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Registering new user '" + user.getUsername() + "'");
                 }
             }
         }

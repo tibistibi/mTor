@@ -56,7 +56,7 @@ public class ProjectActionTest extends BaseActionTestCase {
 
     @Test
     public void testEdit() throws Exception {
-        log.debug("testing edit...");
+        LOG.debug("testing edit...");
         action.setId(-1L);
         assertNull(action.getProject());
         assertEquals("success", action.edit());

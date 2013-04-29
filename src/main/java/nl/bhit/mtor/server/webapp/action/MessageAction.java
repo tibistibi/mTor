@@ -161,16 +161,16 @@ public class MessageAction extends BaseAction implements Preparable {
     }
 
     public String resolve() {
-        log.trace("start resolving...");
+        LOG.trace("start resolving...");
         List<MTorMessage> mTorMessagesList = messageManager.getMessagesWithTimestamp(message);
-        log.trace("messages found:" + mTorMessagesList.size());
+        LOG.trace("messages found:" + mTorMessagesList.size());
 
         for (MTorMessage tempMessage : mTorMessagesList) {
-            log.trace("resolving issue id: " + tempMessage.getId());
+            LOG.trace("resolving issue id: " + tempMessage.getId());
             tempMessage.setResolved(true);
             messageManager.save(tempMessage);
         }
-        log.trace("done resolving...");
+        LOG.trace("done resolving...");
         return SUCCESS;
     }
 }

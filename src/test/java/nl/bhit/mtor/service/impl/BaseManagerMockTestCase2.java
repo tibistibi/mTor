@@ -7,8 +7,7 @@ import java.util.ResourceBundle;
 import nl.bhit.mtor.util.ConvertUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,10 +23,11 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
                 "classpath*:/applicationContext.xml", "classpath:**/applicationContext*.xml" })
 // @RunWith(JMock.class)
 public abstract class BaseManagerMockTestCase2 extends AbstractTransactionalJUnit4SpringContextTests {
+	
     /**
      * A logger
      */
-    protected final Log log = LogFactory.getLog(getClass());
+	protected final transient Logger LOG = Logger.getLogger(getClass());
     /**
      * The resourceBundle
      */
@@ -48,7 +48,7 @@ public abstract class BaseManagerMockTestCase2 extends AbstractTransactionalJUni
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            // log.debug("No resource bundle found for: " + className);
+            // LOG.debug("No resource bundle found for: " + className);
         }
     }
 

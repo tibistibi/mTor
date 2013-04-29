@@ -6,8 +6,7 @@ import java.text.ParseException;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is converts a Double to a double-digit String
@@ -17,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CurrencyConverter implements Converter {
 	
-    private final Log log = LogFactory.getLog(CurrencyConverter.class);
+	private static final transient Logger LOG = Logger.getLogger(CurrencyConverter.class);
     
     private DecimalFormat formatter = new DecimalFormat("###,###.00");
 
@@ -40,8 +39,8 @@ public class CurrencyConverter implements Converter {
             return null;
         } else {
             if (value instanceof String) {
-                if (log.isDebugEnabled()) {
-                    log.debug("value (" + value + ") instance of String");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("value (" + value + ") instance of String");
                 }
 
                 try {
@@ -49,20 +48,20 @@ public class CurrencyConverter implements Converter {
                         return null;
                     }
 
-                    if (log.isDebugEnabled()) {
-                        log.debug("converting '" + value + "' to a decimal");
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("converting '" + value + "' to a decimal");
                     }
                     
                     Number num = formatter.parse(String.valueOf(value));
 
                     return num.doubleValue();
                 } catch (ParseException pe) {
-                	log.error("Error parsing " + value, pe);
+                	LOG.error("Error parsing " + value, pe);
                 }
             } else if (value instanceof Double) {
-                if (log.isDebugEnabled()) {
-                    log.debug("value (" + value + ") instance of Double");
-                    log.debug("returning double: " + formatter.format(value));
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("value (" + value + ") instance of Double");
+                    LOG.debug("returning double: " + formatter.format(value));
                 }
 
                 return formatter.format(value);

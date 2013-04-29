@@ -1,7 +1,6 @@
 package nl.bhit.mtor.server.timer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,9 @@ import org.springframework.stereotype.Component;
 @Component(
         value = "mTorServerTimer")
 public class MTorServerTimer {
-    protected final Log log = LogFactory.getLog(MTorServerTimer.class);
+	
+	private static final transient Logger LOG = Logger.getLogger(MTorServerTimer.class);
+    
     private static AlertSender alertSender;
 
     protected static String[] getConfigLocations() {
@@ -21,9 +22,9 @@ public class MTorServerTimer {
      * is called from the timer.
      */
     public void process() {
-        log.debug("starting up the MTorServerTimer processor.");
+        LOG.debug("starting up the MTorServerTimer processor.");
         if (alertSender == null) {
-            log.trace("create a new alertSender");
+            LOG.trace("create a new alertSender");
             final BeanFactory factory = new ClassPathXmlApplicationContext(getConfigLocations());
             alertSender = (AlertSender)factory.getBean("alertSender");
         }

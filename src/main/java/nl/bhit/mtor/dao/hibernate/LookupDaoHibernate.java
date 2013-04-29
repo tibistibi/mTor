@@ -5,8 +5,7 @@ import java.util.List;
 import nl.bhit.mtor.dao.LookupDao;
 import nl.bhit.mtor.model.Role;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class LookupDaoHibernate implements LookupDao {
-    private final Log log = LogFactory.getLog(LookupDaoHibernate.class);
+	
+	private static final transient Logger LOG = Logger.getLogger(LookupDaoHibernate.class);
+    
     private final SessionFactory sessionFactory;
 
     /**
@@ -39,7 +40,7 @@ public class LookupDaoHibernate implements LookupDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Role> getRoles() {
-        log.debug("Retrieving all role names...");
+        LOG.debug("Retrieving all role names...");
         Session session = sessionFactory.getCurrentSession();
         return session.createCriteria(Role.class).list();
     }

@@ -15,8 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.search.annotations.Indexed;
 
 @Entity
@@ -28,9 +27,9 @@ public class MTorMessage extends BaseObject implements Serializable {
     private static final long serialVersionUID = 1775343633035089024L;
     
     /**
-     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     * Log variable for all child classes. Uses Logger.getLogger from Log4J
      */
-    protected static final Log LOG = LogFactory.getLog(MTorMessage.class);
+    private static final transient Logger LOG = Logger.getLogger(MTorMessage.class);
 
     private Long id;
     private String content;

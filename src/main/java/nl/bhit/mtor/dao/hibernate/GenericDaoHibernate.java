@@ -12,8 +12,7 @@ import javax.annotation.Resource;
 import nl.bhit.mtor.dao.GenericDao;
 import nl.bhit.mtor.dao.SearchException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.ParseException;
@@ -53,9 +52,10 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
-     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     * Log variable for all child classes. Uses Logger.getLogger(getClass()) from Log4J
      */
-    protected final Log log = LogFactory.getLog(getClass());
+    protected final transient Logger LOG = Logger.getLogger(getClass());
+    
     private final Class<T> persistentClass;
     @Resource
     private SessionFactory sessionFactory;
@@ -154,7 +154,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
         T entity = (T) byId.load(id);
 
         if (entity == null) {
-            log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
+            LOG.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
             throw new ObjectRetrievalFailureException(this.persistentClass, id);
         }
 

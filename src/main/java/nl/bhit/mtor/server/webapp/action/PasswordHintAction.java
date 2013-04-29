@@ -1,13 +1,13 @@
 package nl.bhit.mtor.server.webapp.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.RequestUtil;
 
 import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Action class to send password hints to registered users.
@@ -36,15 +36,15 @@ public class PasswordHintAction extends BaseAction {
 
         // ensure that the username has been sent
         if (username == null) {
-            log.warn("Username not specified, notifying user that it's a required field.");
+            LOG.warn("Username not specified, notifying user that it's a required field.");
 
             args.add(getText("user.username"));
             addActionError(getText("errors.requiredField", args));
             return INPUT;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Processing Password Hint...");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Processing Password Hint...");
         }
 
         // look up the user's information
@@ -53,7 +53,7 @@ public class PasswordHintAction extends BaseAction {
             String hint = user.getPasswordHint();
 
             if (hint == null || hint.trim().equals("")) {
-                log.warn("User '" + username + "' found, but no password hint exists.");
+                LOG.warn("User '" + username + "' found, but no password hint exists.");
                 addActionError(getText("login.passwordHint.missing"));
                 return INPUT;
             }
@@ -73,7 +73,7 @@ public class PasswordHintAction extends BaseAction {
 
             saveMessage(getText("login.passwordHint.sent", args));
         } catch (UsernameNotFoundException e) {
-            log.warn(e.getMessage());
+            LOG.warn(e.getMessage());
             args.add(username);
             addActionError(getText("login.passwordHint.error", args));
             getSession().setAttribute("errors", getActionErrors());
