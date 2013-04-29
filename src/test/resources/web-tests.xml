@@ -13,7 +13,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload,MessageTests,MessageTests,ProjectTests,MessageTests,ProjectTests,CompanyTests,ProjectTests"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload,GCMClientTests,MessageTests,MessageTests,ProjectTests,MessageTests,ProjectTests,CompanyTests,ProjectTests"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -538,7 +538,101 @@
         </webtest>
     </target>
     <!--Message-END-->
+    <!--GCMClient-START-->
+    <!-- runs gCMClient-related tests -->
+    <target name="GCMClientTests" depends="SearchGCMClients,EditGCMClient,SaveGCMClient,AddGCMClient,DeleteGCMClient"
+            description="Call and executes all gCMClient test cases (targets)">
+        <echo>Successfully ran all GCMClient UI tests!</echo>
+    </target>
+
+    <!-- Verify the gCMClients list screen displays without errors -->
+    <target name="SearchGCMClients" description="Tests search for and displaying all gCMClients">
+        <webtest name="searchGCMClients">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View GCMClient link" url="/gCMClients"/>
+                <verifytitle description="we should see the gCMClientList title"
+                             text=".*${gCMClientList.title}.*" regex="true"/>
+                <setinputfield description="set search term" name="q" value="*"/>
+                <clickbutton label="${button.search}" description="Click Search"/>
+                <verifytitle description="we should see the gCMClientList title"
+                             text=".*${gCMClientList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the edit gCMClient screen displays without errors -->
+    <target name="EditGCMClient" description="Tests editing an existing GCMClient's information">
+        <webtest name="editGCMClient">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit GCMClient link" url="/editGCMClient?id=-1"/>
+                <verifytitle description="we should see the gCMClientDetail title"
+                             text=".*${gCMClientDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a gCMClient and then save -->
+    <target name="SaveGCMClient" description="Tests editing and saving a gCMClient">
+        <webtest name="saveGCMClient">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit GCMClient link" url="/editGCMClient?id=-1"/>
+                <verifytitle description="we should see the gCMClientDetail title"
+                             text=".*${gCMClientDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+
+                <clickbutton label="${button.save}" description="Click Save"/>
+                <verifytitle description="Page re-appears if save successful"
+                             text=".*${gCMClientDetail.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${gCMClient.updated}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new GCMClient -->
+    <target name="AddGCMClient" description="Adds a new GCMClient">
+        <webtest name="addGCMClient">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Add Button" url="/editGCMClient"/>
+                <verifytitle description="we should see the gCMClientDetail title"
+                             text=".*${gCMClientDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+                <verifytitle description="GCMClient List appears if save successful"
+                             text=".*${gCMClientList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${gCMClient.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing gCMClient -->
+    <target name="DeleteGCMClient" description="Deletes existing GCMClient">
+        <webtest name="deleteGCMClient">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit GCMClient link" url="/editGCMClient?id=-1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display GCMClient List" text=".*${gCMClientList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${gCMClient.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+    <!--GCMClient-END-->
 </project>
+
 
 
 

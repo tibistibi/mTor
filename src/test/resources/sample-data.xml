@@ -304,7 +304,22 @@
         	<value description="users_id">-2</value>
     	</row>
 	  </table>
+    <!--GCMClient-START-->
+    <table name="GCM_CLIENT">
+        <column>ID</column>
+        <column>device</column>
+        <column>gcmRegistrationId</column>
+        <column>user_id</column>
+    <row>
+        <value description="ID">-1</value>
+        <value description="device">HTC test</value>
+        <value description="gcmRegistrationId">APA91bF9hDeEYjhA7ZIHcoFhEqIOK78JApCSxt8kOCN75L3s92F-jovFmsbWog1Dfl0g56-jIvlHp4a5AfGMo0Zukiuff99luIqkIUxCwYIQaAcD2tR7UFkjKjcalPg96Oy96AlvZaIgJpytaa8EB5P6Tynb5JYziw</value>
+        <value description="user_id">-1</value>
+    </row>
+    </table>
+    <!--GCMClient-END-->
 </dataset>
+
 
 
 
