@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import junit.framework.Assert;
 import nl.bhit.mtor.model.GCMClient;
 import nl.bhit.mtor.service.GCMClientManager;
 
@@ -91,5 +92,39 @@ public class GCMClientActionTest extends BaseActionTestCase {
         action.setGCMClient(gCMClient);
         assertEquals("success", action.delete());
         assertNotNull(request.getSession().getAttribute("messages"));
+    }
+
+    /**
+     * test issue:
+     * https://github.com/tibistibi/mTor/issues/98
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testAddMultipleTimes() throws Exception {
+        action.list();
+        int startSize = action.getGCMClients().size();
+        GCMClient gcmClient = new GCMClient();
+        String gcmRegistrationId = "1234567890";
+        gcmClient.setGcmRegistrationId(gcmRegistrationId);
+        action.setGCMClient(gcmClient);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setParameter("gCMClient.gcmRegistrationId", gcmRegistrationId);
+        request.setMethod("post");
+        ServletActionContext.setRequest(request);
+
+        action.prepare();
+        action.setGCMClient(gcmClient);
+        action.save();
+        action.list();
+        int step2Size = action.getGCMClients().size();
+
+        action.prepare();
+        action.save();
+        action.list();
+        int step3Size = action.getGCMClients().size();
+
+        Assert.assertEquals(startSize + 1, step2Size);
+        Assert.assertEquals(step2Size, step3Size);
     }
 }
