@@ -6,6 +6,7 @@ import nl.bhit.mtor.dao.SearchException;
 import nl.bhit.mtor.model.GCMClient;
 import nl.bhit.mtor.service.GCMClientManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.Preparable;
@@ -34,8 +35,12 @@ public class GCMClientAction extends BaseAction implements Preparable {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             // prevent failures on new
             String gCMClientId = getRequest().getParameter("gCMClient.id");
-            if (gCMClientId != null && !gCMClientId.equals("")) {
+            if (StringUtils.isNotBlank(gCMClientId)) {
                 gCMClient = gCMClientManager.get(new Long(gCMClientId));
+            } else {
+                String gcmRegistrationId = getRequest().getParameter("gCMClient.gcmRegistrationId");
+                gCMClient = gCMClientManager.getByRegistratoinId(new Long(gcmRegistrationId));
+
             }
         }
     }

@@ -1,18 +1,18 @@
 package nl.bhit.mtor.service.impl;
 
+import javax.jws.WebService;
+
 import nl.bhit.mtor.dao.GCMClientDao;
 import nl.bhit.mtor.model.GCMClient;
 import nl.bhit.mtor.service.GCMClientManager;
-import nl.bhit.mtor.service.impl.GenericManagerImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import javax.jws.WebService;
-
 @Service("gCMClientManager")
-@WebService(serviceName = "GCMClientService", endpointInterface = "nl.bhit.mtor.service.GCMClientManager")
+@WebService(
+        serviceName = "GCMClientService",
+        endpointInterface = "nl.bhit.mtor.service.GCMClientManager")
 public class GCMClientManagerImpl extends GenericManagerImpl<GCMClient, Long> implements GCMClientManager {
     GCMClientDao gCMClientDao;
 
@@ -20,5 +20,10 @@ public class GCMClientManagerImpl extends GenericManagerImpl<GCMClient, Long> im
     public GCMClientManagerImpl(GCMClientDao gCMClientDao) {
         super(gCMClientDao);
         this.gCMClientDao = gCMClientDao;
+    }
+
+    @Override
+    public GCMClient getByRegistratoinId(Long registratoinId) {
+        return gCMClientDao.getByRegistratoinId(registratoinId);
     }
 }

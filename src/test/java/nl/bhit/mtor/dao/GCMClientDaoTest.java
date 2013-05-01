@@ -33,4 +33,5 @@ public class GCMClientDaoTest extends BaseDaoTestCase {
         // should throw DataAccessException
         gCMClientDao.get(gCMClient.getId());
     }
+
 }
