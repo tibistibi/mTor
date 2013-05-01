@@ -5,7 +5,7 @@
     <groupId>nl.bhit.mtor</groupId>
     <artifactId>mTor</artifactId>
     <packaging>war</packaging>
-    <version>3.0 RC1</version>
+    <version>3.1 RC1</version>
     <name>mTor</name>
     <url>https://github.com/tibistibi/mTor</url>
 
