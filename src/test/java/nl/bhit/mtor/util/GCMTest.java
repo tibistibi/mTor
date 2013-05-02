@@ -12,7 +12,7 @@ public class GCMTest extends TestCase {
     public void testSendMEssage() throws Exception {
         String registrationId = "APA91bF9hDeEYjhA7ZIHcoFhEqIOK78JApCSxt8kOCN75L3s92F-jovFmsbWog1Dfl0g56-jIvlHp4a5AfGMo0Zukiuff99luIqkIUxCwYIQaAcD2tR7UFkjKjcalPg96Oy96AlvZaIgJpytaa8EB5P6Tynb5JYziw";
         Message.Builder builder = new Message.Builder();
-        builder.addData("test", "hello world!!");
+        builder.addData("message", "boe!");
         Message message = builder.build();
         Result result = sender.send(message, registrationId, 5);
         String status = "Sent message to one device: " + result;
