@@ -2,6 +2,7 @@ package nl.bhit.mtor.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -22,6 +23,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -74,6 +77,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
     private boolean credentialsExpired;
     private Set<Project> projects;
     private Status statusThreshold;
+    private String qrToken;
+    private Date qrTimestamp;
 
     /**
      * Default constructor - creates a new instance with no values set.
@@ -524,4 +529,24 @@ public class User extends BaseObject implements Serializable, UserDetails {
     public void setStatusThreshold(Status statusThreshold) {
         this.statusThreshold = statusThreshold;
     }
+    
+    @Column(name="qr_token")
+	public String getQrToken() {
+		return qrToken;
+	}
+
+	public void setQrToken(String qrToken) {
+		this.qrToken = qrToken;
+	}
+	
+	@Column(name="qr_timestamp")
+	@Temporal(TemporalType.TIMESTAMP)
+	public Date getQrTimestamp() {
+		return qrTimestamp;
+	}
+
+	public void setQrTimestamp(Date qrTimestamp) {
+		this.qrTimestamp = qrTimestamp;
+	}
+	
 }

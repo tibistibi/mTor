@@ -16,7 +16,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public final class ImageUtils {
 	
 	/**
-	 * 
+	 * Formats of the QR code output.
 	 * 
 	 * @author miquel
 	 *
@@ -44,13 +44,18 @@ public final class ImageUtils {
     }
     
     /**
+     * Builds new QR code with parameters provided.
      * 
-     * 
-     * @param encodedMsg
-     * @param width
-     * @param height
-     * @param imageFormat
-     * @return
+     * @param encodedMsg			
+     * 				Message that we want to encode.
+     * @param width					
+     * 				Width of the resulting QR image.
+     * @param height				
+     * 				Height of the resulting QR image.
+     * @param imageFormat			
+     * 				Format of the resulting QR image.
+     * @return						
+     * 				Image with message encoded.
      */
     public static BufferedImage buildQRCode(final String encodedMsg, final int width, final int height, final QRImageFormat imageFormat) {
     	final Map<EncodeHintType, ErrorCorrectionLevel> hintMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();

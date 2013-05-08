@@ -1,12 +1,15 @@
 package nl.bhit.mtor.server.timer;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import nl.bhit.mtor.model.GCMClient;
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Project;
 import nl.bhit.mtor.model.Status;
 import nl.bhit.mtor.model.User;
+import nl.bhit.mtor.service.GCMClientManager;
 import nl.bhit.mtor.service.MailEngine;
 import nl.bhit.mtor.service.MessageManager;
 import nl.bhit.mtor.service.ProjectManager;
@@ -17,8 +20,13 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Result;
+import com.google.android.gcm.server.Sender;
+
 @Component
 public class AlertSender {
+
     @Autowired(
             required = false)
     private ProjectManager projectManager;
@@ -26,11 +34,15 @@ public class AlertSender {
     @Autowired
     private MessageManager messageManager;
     @Autowired
+    private GCMClientManager gcmClientManager;
+    @Autowired
     MailSender mailSender;
     @Autowired
     SimpleMailMessage mailMessage;
     @Autowired
     MailEngine mailEngine;
+
+    private final Sender sender = new Sender("AIzaSyBtsaNuZZ70vvVDFDk7_QpCQ3D-oLN5_oI");
 
     private static final transient Logger LOG = Logger.getLogger(AlertSender.class);
 
@@ -40,7 +52,7 @@ public class AlertSender {
         for (Project project : projects) {
             LOG.trace("working on project: " + project.getId());
             if (project.isMonitoring()) {
-            	LOG.trace("monitoring is on");
+                LOG.trace("monitoring is on");
                 for (User user : project.getUsers()) {
                     if (!project.hasHeartBeat() && user.getStatusThreshold() != Status.NONE) {
                         sendMailToUser(project, user);
@@ -88,7 +100,7 @@ public class AlertSender {
 
     private void sendHeartBeatAlert(String to) {
         if (LOG.isDebugEnabled()) {
-        	LOG.debug("sending e-mail to user [" + to + "]...");
+            LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");
@@ -99,9 +111,34 @@ public class AlertSender {
     }
 
     private void sendMessageAlert(Project project, String subject, String content, User user) {
+        sendGCM(subject, content, user);
+        sendMail(subject, content, user);
+    }
+
+    private void sendGCM(String subject, String content, User user) {
+        List<GCMClient> clients = gcmClientManager.getAll();
+        for (GCMClient gcmClient : clients) {
+            Message.Builder builder = new Message.Builder();
+            builder.addData("message", content);
+            sendGCMByRegistrationId(gcmClient.getGcmRegistrationId(), builder.build());
+        }
+    }
+
+    protected void sendGCMByRegistrationId(String registrationId, Message message) {
+        Result result = null;
+        try {
+            result = sender.send(message, registrationId, 5);
+        } catch (IOException e) {
+            LOG.warn("Could not send GCM (google cloud message): " + e.getMessage());
+            LOG.trace("Could not send GCM (google cloud message): " + e.getMessage(), e);
+        }
+        LOG.trace("Sent message to one device: " + result);
+    }
+
+    protected void sendMail(String subject, String content, User user) {
         String to = user.getEmail();
         if (LOG.isDebugEnabled()) {
-        	LOG.debug("sending e-mail to user [" + to + "]...");
+            LOG.debug("sending e-mail to user [" + to + "]...");
         }
 
         mailMessage.setTo(to + "<" + to + ">");

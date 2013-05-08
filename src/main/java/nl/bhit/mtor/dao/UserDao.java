@@ -55,5 +55,15 @@ public interface UserDao extends GenericDao<User, Long> {
     @Transactional(
             propagation = Propagation.NOT_SUPPORTED)
     String getUserPassword(Long userId);
+    
+    /**
+     * Searches these users that has assigned the specified token.
+     * 
+     * @param token
+     * 			Token which we want to search.
+     * @return
+     * 		List of users.
+     */
+    List<User> getUsersWithToken(String token);
 
 }

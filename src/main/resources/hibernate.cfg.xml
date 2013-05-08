@@ -15,6 +15,7 @@
 		<mapping class="nl.bhit.mtor.model.Project" />
 		<mapping class="nl.bhit.mtor.model.Company" />
 		<mapping class="nl.bhit.mtor.model.MTorMessage" />
-	</session-factory>
+	    <mapping class="nl.bhit.mtor.model.GCMClient"/>
+    </session-factory>
 </hibernate-configuration>
 

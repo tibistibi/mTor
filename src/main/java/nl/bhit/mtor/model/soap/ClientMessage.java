@@ -1,6 +1,7 @@
 package nl.bhit.mtor.model.soap;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import nl.bhit.mtor.model.MTorMessage;
 import nl.bhit.mtor.model.Status;
@@ -17,6 +18,7 @@ public class ClientMessage implements Serializable {
     private String content;
     private Status status;
     private Long projectId;
+    private Date timestamp;
 
     public ClientMessage(MTorMessage source) {
         BeanUtils.copyProperties(source, this);
@@ -49,6 +51,14 @@ public class ClientMessage implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
 }

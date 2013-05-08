@@ -23,9 +23,9 @@ import org.hibernate.search.annotations.Indexed;
 @Table(
         name = "MESSAGE")
 public class MTorMessage extends BaseObject implements Serializable {
-	
+
     private static final long serialVersionUID = 1775343633035089024L;
-    
+
     /**
      * Log variable for all child classes. Uses Logger.getLogger from Log4J
      */
@@ -137,23 +137,23 @@ public class MTorMessage extends BaseObject implements Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
-        	return true;
+            return true;
         }
         if (obj == null) {
-        	return false;
+            return false;
         }
         if (getClass() != obj.getClass()) {
-        	return false;
+            return false;
         }
         MTorMessage other = (MTorMessage) obj;
         if (id == null) {
             if (other.id != null) {
-            	return false;
+                return false;
             }
         } else if (!id.equals(other.id)) {
-        	return false;
+            return false;
         }
-        
+
         return true;
     }
 

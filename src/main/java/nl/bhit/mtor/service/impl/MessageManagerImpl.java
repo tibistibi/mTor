@@ -1,6 +1,7 @@
 package nl.bhit.mtor.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
         serviceName = "MessageService",
         endpointInterface = "nl.bhit.mtor.service.MessageManager")
 public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> implements MessageManager {
-	
+
     MessageDao messageDao;
     @Autowired
     private ProjectManager projectManager;
@@ -35,13 +36,14 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         super(messageDao);
         this.messageDao = messageDao;
     }
-    
+
     @Override
     @WebMethod(
             exclude = true)
     // @RolesAllowed("basicUser")
     public void saveClientMessage(ClientMessage clientMessage) {
-    	Project project = projectManager.get(clientMessage.getProjectId());
+        clientMessage.setTimestamp(new Date());
+        Project project = projectManager.get(clientMessage.getProjectId());
         MTorMessage message = messageDao.getAliveByProject(clientMessage.getProjectId());
         if (message == null) {
             message = new MTorMessage();
@@ -51,10 +53,10 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         BeanUtils.copyProperties(clientMessage, message);
         message.setProject(project);
         message.setResolved(false);
-        
-    	messageDao.save(message);
+
+        messageDao.save(message);
     }
-    
+
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
     }
@@ -104,21 +106,21 @@ public class MessageManagerImpl extends GenericManagerImpl<MTorMessage, Long> im
         return convertToClientMessageList(messages);
     }
 
-	@Override
-	public Long getMessageNumber(Project project, Status... status) {
-		if (project == null || project.getId() == null) {
-			return null;
-		}
-		return messageDao.getMessageNumberByProject(project.getId(), status);
-	}
+    @Override
+    public Long getMessageNumber(Project project, Status... status) {
+        if (project == null || project.getId() == null) {
+            return null;
+        }
+        return messageDao.getMessageNumberByProject(project.getId(), status);
+    }
 
-	@Override
-	public MTorMessage getNewestMessage(Project project, Status... status) {
-		if (project == null || project.getId() == null) {
-			return null;
-		}
-		List<MTorMessage> lstAux = messageDao.getLastNMessagesByProject(project.getId(), 1, status);
-		return lstAux == null ? null : lstAux.get(0);
-	}
-    
+    @Override
+    public MTorMessage getNewestMessage(Project project, Status... status) {
+        if (project == null || project.getId() == null) {
+            return null;
+        }
+        List<MTorMessage> lstAux = messageDao.getLastNMessagesByProject(project.getId(), 1, status);
+        return lstAux == null ? null : lstAux.get(0);
+    }
+
 }
