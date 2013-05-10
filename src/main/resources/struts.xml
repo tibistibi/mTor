@@ -215,6 +215,12 @@
 			<result name="delete" type="redirectAction">projects</result>
 			<result name="success" type="redirectAction">projects</result>
 		</action>
+		
+		<action name="projectsList" class="nl.bhit.mtor.server.webapp.action.ProjectAction" method="list">
+			<result type="json">
+				<param name="root">jsonProjectsList</param>
+			</result>
+		</action>
 		<!--ProjectAction-END -->
 		
 		
