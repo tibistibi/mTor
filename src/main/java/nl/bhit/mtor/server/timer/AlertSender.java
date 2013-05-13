@@ -116,6 +116,8 @@ public class AlertSender {
     }
 
     private void sendGCM(String subject, String content, User user) {
+        LOG.debug("sendGCM: " + subject + " " + content + " " + user);
+        // TODO (tibi) get clients by user and not all!
         List<GCMClient> clients = gcmClientManager.getAll();
         for (GCMClient gcmClient : clients) {
             Message.Builder builder = new Message.Builder();
@@ -127,6 +129,7 @@ public class AlertSender {
     protected void sendGCMByRegistrationId(String registrationId, Message message) {
         Result result = null;
         try {
+            LOG.trace("sending to id:" + registrationId);
             result = sender.send(message, registrationId, 5);
         } catch (IOException e) {
             LOG.warn("Could not send GCM (google cloud message): " + e.getMessage());
