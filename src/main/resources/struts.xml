@@ -84,7 +84,7 @@
 		<action name="signup">
 			<result>/WEB-INF/pages/signup.jsp</result>
 		</action>
-
+		
 		<action name="saveSignup" class="signupAction" method="save">
 			<result name="cancel" type="redirect">/</result>
 			<result name="input">/WEB-INF/pages/signup.jsp</result>
@@ -120,6 +120,21 @@
 			<result name="success">/</result>
 		</action>
 		
+		<!-- QRCodeLoginACtion-START -->
+		<action name="codeQRGenerationAction" class="nl.bhit.mtor.server.webapp.action.QRCodeLoginAction" method="buildQRCode">
+		</action>
+		
+		<action name="codeQRScannedAjaxAction" class="nl.bhit.mtor.server.webapp.action.QRCodeLoginAction" method="isQRScanned">
+			<result type="json">
+				<param name="root">jsonQRCodeScanned</param>
+			</result>
+		</action>
+		
+		<action name="codeQRLoginAction" class="nl.bhit.mtor.server.webapp.action.QRCodeLoginAction" method="doQRLogin">
+   			<result name="cancel" type="redirect">/</result>
+			<result name="success" type="redirectAction">mainMenu</result>
+		</action>
+		<!-- QRCodeLoginACtion-END -->
 		
 		<!--CompanyAction-START -->
 		<action name="companies" class="nl.bhit.mtor.server.webapp.action.CompanyAction"
@@ -199,6 +214,12 @@
 			<result name="cancel" type="redirectAction">projects</result>
 			<result name="delete" type="redirectAction">projects</result>
 			<result name="success" type="redirectAction">projects</result>
+		</action>
+		
+		<action name="projectsList" class="nl.bhit.mtor.server.webapp.action.ProjectAction" method="list">
+			<result type="json">
+				<param name="root">jsonProjectsList</param>
+			</result>
 		</action>
 		<!--ProjectAction-END -->
 		

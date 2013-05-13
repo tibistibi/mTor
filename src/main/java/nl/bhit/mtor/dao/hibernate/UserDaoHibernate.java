@@ -106,4 +106,16 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         return jdbcTemplate
                 .queryForObject("select password from " + table.name() + " where id=?", String.class, userId);
     }
+
+	@Override
+	public List<User> getUsersWithToken(String token) {
+		String hql = "from User u where u.qrToken = :qrToken";
+		Query query = getSession().createQuery(hql);
+		query.setString("qrToken", token);
+		
+		@SuppressWarnings("unchecked")
+		List<User> users = query.list();
+		return users;
+	}
+	
 }

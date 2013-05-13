@@ -19,8 +19,10 @@
         <column>account_enabled</column>
         <column>account_expired</column>
         <column>account_locked</column>
-        <column>credentials_expired</column>     
-        <column>status_threshold</column>      
+        <column>credentials_expired</column>
+        <column>status_threshold</column>
+        <column>qr_token</column>
+        <column>qr_timestamp</column>
         <row>
             <value description="id">-1</value>
             <value description="username">user@yahoo.com</value>
@@ -42,6 +44,7 @@
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
             <value description="status_threshold">NONE</value>
+            <value description="qr_token"></value>
         </row>
         <row>
             <value description="id">-2</value>
@@ -64,6 +67,7 @@
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
             <value description="status_threshold">NONE</value>
+            <value description="qr_token"></value>
         </row>
     </table>
     <table name="role">
@@ -113,7 +117,7 @@
     </table>
     <!--Company-END--> 
      
-        <!--Project-START-->
+	<!--Project-START-->
     <table name="PROJECT">
         <column>ID</column>
         <column>COMPANY_FK</column>

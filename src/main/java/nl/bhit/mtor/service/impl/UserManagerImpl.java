@@ -1,5 +1,6 @@
 package nl.bhit.mtor.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -9,6 +10,7 @@ import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.service.UserExistsException;
 import nl.bhit.mtor.service.UserManager;
 import nl.bhit.mtor.service.UserService;
+import nl.bhit.mtor.util.CryptographicUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.SaltSource;
@@ -152,4 +154,41 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public List<User> search(String searchTerm) {
         return super.search(searchTerm, User.class);
     }
+
+	@Override
+	public User getAndCheckQRUser(String token) {
+		List<User> users = userDao.getUsersWithToken(token);
+		if (users == null || users.isEmpty()) {
+			return null;
+		}
+		if (users.size() > 1) {
+			for (final User u : users) {
+				u.setQrToken(null);
+				u.setQrTimestamp(null);
+				save(u);
+			}
+			return null;
+		} else {
+			User u = users.get(0);
+			if (u.getQrTimestamp() == null) {
+				return null;
+			}
+			long timeDiff = Math.abs(u.getQrTimestamp().getTime() - new Date().getTime());
+			if (timeDiff > CryptographicUtils.QR_LOGIN_TIME_WINDOW_FRAME_MILIS) {
+				u.setQrToken(null);
+				u.setQrTimestamp(null);
+				save(u);
+				return null;
+			}
+			return u;
+		}
+	}
+	
+	@Override
+	public void updateQRUser(String username, String tokenQR) {
+		User u = getUserByUsername(username);
+		u.setQrToken(tokenQR);
+		u.setQrTimestamp(new Date());
+		save(u);
+	}
 }

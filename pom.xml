@@ -5,7 +5,7 @@
     <groupId>nl.bhit.mtor</groupId>
     <artifactId>mTor</artifactId>
     <packaging>war</packaging>
-    <version>3.2 RC3</version> 
+    <version>4.0 RC1</version> 
     <name>mTor</name>
     <url>https://github.com/tibistibi/mTor</url>
 
@@ -881,13 +881,13 @@
 <!-- 		</dependency> -->
 
         <!-- mTorClient -->
-<!-- QR code image generator -->        
+		<!-- QR code image generator -->        
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
 			<version>2.0</version>
 		</dependency>
-<!-- QR code image generator -->        
+		<!-- QR code image generator -->        
         
     </dependencies>
 

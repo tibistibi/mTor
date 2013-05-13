@@ -61,7 +61,8 @@ legend {
 }
 
 .form-signin {
-    max-width: 300px;
+    max-width: 500px;
+    height: 200px;
     padding: 19px 29px 29px;
     margin: 20px auto 20px;
     background-color: #fff;
@@ -374,4 +375,90 @@ img.projectOverviewModalDlgClose {
 	top: 0; 
 	right: 0;
 	z-index: 10;
+}
+
+/*	
+	Login
+*/
+div.loginMainPanel {
+	width: 500px;
+	height: 280px;
+	padding: 10px 10px 10px;
+    margin: 20px auto 20px;
+	border: 1px solid #CCC;
+}
+
+h2.loginUserPwdLabel {
+	font-family: times, Times New Roman, times-roman, georgia, serif;
+	font-size: 28px;
+	line-height: 40px;
+	letter-spacing: -1px;
+	color: #444;
+	margin: 0 0 40px 0;
+	padding: 0 0 0 0;
+	font-weight: 100;
+}
+
+div.loginUserPwdPanel {
+	position: relative;
+	float: left; 
+	width: 240px; 
+	height: 100%;
+	padding: 10px 10px 10px 10px;
+}
+
+div.loginSeparationPanel {
+	position: relative;
+	float: left; 
+	height: 100%;
+	border: 1px dashed #CCC;
+}
+
+h2.loginQRLabel {
+	font-family: times, Times New Roman, times-roman, georgia, serif;
+	font-size: 28px;
+	line-height: 40px;
+	letter-spacing: -1px;
+	color: #444;
+	margin: 0 0 0px 0;
+	padding: 0 0 0 0;
+	font-weight: 100;
+	text-align: center;
+}
+
+div.loginQRPanel {
+	position: relative;
+	float: right; 
+	width: 200px; 
+	height: 100%;
+	padding: 10px 10px 10px 10px;
+}
+
+.loginQRScannerLaser {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 0px;
+	height: 0px;
+	border-radius: 25px;
+	background-color: red;
+	opacity: 0.4;
+	filter: alpha(opacity=40); /* For IE8 and earlier */
+	z-index: 10;
+	animation: movement 5s;
+	-webkit-animation: movement 5s; /* Safari and Chrome */
+}
+
+@keyframes movement {
+	0% { top: 0px; width: 0px; height: 0px; }
+	5% { top: 0px; width: 200px; height: 3px; }
+	95% { top: 200px; width: 200px; height: 3px; }
+	100% { top: 200px; width: 0px; height: 0px; }
+}
+/* Safari and Chrome */
+@-webkit-keyframes movement {
+	0% { top: 0px; width: 0px; height: 0px; }
+	5% { top: 0px; width: 200px; height: 3px; }
+	95% { top: 200px; width: 200px; height: 3px; }
+	100% { top: 200px; width: 0px; height: 0px; }
 }

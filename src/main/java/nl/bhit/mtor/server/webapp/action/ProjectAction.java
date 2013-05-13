@@ -2,9 +2,14 @@ package nl.bhit.mtor.server.webapp.action;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import nl.bhit.mtor.Constants;
@@ -14,6 +19,8 @@ import nl.bhit.mtor.model.User;
 import nl.bhit.mtor.server.webapp.util.UserManagementUtils;
 import nl.bhit.mtor.service.CompanyManager;
 import nl.bhit.mtor.service.ProjectManager;
+
+import org.apache.commons.lang.StringUtils;
 
 import com.opensymphony.xwork2.Preparable;
 
@@ -34,6 +41,7 @@ public class ProjectAction extends BaseAction implements Preparable {
     private List<Company> companies;
     private List<User> users;
     private List<String> assignedUsersIds;
+    private List<Map<String, String>> jsonProjectsList = new ArrayList<Map<String,String>>();
 
     public void setProjectManager(ProjectManager projectManager) {
         this.projectManager = projectManager;
@@ -118,7 +126,61 @@ public class ProjectAction extends BaseAction implements Preparable {
         return companies;
     }
 
-    public List<User> getUserList() {
+    public List<Map<String, String>> getJsonProjectsList() {
+    	jsonProjectsList.clear();
+    	if (projects == null || projects.isEmpty()) {
+    		return jsonProjectsList;
+    	}
+    	
+    	final String sortBy = (String)getRequest().getParameter("sortBy");
+    	final String sortOrder = (String)getRequest().getParameter("sortOrder");
+    	if (!StringUtils.isEmpty(sortBy) && !StringUtils.isEmpty(sortOrder)) {
+	    	Collections.sort(projects, new Comparator<Project>() {
+				@Override
+				public int compare(Project p1, Project p2) {
+					boolean asc = sortOrder.equalsIgnoreCase("asc");
+					if (sortBy.equalsIgnoreCase("id")) {
+						return asc ? p2.getId().compareTo(p1.getId()) : p1.getId().compareTo(p2.getId());
+					} else if (sortBy.equalsIgnoreCase("name")) {
+						return asc ? p1.getName().compareTo(p2.getName()) : p2.getName().compareTo(p1.getName());
+					} else if (sortBy.equalsIgnoreCase("status")) {
+						return asc ? p1.statusOfProject().compareTo(p2.statusOfProject()) : p2.statusOfProject().compareTo(p1.statusOfProject());
+					} else {
+						return asc ? Boolean.valueOf(p1.isMonitoring()).compareTo(p2.isMonitoring()) : Boolean.valueOf(p2.isMonitoring()).compareTo(p1.isMonitoring());
+					}
+				}
+			});
+    	}
+    	
+    	String userNames;
+    	Map<String, String> mAux;
+    	for (final Project p : projects) {
+    		mAux = new HashMap<String, String>();
+    		mAux.put("id", String.valueOf(p.getId()));
+    		mAux.put("name", p.getName());
+    		mAux.put("status", p.statusOfProject());
+    		userNames = "[";
+    		if (p.userNames() != null) {
+    			int i = 0;
+    			int n = p.userNames().size() - 1;
+    			Iterator<String> itName = p.userNames().iterator();
+    			while (itName.hasNext()) {
+    				userNames += itName.next();
+    				if (i++ < n) {
+    					userNames += ", ";
+    				}
+    			}
+    		}
+    		userNames += "]";
+    		mAux.put("usernames", userNames);
+    		mAux.put("monitoring", String.valueOf(p.isMonitoring()));
+    		jsonProjectsList.add(mAux);
+    	}
+    	
+		return jsonProjectsList;
+	}
+
+	public List<User> getUserList() {
         users = userManager.getAllDistinct();
         return users;
     }
